@@ -1,0 +1,78 @@
+#pragma kernel CSMain
+
+// Grid properties, set from C#:
+uint Width;
+uint Height;
+float Liquidity;
+
+// Input and output buffers
+StructuredBuffer<double> Input;
+RWStructuredBuffer<double> Output;
+
+int CountNeighbors(uint index)
+{
+    uint x = index % Width;
+    uint y = index / Width;
+    uint result = 0;
+    if (x > 0)
+    {
+        result++;
+    }
+
+    if (x < Width - 1)
+    {
+        result++;
+    }
+
+    if (y > 0)
+    {
+        result++;
+    }
+
+    if (y < Height - 1)
+    {
+        result++;
+    }
+
+    return result;
+}
+
+double CalculateContribution(uint index)
+{
+    return (1 - Liquidity) * Input[index] / 4;
+}
+
+[numthreads(8, 8, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    const uint x = id.x;
+    const uint y = id.y;
+    const uint index = y * Width + x;
+
+    double acc = 0;
+
+    acc += Input[index] * Liquidity;
+    acc += Input[index] * (1 - Liquidity) * (1 - 0.25 * CountNeighbors(index));
+
+    if (x < Width - 1)
+    {
+        acc += CalculateContribution(index + 1);
+    }
+
+    if (x > 0)
+    {
+        acc += CalculateContribution(index - 1);
+    }
+
+    if (y < Height - 1)
+    {
+        acc += CalculateContribution(index + Width);
+    }
+
+    if (y > 0)
+    {
+        acc += CalculateContribution(index - Width);
+    }
+
+    Output[index] = acc;
+}
