@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using input;
 using map;
 using Unity.Burst;
@@ -22,6 +23,7 @@ namespace influence
 
         private InfluenceGrid _grid;
         private ComputeBuffer _inputBuffer;
+        private ComputeBuffer _liquidityBuffer;
         private ComputeBuffer _outputBuffer;
 
         [Inject] private MapController _mapController;
@@ -30,8 +32,7 @@ namespace influence
         private int _width;
         private int _height;
 
-
-        private void Start()
+        private void Awake()
         {
             _width = _mapController.Width;
             _height = _mapController.Height;
@@ -48,6 +49,21 @@ namespace influence
             _grid.SetValue(8, 8, 1000);
             _grid.SetValue(9, 9, 1000);
             _grid.SetValue(10, 10, 1000);
+
+            for (int x = 0; x < _width; x++)
+            {
+                for (int y = 0; y < _height; y++)
+                {
+                    if (x >= 4 && x <= 54 && y >= 20 && y <= 25 && (x + y) % 2 == 0)
+                    {
+                        _grid.SetLiquidity(x, y, 0.05);
+                    }
+                    else
+                    {
+                        _grid.SetLiquidity(x, y, 0.5);
+                    }
+                }
+            }
         }
 
         private void OnEnable()
@@ -60,11 +76,11 @@ namespace influence
             int height = _mapController.Height;
             int size = width * height;
             _inputBuffer = new ComputeBuffer(size, sizeof(double));
+            _liquidityBuffer = new ComputeBuffer(size, sizeof(double));
             _outputBuffer = new ComputeBuffer(size, sizeof(double));
 
             propagateShader.SetInt(Width, width);
             propagateShader.SetInt(Height, height);
-            propagateShader.SetFloat(Liquidity, 0.5f);
         }
 
         private void OnDisable()
@@ -75,6 +91,8 @@ namespace influence
 
             _inputBuffer.Release();
             _inputBuffer = null;
+            _liquidityBuffer.Release();
+            _liquidityBuffer = null;
             _outputBuffer.Release();
             _outputBuffer = null;
 
@@ -91,10 +109,14 @@ namespace influence
         {
             double[] output = new double[_width * _height];
 
-            var data = _grid.GetNativeArray();
-            _inputBuffer.SetData(data);
+            var values = _grid.GetValuesArray();
+            _inputBuffer.SetData(values);
+            var liquidity = _grid.GetLiquidityArray();
+            _liquidityBuffer.SetData(liquidity);
             propagateShader.SetBuffer(0, Input, _inputBuffer);
+            propagateShader.SetBuffer(0, Liquidity, _liquidityBuffer);
             propagateShader.SetBuffer(0, Output, _outputBuffer);
+
 
             int threadGroupsX = Mathf.CeilToInt(_width / 8.0f);
             int threadGroupsY = Mathf.CeilToInt(_height / 8.0f);
