@@ -33,10 +33,6 @@ namespace influence
 
         private void Start()
         {
-            _inputEvents.OnPerformStepCommand += Tick;
-            _inputEvents.OnAddInfluenceCommand += pos => AddInfluence(pos.x, pos.y);
-            _inputEvents.OnRemoveInfluenceCommand += pos => RemoveInfluence(pos.x, pos.y);
-
             _width = _mapController.Width;
             _height = _mapController.Height;
 
@@ -56,6 +52,10 @@ namespace influence
 
         private void OnEnable()
         {
+            _inputEvents.OnPerformStepCommand += Tick;
+            _inputEvents.OnAddInfluenceCommand += AddInfluence;
+            _inputEvents.OnRemoveInfluenceCommand += RemoveInfluence;
+
             int width = _mapController.Width;
             int height = _mapController.Height;
             int size = width * height;
@@ -69,6 +69,10 @@ namespace influence
 
         private void OnDisable()
         {
+            _inputEvents.OnPerformStepCommand -= Tick;
+            _inputEvents.OnAddInfluenceCommand -= AddInfluence;
+            _inputEvents.OnRemoveInfluenceCommand -= RemoveInfluence;
+
             _inputBuffer.Release();
             _inputBuffer = null;
             _outputBuffer.Release();
@@ -101,16 +105,20 @@ namespace influence
             _grid.SetValues(output);
         }
 
-        public void AddInfluence(int x, int y)
+        public void AddInfluence(Vector2Int pos)
         {
+            var x = pos.x;
+            var y = pos.y;
             if (x >= 0 && x < _width && y >= 0 && y < _height)
             {
                 _grid.AddValue(x, y, 1);
             }
         }
 
-        public void RemoveInfluence(int x, int y)
+        public void RemoveInfluence(Vector2Int pos)
         {
+            var x = pos.x;
+            var y = pos.y;
             if (x >= 0 && x < _width && y >= 0 && y < _height)
             {
                 _grid.RemoveValue(x, y, 1);

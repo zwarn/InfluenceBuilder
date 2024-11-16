@@ -1,3 +1,4 @@
+using System;
 using influence;
 using input;
 using map;
@@ -15,9 +16,6 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        _inputEvents.OnPerformStepCommand += Tick;
-        _inputEvents.OnToggleAutomaticCommand += ToggleAutomatic;
-
         var width = _mapController.Width;
         var height = _mapController.Height;
 
@@ -27,6 +25,18 @@ public class GameController : MonoBehaviour
 
         quad.position = new Vector3(width / 2, height / 2, 0);
         quad.localScale = new Vector3(width, height, width);
+    }
+
+    private void OnEnable()
+    {
+        _inputEvents.OnPerformStepCommand += Tick;
+        _inputEvents.OnToggleAutomaticCommand += ToggleAutomatic;
+    }
+
+    private void OnDisable()
+    {
+        _inputEvents.OnPerformStepCommand -= Tick;
+        _inputEvents.OnToggleAutomaticCommand -= ToggleAutomatic;
     }
 
     private void Update()
