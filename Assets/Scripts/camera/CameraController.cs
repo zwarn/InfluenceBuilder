@@ -11,11 +11,11 @@ namespace camera
         [SerializeField] private new Camera camera;
         [SerializeField] private float zoomFactor = 1.1f;
         [SerializeField] private float zoomSmooth = 0.7f;
-        [SerializeField] private float translationSpeed = 1f;
+        [SerializeField] private float translationSmooth = 0.1f;
 
         private Vector3 _basePosition;
         private float _targetZoom;
-        private Vector2 _targetTranslation = Vector2.zero;
+        private Vector2 _targetTranslation;
         private float _maxTranslation = 5;
         private float _minZoom = 1;
         private float _maxZoom = 10;
@@ -40,10 +40,11 @@ namespace camera
         private void Start()
         {
             _targetZoom = _mapController.Width / 2f;
-            _basePosition = new Vector3(_mapController.Width / 2f, _mapController.Height / 2f, -10);
+            _basePosition = new Vector3(0, 0, -10);
+            _targetTranslation = new Vector2(_mapController.Width / 2f, _mapController.Height / 2f);
             _minZoom = 1;
             _maxZoom = _mapController.Width / 2f;
-            CalculateMaxTranslation(_mapController.Width);
+            _maxTranslation = _mapController.Width;
         }
 
         private void Update()
@@ -55,11 +56,9 @@ namespace camera
         private void HandleTranslate()
         {
             var cameraTransform = camera.transform;
-            var rotatedDelta = cameraTransform.rotation *
-                               new Vector3(_targetTranslation.x, _targetTranslation.y, 0);
-            var targetPosition = _basePosition + rotatedDelta;
-            camera.transform.position = Vector3.MoveTowards(cameraTransform.position, targetPosition,
-                camera.orthographicSize * translationSpeed * Time.deltaTime);
+            var delta = new Vector3(_targetTranslation.x, _targetTranslation.y, 0);
+            var targetPosition = _basePosition + delta;
+            camera.transform.position = Vector3.Lerp(cameraTransform.position, targetPosition, translationSmooth);
         }
 
         private void HandleZoom()
@@ -82,20 +81,8 @@ namespace camera
         private void Translate(Vector2 delta)
         {
             _targetTranslation += delta * (camera.orthographicSize * Time.deltaTime);
-            _targetTranslation.x = Mathf.Clamp(_targetTranslation.x, -_maxTranslation, _maxTranslation);
-            _targetTranslation.y = Mathf.Clamp(_targetTranslation.y, -_maxTranslation, _maxTranslation);
-        }
-
-
-        private void CalculateMaxTranslation(int size)
-        {
-            _maxTranslation = size / 2f;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.white;
-            Gizmos.DrawSphere(_targetTranslation, 1);
+            _targetTranslation.x = Mathf.Clamp(_targetTranslation.x, 0, _maxTranslation);
+            _targetTranslation.y = Mathf.Clamp(_targetTranslation.y, 0, _maxTranslation);
         }
     }
 }

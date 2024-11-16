@@ -684,7 +684,7 @@ MonoBehaviour:
   camera: {fileID: 519420031}
   zoomFactor: 1.1
   zoomSmooth: 0.7
-  translationSpeed: 1
+  translationSmooth: 0.1
 --- !u!1 &1800029679
 GameObject:
   m_ObjectHideFlags: 0
