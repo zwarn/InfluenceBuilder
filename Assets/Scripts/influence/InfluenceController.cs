@@ -1,4 +1,5 @@
 ﻿using System;
+using input;
 using map;
 using Unity.Burst;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace influence
         private ComputeBuffer _outputBuffer;
 
         [Inject] private MapController _mapController;
+        [Inject] private InputEvents _inputEvents;
 
         private int _width;
         private int _height;
@@ -31,6 +33,10 @@ namespace influence
 
         private void Start()
         {
+            _inputEvents.OnPerformStepCommand += Tick;
+            _inputEvents.OnAddInfluenceCommand += pos => AddInfluence(pos.x, pos.y);
+            _inputEvents.OnRemoveInfluenceCommand += pos => RemoveInfluence(pos.x, pos.y);
+
             _width = _mapController.Width;
             _height = _mapController.Height;
 

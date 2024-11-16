@@ -1,4 +1,5 @@
 using influence;
+using input;
 using map;
 using UnityEngine;
 using Zenject;
@@ -10,9 +11,13 @@ public class GameController : MonoBehaviour
 
     [Inject] private MapController _mapController;
     [Inject] private InfluenceController _influenceController;
+    [Inject] private InputEvents _inputEvents;
 
     private void Start()
     {
+        _inputEvents.OnPerformStepCommand += Tick;
+        _inputEvents.OnToggleAutomaticCommand += ToggleAutomatic;
+
         var width = _mapController.Width;
         var height = _mapController.Height;
 
@@ -41,5 +46,4 @@ public class GameController : MonoBehaviour
     {
         _automatic = !_automatic;
     }
-
 }

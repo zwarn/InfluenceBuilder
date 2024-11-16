@@ -1,4 +1,5 @@
 using influence;
+using input;
 using map;
 using ui;
 using Zenject;
@@ -18,5 +19,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<InfluenceController>().FromInstance(influenceController).AsSingle();
 
         Container.Bind<IColorChooser>().FromInstance(colorChooser).AsSingle();
+
+        Container.Bind<InputEvents>().FromNew().AsSingle();
     }
 }
