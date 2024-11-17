@@ -1,5 +1,4 @@
-﻿using scriptableObjects;
-using scriptableObjects.tool;
+﻿using scriptableObjects.tool;
 using tool;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +10,7 @@ namespace ui.tool
     public class ToolView : MonoBehaviour, IPointerClickHandler
     {
         public Image icon;
+        public Image background;
         public Image border;
         public Color highlightColor;
         public Color lowLightColor;
@@ -25,9 +25,10 @@ namespace ui.tool
             icon.sprite = tool.icon;
         }
 
-        public void Highlight(bool highlight)
+        public void SetSelected(bool highlight)
         {
-            border.color = highlight ? highlightColor : lowLightColor;
+            background.color = highlight ? highlightColor : lowLightColor;
+            border.gameObject.SetActive(highlight);
         }
 
         public void OnPointerClick(PointerEventData eventData)

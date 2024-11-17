@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953d4587877c43f0b11e2aac58d72484, type: 3}
   m_Name: AddInfluence
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 326c2d0967a125a4ba5ef6c894f0637f, type: 3}
+  icon: {fileID: -5636334499989463061, guid: 8da9d8a8406c9c143a2931ee602982e4, type: 3}
   name: Add Influence
   amount: 10

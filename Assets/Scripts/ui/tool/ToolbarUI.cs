@@ -40,7 +40,7 @@ namespace ui.tool
                 var toolView = childObject.GetComponent<ToolView>();
                 toolView.SetTool(scriptableObject);
                 _toolViews.Add(scriptableObject, toolView);
-                toolView.Highlight(false);
+                toolView.SetSelected(false);
             });
         }
 
@@ -48,7 +48,7 @@ namespace ui.tool
         {
             foreach (var pair in _toolViews)
             {
-                pair.Value.Highlight(pair.Key == tool);
+                pair.Value.SetSelected(pair.Key == tool);
             }
         }
     }
