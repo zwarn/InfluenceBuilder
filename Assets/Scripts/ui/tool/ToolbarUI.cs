@@ -1,34 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using scriptableObjects;
+using tool;
 using UnityEngine;
+using Zenject;
 
-namespace ui
+namespace ui.tool
 {
     public class ToolbarUI : MonoBehaviour
     {
         [SerializeField] private ToolView prefab;
-        [SerializeField] private List<SelectableTool> toolSelection;
+        public List<SelectableTool> toolSelection;
 
         private Dictionary<SelectableTool, ToolView> _toolViews = new();
+
+        [Inject] private DiContainer _diContainer;
+        [Inject] private ToolEvents _toolEvents;
 
         private void Awake()
         {
             CreateToolViews();
         }
 
+        private void OnEnable()
+        {
+            _toolEvents.OnToolSelected += SelectTool;
+        }
+
+        private void OnDisable()
+        {
+            _toolEvents.OnToolSelected += SelectTool;
+        }
+
         private void CreateToolViews()
         {
             toolSelection.ForEach(scriptableObject =>
             {
-                var toolView = Instantiate(prefab, transform);
+                var childObject = _diContainer.InstantiatePrefab(prefab, transform);
+                var toolView = childObject.GetComponent<ToolView>();
                 toolView.SetTool(scriptableObject);
                 _toolViews.Add(scriptableObject, toolView);
                 toolView.Highlight(false);
             });
+        }
 
-            _toolViews.Values.First().Highlight(true);
+        private void SelectTool(SelectableTool tool)
+        {
+            foreach (var pair in _toolViews)
+            {
+                pair.Value.Highlight(pair.Key == tool);
+            }
         }
     }
 }

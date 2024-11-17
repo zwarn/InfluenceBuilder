@@ -1,5 +1,6 @@
 ﻿using influence;
 using UnityEngine;
+using Zenject;
 
 namespace scriptableObjects
 {
@@ -8,7 +9,7 @@ namespace scriptableObjects
     {
         public int amount;
 
-        private InfluenceController _influenceController;
+        [Inject] private InfluenceController _influenceController;
 
         public override void Apply(int x, int y)
         {

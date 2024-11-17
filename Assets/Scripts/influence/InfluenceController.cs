@@ -19,8 +19,6 @@ namespace influence
 
         [SerializeField] private ComputeShader propagateShader;
 
-        public event Action<InfluenceGrid> GridUpdate;
-
         private InfluenceGrid _grid;
         private ComputeBuffer _inputBuffer;
         private ComputeBuffer _liquidityBuffer;
@@ -28,6 +26,7 @@ namespace influence
 
         [Inject] private MapController _mapController;
         [Inject] private InputEvents _inputEvents;
+        [Inject] private GridEvents _gridEvents;
 
         private int _width;
         private int _height;
@@ -47,7 +46,7 @@ namespace influence
                     if (x >= 30 && x <= 34 && y >= 15 && y <= 30)
                     {
                         _grid.SetLiquidity(x, y, 0.9);
-                    } 
+                    }
                     else if (x >= 4 && x <= 54 && y >= 20 && y <= 25)
                     {
                         _grid.SetLiquidity(x, y, 0.1);
@@ -92,7 +91,6 @@ namespace influence
         public void Tick()
         {
             Propagate();
-            GridUpdate?.Invoke(_grid);
         }
 
         private void Propagate()
@@ -115,6 +113,7 @@ namespace influence
             _outputBuffer.GetData(output);
 
             _grid.SetValues(output);
+            _gridEvents.GridUpdateEvent();
         }
 
         public void AddInfluence(int x, int y, int amount)
@@ -123,6 +122,8 @@ namespace influence
             {
                 _grid.AddValue(x, y, amount);
             }
+
+            _gridEvents.GridUpdateEvent();
         }
 
         public void RemoveInfluence(int x, int y, int amount)
@@ -131,6 +132,8 @@ namespace influence
             {
                 _grid.RemoveValue(x, y, amount);
             }
+
+            _gridEvents.GridUpdateEvent();
         }
 
         public InfluenceGrid GetGrid()
