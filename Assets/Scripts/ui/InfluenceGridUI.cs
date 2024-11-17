@@ -17,6 +17,9 @@ namespace ui
             _gridEvents.OnGridUpdate += OnUpdate;
             var grid = _influenceController.GetGrid();
 
+            quad.transform.position = new Vector3(grid.Width / 2f, grid.Height / 2f, -1);
+            quad.transform.localScale = new Vector3(grid.Width, grid.Height, grid.Width);
+
             _texture2D = new Texture2D(grid.Width, grid.Height);
             _texture2D.filterMode = FilterMode.Point;
             OnUpdate();

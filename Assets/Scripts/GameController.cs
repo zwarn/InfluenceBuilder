@@ -1,7 +1,5 @@
-using System;
 using influence;
 using input;
-using map;
 using UnityEngine;
 using Zenject;
 
@@ -10,22 +8,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform quad;
     private bool _automatic = false;
 
-    [Inject] private MapController _mapController;
     [Inject] private InfluenceController _influenceController;
     [Inject] private InputEvents _inputEvents;
-
-    private void Start()
-    {
-        var width = _mapController.Width;
-        var height = _mapController.Height;
-
-        var camera = Camera.main;
-        camera.transform.position = new Vector3(width / 2, height / 2, -10);
-        camera.orthographicSize = (width / 2) + 5;
-
-        quad.position = new Vector3(width / 2, height / 2, 0);
-        quad.localScale = new Vector3(width, height, width);
-    }
 
     private void OnEnable()
     {
