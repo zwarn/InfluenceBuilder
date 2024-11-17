@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953d4587877c43f0b11e2aac58d72484, type: 3}
+  m_Name: AddInfluence
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 326c2d0967a125a4ba5ef6c894f0637f, type: 3}
+  name: Add Influence
+  amount: 10

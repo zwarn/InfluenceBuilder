@@ -19,9 +19,9 @@ uint CountNeighbors(uint x, uint y)
     return result;
 }
 
-double CalculateContribution(uint index)
+double CalculateContribution(uint index, uint neighbor)
 {
-    return Liquidity[index] * Input[index] / 4;
+    return Liquidity[index] * Input[neighbor] * 0.25;
 }
 
 [numthreads(8, 8, 1)]
@@ -32,30 +32,34 @@ void CSMain(uint3 id : SV_DispatchThreadID)
     const uint index = y * Width + x;
 
     double acc = 0;
+    double flow = 0;
 
-    acc += Input[index] * (1 - Liquidity[index]);
-    // in the cases for edge or corner this behaves as if space outside the grid has the same value
-    acc += Input[index] * Liquidity[index] * (1 - 0.25 * CountNeighbors(x,y));
-
-    if (x < Width - 1)
+    // Add contributions from neighbors or retain mass at borders
+    for (int dx = -1; dx <= 1; dx++)
     {
-        acc += CalculateContribution(index + 1);
+        for (int dy = -1; dy <= 1; dy++)
+        {
+            if (abs(dx) + abs(dy) != 1) continue; // Skip non-adjacent cells
+
+            int nx = x + dx;
+            int ny = y + dy;
+
+            if (nx >= 0 && nx < Width && ny >= 0 && ny < Height)
+            {
+                const uint neighborIndex = ny * Width + nx;
+                acc += CalculateContribution(index, neighborIndex);
+                flow += Liquidity[neighborIndex] * 0.25;
+            }
+            else
+            {
+                acc += Input[index] * Liquidity[index] * 0.25;
+                flow += Liquidity[index] * 0.25;
+            }
+        }
     }
 
-    if (x > 0)
-    {
-        acc += CalculateContribution(index - 1);
-    }
-
-    if (y < Height - 1)
-    {
-        acc += CalculateContribution(index + Width);
-    }
-
-    if (y > 0)
-    {
-        acc += CalculateContribution(index - Width);
-    }
+    // Add self-retention
+    acc += Input[index] * (1 - flow);
 
     Output[index] = acc;
 }

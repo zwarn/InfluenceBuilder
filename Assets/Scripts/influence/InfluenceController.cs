@@ -38,25 +38,19 @@ namespace influence
             _height = _mapController.Height;
 
             _grid = new InfluenceGrid(_width, _height);
-            _grid.SetValue(0, 0, 1000);
-            _grid.SetValue(1, 1, 1000);
-            _grid.SetValue(2, 2, 1000);
-            _grid.SetValue(3, 3, 1000);
-            _grid.SetValue(4, 4, 1000);
-            _grid.SetValue(5, 5, 1000);
-            _grid.SetValue(6, 6, 1000);
-            _grid.SetValue(7, 7, 1000);
-            _grid.SetValue(8, 8, 1000);
-            _grid.SetValue(9, 9, 1000);
-            _grid.SetValue(10, 10, 1000);
+            _grid.SetValue(0, 0, 10000);
 
             for (int x = 0; x < _width; x++)
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    if (x >= 4 && x <= 54 && y >= 20 && y <= 25 && (x + y) % 2 == 0)
+                    if (x >= 30 && x <= 34 && y >= 15 && y <= 30)
                     {
-                        _grid.SetLiquidity(x, y, 0.05);
+                        _grid.SetLiquidity(x, y, 0.9);
+                    } 
+                    else if (x >= 4 && x <= 54 && y >= 20 && y <= 25)
+                    {
+                        _grid.SetLiquidity(x, y, 0.1);
                     }
                     else
                     {
@@ -69,8 +63,6 @@ namespace influence
         private void OnEnable()
         {
             _inputEvents.OnPerformStepCommand += Tick;
-            _inputEvents.OnAddInfluenceCommand += AddInfluence;
-            _inputEvents.OnRemoveInfluenceCommand += RemoveInfluence;
 
             int width = _mapController.Width;
             int height = _mapController.Height;
@@ -86,8 +78,6 @@ namespace influence
         private void OnDisable()
         {
             _inputEvents.OnPerformStepCommand -= Tick;
-            _inputEvents.OnAddInfluenceCommand -= AddInfluence;
-            _inputEvents.OnRemoveInfluenceCommand -= RemoveInfluence;
 
             _inputBuffer.Release();
             _inputBuffer = null;
@@ -127,23 +117,19 @@ namespace influence
             _grid.SetValues(output);
         }
 
-        public void AddInfluence(Vector2Int pos)
+        public void AddInfluence(int x, int y, int amount)
         {
-            var x = pos.x;
-            var y = pos.y;
             if (x >= 0 && x < _width && y >= 0 && y < _height)
             {
-                _grid.AddValue(x, y, 1);
+                _grid.AddValue(x, y, amount);
             }
         }
 
-        public void RemoveInfluence(Vector2Int pos)
+        public void RemoveInfluence(int x, int y, int amount)
         {
-            var x = pos.x;
-            var y = pos.y;
             if (x >= 0 && x < _width && y >= 0 && y < _height)
             {
-                _grid.RemoveValue(x, y, 1);
+                _grid.RemoveValue(x, y, amount);
             }
         }
 

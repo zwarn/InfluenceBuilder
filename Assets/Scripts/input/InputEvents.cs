@@ -19,18 +19,18 @@ namespace input
             OnPerformStepCommand?.Invoke();
         }
 
-        public event Action<Vector2Int> OnAddInfluenceCommand;
+        public event Action<Vector2Int> OnLeftClick;
 
-        public void AddInfluenceCommandEvent(int x, int y)
+        public void LeftClickEvent(int x, int y)
         {
-            OnAddInfluenceCommand?.Invoke(new Vector2Int(x, y));
+            OnLeftClick?.Invoke(new Vector2Int(x, y));
         }
 
-        public event Action<Vector2Int> OnRemoveInfluenceCommand;
+        public event Action<Vector2Int> OnRightClick;
 
-        public void RemoveInfluenceCommandEvent(int x, int y)
+        public void RightClickEvent(int x, int y)
         {
-            OnRemoveInfluenceCommand?.Invoke(new Vector2Int(x, y));
+            OnRightClick?.Invoke(new Vector2Int(x, y));
         }
 
         public event Action OnZoomOut;

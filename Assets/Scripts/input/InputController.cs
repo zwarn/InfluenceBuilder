@@ -24,7 +24,7 @@ namespace input
                 var worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var x = (int)worldMouse.x;
                 var y = (int)worldMouse.y;
-                _inputEvents.AddInfluenceCommandEvent(x, y);
+                _inputEvents.LeftClickEvent(x, y);
             }
 
             if (Input.GetMouseButton(1))
@@ -32,7 +32,7 @@ namespace input
                 var worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var x = (int)worldMouse.x;
                 var y = (int)worldMouse.y;
-                _inputEvents.RemoveInfluenceCommandEvent(x, y);
+                _inputEvents.RightClickEvent(x, y);
             }
 
             HandleTranslate();
