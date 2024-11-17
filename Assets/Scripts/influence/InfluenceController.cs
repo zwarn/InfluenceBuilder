@@ -33,38 +33,24 @@ namespace influence
 
         private void Awake()
         {
-            _width = _mapController.Width;
-            _height = _mapController.Height;
+            _width = _mapController.width;
+            _height = _mapController.height;
 
             _grid = new InfluenceGrid(_width, _height);
             _grid.SetValue(0, 0, 10000);
+        }
 
-            for (int x = 0; x < _width; x++)
-            {
-                for (int y = 0; y < _height; y++)
-                {
-                    if (x >= 30 && x <= 34 && y >= 15 && y <= 30)
-                    {
-                        _grid.SetLiquidity(x, y, 0.9);
-                    }
-                    else if (x >= 4 && x <= 54 && y >= 20 && y <= 25)
-                    {
-                        _grid.SetLiquidity(x, y, 0.1);
-                    }
-                    else
-                    {
-                        _grid.SetLiquidity(x, y, 0.5);
-                    }
-                }
-            }
+        private void Start()
+        {
+            _grid.SetLiquidity(_mapController.GetLiquidity());
         }
 
         private void OnEnable()
         {
             _inputEvents.OnPerformStepCommand += Tick;
 
-            int width = _mapController.Width;
-            int height = _mapController.Height;
+            int width = _mapController.width;
+            int height = _mapController.height;
             int size = width * height;
             _inputBuffer = new ComputeBuffer(size, sizeof(double));
             _liquidityBuffer = new ComputeBuffer(size, sizeof(double));

@@ -1,12 +1,11 @@
 ﻿using Unity.Burst;
 using Unity.Collections;
-using Unity.Jobs;
 using Unity.Mathematics;
 
 namespace influence
 {
     [BurstCompile]
-    public struct InfluenceGrid
+    public class InfluenceGrid
     {
         private const double Liquidity = 0.5;
 

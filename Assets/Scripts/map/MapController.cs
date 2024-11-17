@@ -1,43 +1,55 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
+using scriptableObjects.map;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Random = UnityEngine.Random;
 
 namespace map
 {
     public class MapController : MonoBehaviour
     {
-        public int Height;
-        public int Width;
+        public int height;
+        public int width;
 
-        [SerializeField] private Tilemap _tilemap;
+        [SerializeField] private Tilemap tilemap;
+        [SerializeField] private MapCreator mapCreator;
 
-        [SerializeField] private List<TileBase> _tiles;
+        private TileType[] _tileTypes;
 
-        private void Start()
+        private void Awake()
         {
             CreateMap();
+            UpdateMapView();
         }
 
         private void CreateMap()
         {
-            _tilemap.ClearAllTiles();
+            _tileTypes = mapCreator.CreateMap(width, height);
+        }
 
-            var positions = new Vector3Int[Width * Height];
-            var tileBase = new TileBase[Width * Height];
+        private void UpdateMapView()
+        {
+            var positions = new Vector3Int[width * height];
+            var tileBase = new TileBase[width * height];
 
-            for (int x = 0; x < Width; x++)
+            tilemap.ClearAllTiles();
+
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < Height; y++)
+                for (int y = 0; y < height; y++)
                 {
-                    var index = y * Height + x;
+                    var index = y * height + x;
                     positions[index] = new Vector3Int(x, y);
-                    tileBase[index] = _tiles[Random.Range(0, _tiles.Count)];
+                    tileBase[index] = _tileTypes[index].tile;
                 }
             }
 
-            _tilemap.SetTiles(positions, tileBase);
+            tilemap.SetTiles(positions, tileBase);
+        }
+
+        public double[] GetLiquidity()
+        {
+            return _tileTypes.Select(tile => tile.liquidity).ToArray();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using scriptableObjects;
+using scriptableObjects.tool;
 
 namespace tool
 {

@@ -39,12 +39,12 @@ namespace camera
 
         private void Start()
         {
-            _targetZoom = _mapController.Width / 2f;
+            _targetZoom = _mapController.width / 2f;
             _basePosition = new Vector3(0, 0, -10);
-            _targetTranslation = new Vector2(_mapController.Width / 2f, _mapController.Height / 2f);
+            _targetTranslation = new Vector2(_mapController.width / 2f, _mapController.height / 2f);
             _minZoom = 1;
-            _maxZoom = _mapController.Width / 2f;
-            _maxTranslation = _mapController.Width;
+            _maxZoom = _mapController.width / 2f;
+            _maxTranslation = _mapController.width;
         }
 
         private void Update()

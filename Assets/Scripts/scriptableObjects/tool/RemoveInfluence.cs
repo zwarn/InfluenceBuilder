@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace scriptableObjects
+namespace scriptableObjects.tool
 {
     [CreateAssetMenu(fileName = "RemoveInfluence", menuName = "tools/RemoveInfluence", order = 0)]
     public class RemoveInfluence : SelectableTool

@@ -1,12 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace scriptableObjects
+namespace scriptableObjects.tool
 {
     public abstract class SelectableTool : ScriptableObject
     {
         public Sprite icon;
-        public String name;
+        public string name;
 
         public abstract void Apply(int x, int y);
     }
