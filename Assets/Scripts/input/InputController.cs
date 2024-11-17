@@ -19,6 +19,16 @@ namespace input
                 _inputEvents.ToggleAutomaticEvent();
             }
 
+            if (Input.GetKeyUp(KeyCode.Alpha2))
+            {
+                _inputEvents.ToggleShowInfluenceEvent();
+            }
+
+            if (Input.GetKeyUp(KeyCode.Alpha1))
+            {
+                _inputEvents.ToggleShowTilemapEvent();
+            }
+
             if (Input.GetMouseButton(0))
             {
                 var worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);

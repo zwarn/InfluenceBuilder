@@ -1186,7 +1186,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1206,7 +1206,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -1240,6 +1240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1800029680}
   - component: {fileID: 1800029681}
+  - component: {fileID: 1800029682}
   m_Layer: 0
   m_Name: MapController
   m_TagString: Untagged
@@ -1274,13 +1275,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99ac6cc8e314c148162361280bf3f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Height: 64
-  Width: 64
-  _tilemap: {fileID: 1687783082}
-  _tiles:
-  - {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
-  - {fileID: 11400000, guid: 615a9e02a520c5f42aeb12570541dd4b, type: 2}
-  - {fileID: 11400000, guid: d96e54df4db4bf4409d093dd1f14bca1, type: 2}
+  height: 64
+  width: 64
+  tilemap: {fileID: 1687783082}
+  mapCreator: {fileID: 1800029682}
+--- !u!114 &1800029682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800029679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 761c123e27d04a55a88d1c78466b626d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gras: {fileID: 11400000, guid: 37cd480e3ab9ebb499fe06634a72e538, type: 2}
+  wall: {fileID: 11400000, guid: a9ff0a582f981ed458a99953b5910ac9, type: 2}
+  road: {fileID: 11400000, guid: 088b1b1867934aa44a11e61cf695067e, type: 2}
 --- !u!1 &1835686239
 GameObject:
   m_ObjectHideFlags: 0

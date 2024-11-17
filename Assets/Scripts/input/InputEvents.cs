@@ -53,5 +53,19 @@ namespace input
         {
             OnTranslate?.Invoke(delta);
         }
+
+        public event Action OnToggleShowInfluence;
+        
+        public void ToggleShowInfluenceEvent()
+        {
+            OnToggleShowInfluence?.Invoke();
+        }
+
+        public event Action OnToggleShowTilemap;
+        
+        public void ToggleShowTilemapEvent()
+        {
+            OnToggleShowTilemap?.Invoke();
+        }
     }
 }

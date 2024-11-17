@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using input;
 using scriptableObjects.map;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Zenject;
 
 namespace map
 {
@@ -15,11 +17,31 @@ namespace map
         [SerializeField] private MapCreator mapCreator;
 
         private TileType[] _tileTypes;
+        private bool _show = true;
+
+        [Inject] private InputEvents _inputEvents;
 
         private void Awake()
         {
             CreateMap();
             UpdateMapView();
+            Darken(false);
+        }
+
+        private void OnEnable()
+        {
+            _inputEvents.OnToggleShowTilemap += ToggleShow;
+        }
+
+        private void OnDisable()
+        {
+            _inputEvents.OnToggleShowTilemap -= ToggleShow;
+        }
+
+        private void ToggleShow()
+        {
+            _show = !_show;
+            tilemap.gameObject.SetActive(_show);
         }
 
         private void CreateMap()
@@ -50,6 +72,11 @@ namespace map
         public double[] GetLiquidity()
         {
             return _tileTypes.Select(tile => tile.liquidity).ToArray();
+        }
+
+        public void Darken(bool dark)
+        {
+            tilemap.color = dark ? Color.grey : Color.white;
         }
     }
 }
