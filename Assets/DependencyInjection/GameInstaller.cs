@@ -28,6 +28,6 @@ public class GameInstaller : MonoInstaller
         Container.Bind<ToolEvents>().FromNew().AsSingle();
         Container.Bind<GridEvents>().FromNew().AsSingle();
 
-        toolbarUI.toolSelection.ForEach(tool => { Container.Inject(tool); });
+        toolbarUI.toolSelection.ForEach(tool => { Container.QueueForInject(tool); });
     }
 }
