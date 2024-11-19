@@ -6,7 +6,8 @@ namespace scriptableObjects.map
     [CreateAssetMenu(fileName = "TileType", menuName = "map/TileType", order = 0)]
     public class TileType : ScriptableObject
     {
-        public TileBase tile;
+        public TileBase terrain;
+        public TileBase building;
         [Range(0, 1)] public double liquidity;
     }
 }

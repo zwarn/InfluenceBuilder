@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33763601cef24b42a9456926f93e39cb, type: 3}
   m_Name: RemoveInfluence
   m_EditorClassIdentifier: 
-  icon: {fileID: 2787864868277977661, guid: 8da9d8a8406c9c143a2931ee602982e4, type: 3}
+  icon: {fileID: -3242673548728548316, guid: 8da9d8a8406c9c143a2931ee602982e4, type: 3}
   name: Remove Influence
   amount: 10

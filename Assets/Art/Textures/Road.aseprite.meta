@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4a0faa5bc74ecf84ba416e4cfb57d538
+guid: 3e23934c213b7cc43b6a9a775d2b244e
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 64
+    spritePixelsToUnits: 32
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -53,9 +53,9 @@ ScriptedImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
     normalMap: 0
     textureFormat: 0
     maxTextureSize: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638676478232092571
+  platformSettingsDirtyTick: 638676487285992034
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: wall
+  - name: Layer 1
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.49794236, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,9 +132,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 482
-      height: 497
-    spriteID: edea2043c5db6f845b071f298ca102df
+      width: 243
+      height: 249
+    spriteID: 4af45b07c64afda4da0ce18194fcf88a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,19 +144,19 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: wall_0
+  - name: Road_0
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 1
-      y: 399
-      width: 64
-      height: 64
-    spriteID: f4b0e09fab5223e48aa56f59d3f472dd
+      x: 9
+      y: 202
+      width: 32
+      height: 32
+    spriteID: 573253af69deae64dab24dce0fd12a15
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -165,19 +165,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_1
+  - name: Road_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 65
-      y: 399
-      width: 64
-      height: 64
-    spriteID: e5f5eeb2a36394d438cabc1ead897912
+      x: 41
+      y: 202
+      width: 32
+      height: 32
+    spriteID: a692039c1e53ffa4cabdab2858a54397
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -186,19 +186,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_2
+  - name: Road_2
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 129
-      y: 399
-      width: 64
-      height: 64
-    spriteID: cefd8c9192591b94ca45e989c14c4734
+      x: 73
+      y: 202
+      width: 32
+      height: 32
+    spriteID: 2b29bd58ac7dc1444944f3972bc67083
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -207,19 +207,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_3
+  - name: Road_3
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 193
-      y: 399
-      width: 64
-      height: 64
-    spriteID: ccebbd8720fcd7c4db9ab82bc7fca21d
+      x: 105
+      y: 202
+      width: 32
+      height: 32
+    spriteID: 17b708405346482468ea5f7005ac89bb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -228,19 +228,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_4
+  - name: Road_4
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 257
-      y: 399
-      width: 64
-      height: 64
-    spriteID: dea8d948deee7a745b6e4f8da16bcaef
+      x: 137
+      y: 202
+      width: 32
+      height: 32
+    spriteID: a3e48c9465e6b354cbe8f7aa0cf6124e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -249,19 +249,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_5
+  - name: Road_5
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 321
-      y: 399
-      width: 64
-      height: 64
-    spriteID: 0e6b839a15d249a4c9db69e573f175cb
+      x: 169
+      y: 202
+      width: 32
+      height: 32
+    spriteID: ad44c49484aba9448942110c0cf164d5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -270,19 +270,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_6
+  - name: Road_6
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 385
-      y: 399
-      width: 64
-      height: 64
-    spriteID: 4005b078e1a334949a149102fdeb9493
+      x: 201
+      y: 202
+      width: 32
+      height: 32
+    spriteID: 09088aa1f943f07438af5fe3447fa429
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -291,19 +291,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_7
+  - name: Road_7
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 449
-      y: 399
-      width: 64
-      height: 64
-    spriteID: 94a925ad028278c4eaae697df2dbc192
+      x: 233
+      y: 202
+      width: 32
+      height: 32
+    spriteID: eab51e09bd10be340875508f8774bda5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -312,19 +312,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_8
+  - name: Road_8
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 1
-      y: 335
-      width: 64
-      height: 64
-    spriteID: c4a5186c8049d6b4fa3d9afe87cb8aca
+      x: 9
+      y: 170
+      width: 32
+      height: 32
+    spriteID: bcd369fcf762ad1479ce2366e6248729
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -333,19 +333,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_9
+  - name: Road_9
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 65
-      y: 335
-      width: 64
-      height: 64
-    spriteID: 164cfd36cbcde8b438a8cd07b4061eb3
+      x: 41
+      y: 170
+      width: 32
+      height: 32
+    spriteID: 3bb269c7171d2524f8d53a8b1781f1a5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -354,19 +354,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_10
+  - name: Road_10
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 129
-      y: 335
-      width: 64
-      height: 64
-    spriteID: 8fd43b4e29710144c8f58db887ba107d
+      x: 73
+      y: 170
+      width: 32
+      height: 32
+    spriteID: 5e5063b1b8c8bec4992199ca6545d2f7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -375,19 +375,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_11
+  - name: Road_11
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 193
-      y: 335
-      width: 64
-      height: 64
-    spriteID: d329ff5b5c3c9c940bfaaaccc8b47979
+      x: 105
+      y: 170
+      width: 32
+      height: 32
+    spriteID: 6f6575ec0224c1847ae65b3e830a6918
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -396,19 +396,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_12
+  - name: Road_12
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 257
-      y: 335
-      width: 64
-      height: 64
-    spriteID: 936deb831b0baa347a29ed573b69509c
+      x: 137
+      y: 170
+      width: 32
+      height: 32
+    spriteID: e4fc3cf0e0d35e748ba11ce60a9c6ed1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -417,19 +417,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_13
+  - name: Road_13
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 321
-      y: 335
-      width: 64
-      height: 64
-    spriteID: 48845a6cb08a4d841bec0f00871f7cd5
+      x: 169
+      y: 170
+      width: 32
+      height: 32
+    spriteID: cdf9ca86d03d52f49ae00911d6b78196
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -438,19 +438,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_14
+  - name: Road_14
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 385
-      y: 335
-      width: 64
-      height: 64
-    spriteID: d6aa48a94bf07ec40b03279a08312c08
+      x: 201
+      y: 170
+      width: 32
+      height: 32
+    spriteID: 73e947997bdebb049aa8840bcaff096f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -459,19 +459,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_15
+  - name: Road_15
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 449
-      y: 335
-      width: 64
-      height: 64
-    spriteID: 86104345593cd934b85dde268d6ddb52
+      x: 233
+      y: 170
+      width: 32
+      height: 32
+    spriteID: cccb09fad3be01b4dbe7bffd401c2a91
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -480,19 +480,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_16
+  - name: Road_16
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 1
-      y: 271
-      width: 64
-      height: 64
-    spriteID: 45cd5fdb1db09f441906b95337568e02
+      x: 9
+      y: 138
+      width: 32
+      height: 32
+    spriteID: 2081d9daf30ce374d82d1efb4d583a6f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -501,19 +501,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_17
+  - name: Road_17
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 65
-      y: 271
-      width: 64
-      height: 64
-    spriteID: 11c28b6c31ac0794aa9e8e6d349ec5e0
+      x: 41
+      y: 138
+      width: 32
+      height: 32
+    spriteID: c06b51f3e20e3e24c8c5ad6ecd07cd2c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -522,19 +522,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_18
+  - name: Road_18
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 129
-      y: 271
-      width: 64
-      height: 64
-    spriteID: 1c7727a7643011544b72e22681606b29
+      x: 73
+      y: 138
+      width: 32
+      height: 32
+    spriteID: 56fda7a36475bff4e9a8834e6a53f5db
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -543,19 +543,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_19
+  - name: Road_19
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 257
-      y: 271
-      width: 64
-      height: 64
-    spriteID: 345aa62d49a58cf4c91a483669ecb6a8
+      x: 137
+      y: 138
+      width: 32
+      height: 32
+    spriteID: d8496a7057b850c458ad4355cc90d521
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -564,19 +564,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_20
+  - name: Road_20
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 321
-      y: 271
-      width: 64
-      height: 64
-    spriteID: e510114b38c9125498a35246ea12f47e
+      x: 169
+      y: 138
+      width: 32
+      height: 32
+    spriteID: 59f0171ba9b195347814409ce1769a3f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -585,19 +585,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_21
+  - name: Road_21
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 385
-      y: 271
-      width: 64
-      height: 64
-    spriteID: 4caf7fad560578a4d87bfece7e119c2f
+      x: 201
+      y: 138
+      width: 32
+      height: 32
+    spriteID: 6fb1a6a59137a9b4495ce8c35370f534
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -606,19 +606,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_22
+  - name: Road_22
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 449
-      y: 271
-      width: 64
-      height: 64
-    spriteID: ceac4af3799151a4dad28de691efb7ed
+      x: 233
+      y: 138
+      width: 32
+      height: 32
+    spriteID: f7d67bd3d7c032e4eb2763e1a83fb3a4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -627,19 +627,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_23
+  - name: Road_23
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 1
-      y: 207
-      width: 64
-      height: 64
-    spriteID: 2c96a755b77b22148957ba042d212627
+      x: 9
+      y: 106
+      width: 32
+      height: 32
+    spriteID: 657bbeae4a9ef5b43bc4c2df1d152e69
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -648,19 +648,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_24
+  - name: Road_24
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 65
-      y: 207
-      width: 64
-      height: 64
-    spriteID: f4745826643181349b31121627995ff4
+      x: 41
+      y: 106
+      width: 32
+      height: 32
+    spriteID: 2f642a17c0d3b8244955ee7edff073ff
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -669,19 +669,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_25
+  - name: Road_25
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 129
-      y: 207
-      width: 64
-      height: 64
-    spriteID: 13c5e875a367b7948a9d66e459945af2
+      x: 73
+      y: 106
+      width: 32
+      height: 32
+    spriteID: 8c20a38628f29e54da7be80543efa508
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -690,19 +690,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_26
+  - name: Road_26
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 193
-      y: 207
-      width: 64
-      height: 64
-    spriteID: 4ee4aa4ab59f7d94abe30c9d9648060c
+      x: 105
+      y: 106
+      width: 32
+      height: 32
+    spriteID: b93666c322d39d54da8aa6723f8778d1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -711,19 +711,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_27
+  - name: Road_27
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 257
-      y: 207
-      width: 64
-      height: 64
-    spriteID: 63956a27480f91440bb6f577df1366d3
+      x: 137
+      y: 106
+      width: 32
+      height: 32
+    spriteID: dfd87a518924cfd46a733e534d8f85e5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -732,19 +732,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_28
+  - name: Road_28
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 321
-      y: 207
-      width: 64
-      height: 64
-    spriteID: 4ac547cc8b64eb44190b82033e64e504
+      x: 169
+      y: 106
+      width: 32
+      height: 32
+    spriteID: 3dec9b7d756c4b64d94914f2fab28edc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -753,19 +753,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_29
+  - name: Road_29
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 385
-      y: 207
-      width: 64
-      height: 64
-    spriteID: 7936afcd752a9b34eaf6e6cd013904d0
+      x: 201
+      y: 106
+      width: 32
+      height: 32
+    spriteID: 46179d189836e0b4e91db343beb0e303
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -774,19 +774,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_30
+  - name: Road_30
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 449
-      y: 207
-      width: 64
-      height: 64
-    spriteID: 870193db9f9c39249842846269982bd1
+      x: 233
+      y: 106
+      width: 32
+      height: 32
+    spriteID: 44034e66dbb0a404b8497bd1e87ececd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -795,19 +795,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_31
+  - name: Road_31
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 1
-      y: 143
-      width: 64
-      height: 64
-    spriteID: 52eaf86a04da9814a8e176ce20ff9180
+      x: 9
+      y: 74
+      width: 32
+      height: 32
+    spriteID: 42011e21a876b7f42aff989461342b1b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -816,19 +816,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_32
+  - name: Road_32
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 65
-      y: 143
-      width: 64
-      height: 64
-    spriteID: 9b085373666f84f46a1022e4e52904b7
+      x: 41
+      y: 74
+      width: 32
+      height: 32
+    spriteID: 788e64440f9ed4c408e3f6206d542d06
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -837,19 +837,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_33
+  - name: Road_33
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 129
-      y: 143
-      width: 64
-      height: 64
-    spriteID: a2a18e6711e777d4ba2433a9acfd6950
+      x: 73
+      y: 74
+      width: 32
+      height: 32
+    spriteID: 3ee23e92964917a46aadd9d29b9b4b93
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -858,19 +858,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_34
+  - name: Road_34
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 193
-      y: 143
-      width: 64
-      height: 64
-    spriteID: 44cdee7b1b95bf847a75054d32780abf
+      x: 105
+      y: 74
+      width: 32
+      height: 32
+    spriteID: 1cf924e4a5cd31348a3ed902a06e8107
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -879,19 +879,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_35
+  - name: Road_35
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 257
-      y: 143
-      width: 64
-      height: 64
-    spriteID: 568ce239719d9e04da28c1ccc5f0f1c3
+      x: 137
+      y: 74
+      width: 32
+      height: 32
+    spriteID: 7d39cb1e4163f7242aa8a7a3999598aa
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -900,19 +900,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_36
+  - name: Road_36
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 321
-      y: 143
-      width: 64
-      height: 64
-    spriteID: 2dd80f8b10665a64fb11c6415459151e
+      x: 169
+      y: 74
+      width: 32
+      height: 32
+    spriteID: cf884bf00868ad642a74f54177d3632f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -921,19 +921,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_37
+  - name: Road_37
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 385
-      y: 143
-      width: 64
-      height: 64
-    spriteID: d20ad05ca6ea9914784191f66284de2f
+      x: 201
+      y: 74
+      width: 32
+      height: 32
+    spriteID: 05cf2496ef1a1ea4a87e1bb33f446f95
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -942,19 +942,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_38
+  - name: Road_38
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 449
-      y: 143
-      width: 64
-      height: 64
-    spriteID: ecf930a758ee2d442a0661547441ce39
+      x: 233
+      y: 74
+      width: 32
+      height: 32
+    spriteID: 50b616b5cd1df024ba7829683813a590
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -963,19 +963,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_39
+  - name: Road_39
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 1
-      y: 79
-      width: 64
-      height: 64
-    spriteID: 5890358759e0c744a90c7df70efef6d5
+      x: 9
+      y: 42
+      width: 32
+      height: 32
+    spriteID: f858d1e02f5a4a24c8522c7cd7eb0136
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -984,19 +984,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_40
+  - name: Road_40
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 65
-      y: 79
-      width: 64
-      height: 64
-    spriteID: a55a249b5936699439d0bf43e766e5af
+      x: 41
+      y: 42
+      width: 32
+      height: 32
+    spriteID: 780719a161a5088458c4d9ca5a1a8cab
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1005,19 +1005,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_41
+  - name: Road_41
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 129
-      y: 79
-      width: 64
-      height: 64
-    spriteID: aa79617fa1fe5cb4bbe747ceeb346f41
+      x: 73
+      y: 42
+      width: 32
+      height: 32
+    spriteID: 51dc3c5a94401864b9f1e3cde7021e22
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1026,19 +1026,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_42
+  - name: Road_42
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 193
-      y: 79
-      width: 64
-      height: 64
-    spriteID: 61e5222638a77924ea2fe03b97147132
+      x: 105
+      y: 42
+      width: 32
+      height: 32
+    spriteID: b1a72c58b1127ca40a2147b0a696fee4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1047,19 +1047,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_43
+  - name: Road_43
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 257
-      y: 79
-      width: 64
-      height: 64
-    spriteID: 0e2290f128c2d3e4e82f5ba18e6aa95a
+      x: 137
+      y: 42
+      width: 32
+      height: 32
+    spriteID: 1a0d655d49cef8644927dbc1e8d4c8b9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1068,19 +1068,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_44
+  - name: Road_44
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 321
-      y: 79
-      width: 64
-      height: 64
-    spriteID: b98c7dd3e9fd34c4182412a04f1217e5
+      x: 169
+      y: 42
+      width: 32
+      height: 32
+    spriteID: e0fb9b53b21132b489979318abde2f4c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1089,19 +1089,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_45
+  - name: Road_45
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 385
-      y: 79
-      width: 64
-      height: 64
-    spriteID: 6a5f12a5e92c9334c81580523240a0f4
+      x: 201
+      y: 42
+      width: 32
+      height: 32
+    spriteID: 25b609c77daad4246829e17322734046
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1110,19 +1110,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_46
+  - name: Road_46
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 449
-      y: 79
-      width: 64
-      height: 64
-    spriteID: 8d98afa8f43cc4440a575e36f3d5a93e
+      x: 233
+      y: 42
+      width: 32
+      height: 32
+    spriteID: 0432cae35de05884681a3a1cdd9f3fd8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1131,19 +1131,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_47
+  - name: Road_47
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 65
-      y: 15
-      width: 64
-      height: 64
-    spriteID: 99abebe41fe58d54f9b85fa3f4588073
+      x: 41
+      y: 10
+      width: 32
+      height: 32
+    spriteID: 0259228bf2ee0f14eb91da66082f753c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1152,19 +1152,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_48
+  - name: Road_48
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 129
-      y: 15
-      width: 64
-      height: 64
-    spriteID: b9cae142a6e67af4db197403205e3006
+      x: 73
+      y: 10
+      width: 32
+      height: 32
+    spriteID: a6fc85bf33266904e814a54d1c3922c4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1173,19 +1173,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_49
+  - name: Road_49
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 193
-      y: 15
-      width: 64
-      height: 64
-    spriteID: 431ae87526a945f4797651a4c6a6cf4f
+      x: 105
+      y: 10
+      width: 32
+      height: 32
+    spriteID: 0ae9b731bca26bd45b4127f20f30a395
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1194,19 +1194,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_50
+  - name: Road_50
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 257
-      y: 15
-      width: 64
-      height: 64
-    spriteID: b666cf4c7845d5a40b49a9440d50a2f9
+      x: 137
+      y: 10
+      width: 32
+      height: 32
+    spriteID: 2f3a34198d10b114cba8cf76ee8fd499
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1215,19 +1215,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_51
+  - name: Road_51
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 321
-      y: 15
-      width: 64
-      height: 64
-    spriteID: ab062b97e22a98f4bb9d9143968dbcdc
+      x: 169
+      y: 10
+      width: 32
+      height: 32
+    spriteID: 55e7185002b8ade42a8a9fccd4041e6f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1236,19 +1236,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_52
+  - name: Road_52
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 385
-      y: 15
-      width: 64
-      height: 64
-    spriteID: f6cae0e74f37e71498f539b8cceb9ede
+      x: 201
+      y: 10
+      width: 32
+      height: 32
+    spriteID: be46d2a05b7645743a80ca79924811b8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1257,19 +1257,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: wall_53
+  - name: Road_53
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 449
-      y: 15
-      width: 64
-      height: 64
-    spriteID: 973f433c2bd18c0438d947101f2a4c9d
+      x: 233
+      y: 10
+      width: 32
+      height: 32
+    spriteID: b3ccd489fb2d45f4186dabdfa540fac9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -1280,21 +1280,21 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
-    guid: -2064485746
-    name: wall
-    layerFlags: 0
+    guid: 1317222744
+    name: Layer 1
+    layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: wall
+    - name: Road
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 15
-        y: 65
-        width: 482
-        height: 432
-      spriteId: edea2043c5db6f845b071f298ca102df
+        x: 7
+        y: 38
+        width: 243
+        height: 211
+      spriteId: 4af45b07c64afda4da0ce18194fcf88a
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -1337,4 +1337,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 512, y: 512}
+  canvasSize: {x: 256, y: 256}

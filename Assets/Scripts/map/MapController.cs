@@ -13,7 +13,8 @@ namespace map
         public int height;
         public int width;
 
-        [SerializeField] private Tilemap tilemap;
+        [SerializeField] private Tilemap terrainTilemap;
+        [SerializeField] private Tilemap buildingTilemap;
         [SerializeField] private MapCreator mapCreator;
 
         private TileType[] _tileTypes;
@@ -41,7 +42,8 @@ namespace map
         private void ToggleShow()
         {
             _show = !_show;
-            tilemap.gameObject.SetActive(_show);
+            terrainTilemap.gameObject.SetActive(_show);
+            buildingTilemap.gameObject.SetActive(_show);
         }
 
         private void CreateMap()
@@ -52,9 +54,11 @@ namespace map
         private void UpdateMapView()
         {
             var positions = new Vector3Int[width * height];
-            var tileBase = new TileBase[width * height];
+            var terrain = new TileBase[width * height];
+            var building = new TileBase[width * height];
 
-            tilemap.ClearAllTiles();
+            terrainTilemap.ClearAllTiles();
+            buildingTilemap.ClearAllTiles();
 
             for (int x = 0; x < width; x++)
             {
@@ -62,11 +66,13 @@ namespace map
                 {
                     var index = y * height + x;
                     positions[index] = new Vector3Int(x, y);
-                    tileBase[index] = _tileTypes[index].tile;
+                    terrain[index] = _tileTypes[index].terrain;
+                    building[index] = _tileTypes[index].building;
                 }
             }
 
-            tilemap.SetTiles(positions, tileBase);
+            terrainTilemap.SetTiles(positions, terrain);
+            buildingTilemap.SetTiles(positions, building);
         }
 
         public double[] GetLiquidity()
@@ -76,7 +82,8 @@ namespace map
 
         public void Darken(bool dark)
         {
-            tilemap.color = dark ? Color.grey : Color.white;
+            terrainTilemap.color = dark ? Color.grey : Color.white;
+            buildingTilemap.color = dark ? Color.grey : Color.white;
         }
     }
 }

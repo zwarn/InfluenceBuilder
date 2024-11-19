@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747aa0dab1194758b8d2aaef05e82b41, type: 3}
   m_Name: Gras
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
+  terrain: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
+  building: {fileID: 0}
   liquidity: 0.5

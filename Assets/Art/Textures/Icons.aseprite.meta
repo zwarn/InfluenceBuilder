@@ -156,7 +156,7 @@ ScriptedImporter:
       y: 4
       width: 32
       height: 32
-    spriteID: 2b13cb3b45fee9c4a9ffbdcfe6516b9e
+    spriteID: 4bbc28d9cee949e49a2a333717c29abe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -177,7 +177,7 @@ ScriptedImporter:
       y: 4
       width: 32
       height: 32
-    spriteID: b3e6c4567f4e35a4abba2e0f3726323e
+    spriteID: d390e4046ab235744bfc05f0aa921a6f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -186,7 +186,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: terrain_icon
+  - name: Icons_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -198,7 +198,7 @@ ScriptedImporter:
       y: 4
       width: 32
       height: 32
-    spriteID: 69b75f27bd53de14db5ccddf64cc52d0
+    spriteID: 5158eb0295bbc8e4faf755ec421b0336
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -207,7 +207,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: selection
+  - name: border
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -219,7 +219,70 @@ ScriptedImporter:
       y: 4
       width: 32
       height: 32
-    spriteID: 9dc42a28d0566b24daacc3296931990f
+    spriteID: d2659dd1bf515f447973edb520e84369
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: gras_terrain
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 130
+      y: 4
+      width: 32
+      height: 32
+    spriteID: 536772f2d5aae6a42bdbe8d2710b09dd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: wall_building
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 162
+      y: 4
+      width: 32
+      height: 32
+    spriteID: 1261f5eaedcb45a4c9a8db2eca67127a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: road_building
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 194
+      y: 4
+      width: 32
+      height: 32
+    spriteID: e5b7578dabb12bf4ea01baf08298a600
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -242,7 +305,7 @@ ScriptedImporter:
       cellRect:
         x: 2
         y: 224
-        width: 126
+        width: 220
         height: 32
       spriteId: 19e28214dc3a20146a42ade80a4d1e6e
     linkedCells: []
