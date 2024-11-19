@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747aa0dab1194758b8d2aaef05e82b41, type: 3}
   m_Name: Wall
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: 615a9e02a520c5f42aeb12570541dd4b, type: 2}
+  tile: {fileID: 11400000, guid: 4743070ef841cfd47a2c7b65d87eb53a, type: 2}
   liquidity: 0.05000000074505806
