@@ -48,6 +48,7 @@ namespace influence
         private void OnEnable()
         {
             _inputEvents.OnPerformStepCommand += Tick;
+            _gridEvents.OnMapTileChanged += MapTileChanged;
 
             int width = _mapController.width;
             int height = _mapController.height;
@@ -63,6 +64,7 @@ namespace influence
         private void OnDisable()
         {
             _inputEvents.OnPerformStepCommand -= Tick;
+            _gridEvents.OnMapTileChanged -= MapTileChanged;
 
             _inputBuffer.Release();
             _inputBuffer = null;
@@ -77,6 +79,8 @@ namespace influence
         public void Tick()
         {
             Propagate();
+            ApplyLoss();
+            _gridEvents.GridUpdateEvent();
         }
 
         private void Propagate()
@@ -99,7 +103,12 @@ namespace influence
             _outputBuffer.GetData(output);
 
             _grid.SetValues(output);
-            _gridEvents.GridUpdateEvent();
+        }
+
+        private void ApplyLoss()
+        {
+            var loss = _mapController.GetLoss();
+            _grid.RemoveValues(loss);
         }
 
         public void AddInfluence(int x, int y, int amount)
@@ -121,7 +130,13 @@ namespace influence
 
             _gridEvents.GridUpdateEvent();
         }
-
+        
+        private void MapTileChanged(Vector2Int pos)
+        {
+            var liquidity = _mapController.GetLiquidity(pos.x, pos.y);
+            _grid.SetLiquidity(pos.x,pos.y, liquidity);
+        }
+        
         public InfluenceGrid GetGrid()
         {
             return _grid;

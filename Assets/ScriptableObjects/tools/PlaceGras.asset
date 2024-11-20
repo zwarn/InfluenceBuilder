@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747aa0dab1194758b8d2aaef05e82b41, type: 3}
-  m_Name: Gras
+  m_Script: {fileID: 11500000, guid: 82040cbe143b433693b758f4b2380325, type: 3}
+  m_Name: PlaceGras
   m_EditorClassIdentifier: 
-  terrain: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
-  building: {fileID: 0}
-  liquidity: 0.5
-  loss: 0.019999999552965164
+  icon: {fileID: 7622717519315071810, guid: 8da9d8a8406c9c143a2931ee602982e4, type: 3}
+  name: Place Gras
+  target: {fileID: 11400000, guid: 37cd480e3ab9ebb499fe06634a72e538, type: 2}

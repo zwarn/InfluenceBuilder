@@ -9,5 +9,6 @@ namespace scriptableObjects.map
         public TileBase terrain;
         public TileBase building;
         [Range(0, 1)] public double liquidity;
+        [Range(0, 1)] public double loss;
     }
 }

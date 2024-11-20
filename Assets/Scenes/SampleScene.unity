@@ -1121,6 +1121,9 @@ MonoBehaviour:
   toolSelection:
   - {fileID: 11400000, guid: 5f330c0385a1c504699d2ab8e47604d9, type: 2}
   - {fileID: 11400000, guid: 873729d0e8ab7574facd7f1d5accdb33, type: 2}
+  - {fileID: 11400000, guid: cb87ccd39abf72240bdd481499461bac, type: 2}
+  - {fileID: 11400000, guid: 1dc2c85066d99e6419ea41f412eff487, type: 2}
+  - {fileID: 11400000, guid: 254b23995f777b7478ea4d313ac589aa, type: 2}
 --- !u!114 &1496735610
 MonoBehaviour:
   m_ObjectHideFlags: 0

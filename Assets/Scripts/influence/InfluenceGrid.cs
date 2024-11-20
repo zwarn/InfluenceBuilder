@@ -7,8 +7,6 @@ namespace influence
     [BurstCompile]
     public class InfluenceGrid
     {
-        private const double Liquidity = 0.5;
-
         public readonly int Width;
         public readonly int Height;
         private NativeArray<double> _values;
@@ -74,6 +72,14 @@ namespace influence
         public void RemoveValue(int x, int y, double value)
         {
             _values[y * Width + x] = math.max(_values[y * Width + x] - value, 0);
+        }
+
+        public void RemoveValues(double[] loss)
+        {
+            for (int i = 0; i < _values.Length; i++)
+            {
+                _values[i] = math.max(_values[i] - loss[i], 0);
+            }
         }
 
         public void Dispose()

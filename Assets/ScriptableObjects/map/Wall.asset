@@ -15,3 +15,4 @@ MonoBehaviour:
   terrain: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
   building: {fileID: 11400000, guid: 4743070ef841cfd47a2c7b65d87eb53a, type: 2}
   liquidity: 0.05000000074505806
+  loss: 0.019999999552965164

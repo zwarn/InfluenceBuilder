@@ -1,19 +1,21 @@
 ﻿using influence;
+using map;
+using scriptableObjects.map;
 using UnityEngine;
 using Zenject;
 
 namespace scriptableObjects.tool
 {
-    [CreateAssetMenu(fileName = "AddInfluence", menuName = "tools/AddInfluence", order = 0)]
+    [CreateAssetMenu(fileName = "Terrain", menuName = "tools/ChangeTerrain", order = 0)]
     public class ChangeTerrain : SelectableTool
     {
-        public int amount;
+        public TileType target;
 
-        [Inject] private InfluenceController _influenceController;
+        [Inject] private MapController _mapController;
 
         public override void Apply(int x, int y)
         {
-            _influenceController.AddInfluence(x, y, amount);
+            _mapController.ChangeTile(x, y, target);
         }
     }
 }

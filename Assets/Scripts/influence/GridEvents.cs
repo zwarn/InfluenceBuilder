@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace influence
 {
@@ -9,6 +10,13 @@ namespace influence
         public void GridUpdateEvent()
         {
             OnGridUpdate?.Invoke();
+        }
+
+        public event Action<Vector2Int> OnMapTileChanged;
+
+        public void MapTileChangedEvent(int x, int y)
+        {
+            OnMapTileChanged?.Invoke(new Vector2Int(x, y));
         }
     }
 }
