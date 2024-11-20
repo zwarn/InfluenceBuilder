@@ -92,6 +92,11 @@ namespace map
             return _tileTypes[y * width + x].liquidity;
         }
 
+        public TileType[] GetTileTypes()
+        {
+            return _tileTypes.ToArray();
+        }
+
         public void ChangeTile(int x, int y, TileType type)
         {
             int index = y * width + x;

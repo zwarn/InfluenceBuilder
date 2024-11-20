@@ -2,6 +2,7 @@
 using System.Linq;
 using input;
 using map;
+using scriptableObjects.map;
 using Unity.Burst;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,8 @@ namespace influence
         private static readonly int Liquidity = Shader.PropertyToID("Liquidity");
 
         [SerializeField] private ComputeShader propagateShader;
+        [SerializeField] private TileType productionTileType;
+        [SerializeField] private double productionAmount;
 
         private InfluenceGrid _grid;
         private ComputeBuffer _inputBuffer;
@@ -37,7 +40,6 @@ namespace influence
             _height = _mapController.height;
 
             _grid = new InfluenceGrid(_width, _height);
-            _grid.SetValue(0, 0, 10000);
         }
 
         private void Start()
@@ -78,9 +80,23 @@ namespace influence
 
         public void Tick()
         {
+            Produce();
             Propagate();
             ApplyLoss();
             _gridEvents.GridUpdateEvent();
+        }
+
+        private void Produce()
+        {
+            var tileTypes = _mapController.GetTileTypes();
+
+            for (var i = 0; i < tileTypes.Length; i++)
+            {
+                if (tileTypes[i] == productionTileType)
+                {
+                    _grid.AddValue(i, productionAmount);
+                }
+            }
         }
 
         private void Propagate()
@@ -130,13 +146,13 @@ namespace influence
 
             _gridEvents.GridUpdateEvent();
         }
-        
+
         private void MapTileChanged(Vector2Int pos)
         {
             var liquidity = _mapController.GetLiquidity(pos.x, pos.y);
-            _grid.SetLiquidity(pos.x,pos.y, liquidity);
+            _grid.SetLiquidity(pos.x, pos.y, liquidity);
         }
-        
+
         public InfluenceGrid GetGrid()
         {
             return _grid;

@@ -68,6 +68,11 @@ namespace influence
         {
             _values[y * Width + x] += value;
         }
+        
+        public void AddValue(int index, double value)
+        {
+            _values[index] += value;
+        }
 
         public void RemoveValue(int x, int y, double value)
         {
