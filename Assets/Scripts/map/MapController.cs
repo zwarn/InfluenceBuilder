@@ -118,5 +118,15 @@ namespace map
             terrainTilemap.color = dark ? Color.grey : Color.white;
             buildingTilemap.color = dark ? Color.grey : Color.white;
         }
+
+        public bool IsPointOnMap(int x, int y)
+        {
+            if (x >= 0 && x < width && y >= 0 && y < height)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

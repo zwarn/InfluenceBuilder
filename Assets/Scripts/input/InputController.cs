@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace input
@@ -29,7 +30,7 @@ namespace input
                 _inputEvents.ToggleShowTilemapEvent();
             }
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 var worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var x = (int)worldMouse.x;
@@ -37,7 +38,7 @@ namespace input
                 _inputEvents.LeftClickEvent(x, y);
             }
 
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1) && !EventSystem.current.IsPointerOverGameObject())
             {
                 var worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var x = (int)worldMouse.x;

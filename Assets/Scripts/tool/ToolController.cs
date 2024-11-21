@@ -1,6 +1,5 @@
 ﻿using System;
 using input;
-using scriptableObjects;
 using scriptableObjects.tool;
 using UnityEngine;
 using Zenject;
