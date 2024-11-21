@@ -30,6 +30,11 @@ namespace input
                 _inputEvents.ToggleShowTilemapEvent();
             }
 
+            if (Input.GetKeyUp(KeyCode.Alpha3))
+            {
+                _inputEvents.ToggleShowInfluenceVisualizer();
+            }
+
             if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 var worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);

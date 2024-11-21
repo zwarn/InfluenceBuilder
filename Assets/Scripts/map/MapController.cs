@@ -3,6 +3,7 @@ using System.Linq;
 using influence;
 using input;
 using scriptableObjects.map;
+using show;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Zenject;
@@ -19,9 +20,8 @@ namespace map
         [SerializeField] private MapCreator mapCreator;
 
         private TileType[] _tileTypes;
-        private bool _show = true;
 
-        [Inject] private InputEvents _inputEvents;
+        [Inject] private ShowStatusEvents _showStatusEvents;
         [Inject] private GridEvents _gridEvents;
 
         private void Awake()
@@ -33,19 +33,18 @@ namespace map
 
         private void OnEnable()
         {
-            _inputEvents.OnToggleShowTilemap += ToggleShow;
+            _showStatusEvents.OnShowTilemap += ShowTilemap;
         }
 
         private void OnDisable()
         {
-            _inputEvents.OnToggleShowTilemap -= ToggleShow;
+            _showStatusEvents.OnShowTilemap -= ShowTilemap;
         }
 
-        private void ToggleShow()
+        private void ShowTilemap(bool show)
         {
-            _show = !_show;
-            terrainTilemap.gameObject.SetActive(_show);
-            buildingTilemap.gameObject.SetActive(_show);
+            terrainTilemap.gameObject.SetActive(show);
+            buildingTilemap.gameObject.SetActive(show);
         }
 
         private void CreateMap()
@@ -81,7 +80,7 @@ namespace map
         {
             return _tileTypes.Select(tile => tile.liquidity).ToArray();
         }
-        
+
         public double[] GetLoss()
         {
             return _tileTypes.Select(tile => tile.loss).ToArray();
@@ -107,8 +106,8 @@ namespace map
 
             _tileTypes[index] = type;
 
-            terrainTilemap.SetTile(new Vector3Int(x,y), type.terrain);
-            buildingTilemap.SetTile(new Vector3Int(x,y), type.building);
+            terrainTilemap.SetTile(new Vector3Int(x, y), type.terrain);
+            buildingTilemap.SetTile(new Vector3Int(x, y), type.building);
 
             _gridEvents.MapTileChangedEvent(x, y);
         }

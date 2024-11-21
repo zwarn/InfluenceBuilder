@@ -55,17 +55,24 @@ namespace input
         }
 
         public event Action OnToggleShowInfluence;
-        
+
         public void ToggleShowInfluenceEvent()
         {
             OnToggleShowInfluence?.Invoke();
         }
 
         public event Action OnToggleShowTilemap;
-        
+
         public void ToggleShowTilemapEvent()
         {
             OnToggleShowTilemap?.Invoke();
+        }
+
+        public event Action OnToggleShowInfluenceVisualizer;
+
+        public void ToggleShowInfluenceVisualizer()
+        {
+            OnToggleShowInfluenceVisualizer?.Invoke();
         }
     }
 }

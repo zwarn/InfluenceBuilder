@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using influence;
 using map;
+using show;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -13,11 +14,14 @@ namespace ui.influenceVisualizer
         private const int GridSize = 3;
 
         [SerializeField] private InfluenceVisualizerTileView prefab;
+        [SerializeField] private Transform tileParent;
 
         private Dictionary<Vector2Int, InfluenceVisualizerTileView> _tileViews = new();
+        private bool _show;
 
         [Inject] private MapController _mapController;
         [Inject] private InfluenceController _influenceController;
+        [Inject] private ShowStatusEvents _showStatusEvents;
 
         private void Start()
         {
@@ -26,15 +30,36 @@ namespace ui.influenceVisualizer
                 for (int y = -GridSize + 1; y < GridSize; y++)
                 {
                     Vector2Int relativPos = new Vector2Int(x, y);
-                    var tileView = Instantiate(prefab, transform);
+                    var tileView = Instantiate(prefab, tileParent);
                     tileView.transform.localPosition = new Vector3(x, y);
                     _tileViews.Add(relativPos, tileView);
                 }
             }
         }
 
+        private void OnEnable()
+        {
+            _showStatusEvents.OnShowInfluenceVisualizer += OnShowVisualizer;
+        }
+
+        private void OnDisable()
+        {
+            _showStatusEvents.OnShowInfluenceVisualizer -= OnShowVisualizer;
+        }
+
+        private void OnShowVisualizer(bool show)
+        {
+            _show = show;
+            tileParent.gameObject.SetActive(_show);
+        }
+
         private void Update()
         {
+            if (!_show)
+            {
+                return;
+            }
+
             var worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var x = (int)worldMouse.x;
             var y = (int)worldMouse.y;

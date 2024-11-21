@@ -2,6 +2,7 @@
 using influence;
 using input;
 using map;
+using show;
 using UnityEngine;
 using Zenject;
 
@@ -11,18 +12,12 @@ namespace ui
     {
         [SerializeField] private Renderer quad;
         private Texture2D _texture2D;
-        private bool _show = false;
 
         [Inject] private InfluenceController _influenceController;
         [Inject] private IColorChooser _colorChooser;
         [Inject] private GridEvents _gridEvents;
-        [Inject] private InputEvents _inputEvents;
+        [Inject] private ShowStatusEvents _showStatusEvents;
         [Inject] private MapController _mapController;
-
-        private void Awake()
-        {
-            quad.gameObject.SetActive(_show);
-        }
 
         private void Start()
         {
@@ -40,20 +35,19 @@ namespace ui
         private void OnEnable()
         {
             _gridEvents.OnGridUpdate += OnUpdate;
-            _inputEvents.OnToggleShowInfluence += OnToggleShow;
+            _showStatusEvents.OnShowInfluence += OnShowInfluence;
         }
 
         private void OnDisable()
         {
             _gridEvents.OnGridUpdate -= OnUpdate;
-            _inputEvents.OnToggleShowInfluence -= OnToggleShow;
+            _showStatusEvents.OnShowInfluence -= OnShowInfluence;
         }
 
-        private void OnToggleShow()
+        private void OnShowInfluence(bool show)
         {
-            _show = !_show;
-            quad.gameObject.SetActive(_show);
-            _mapController.Darken(_show);
+            quad.gameObject.SetActive(show);
+            _mapController.Darken(show);
         }
 
         private void OnUpdate()
