@@ -61,22 +61,32 @@ namespace influence
 
         public void SetLiquidity(int x, int y, double value)
         {
-            _liquidity[y * Width + x] = value;
+            SetLiquidity(y * Width + x, value);
+        }
+
+        public void SetLiquidity(int index, double value)
+        {
+            _liquidity[index] = value;
         }
 
         public void AddValue(int x, int y, double value)
         {
             _values[y * Width + x] += value;
         }
-        
+
         public void AddValue(int index, double value)
         {
             _values[index] += value;
         }
 
+        public void RemoveValue(int index, double value)
+        {
+            _values[index] = math.max(_values[index] - value, 0);
+        }
+
         public void RemoveValue(int x, int y, double value)
         {
-            _values[y * Width + x] = math.max(_values[y * Width + x] - value, 0);
+            RemoveValue(y * Width + x, value);
         }
 
         public void RemoveValues(double[] loss)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using influence;
-using input;
 using scriptableObjects.map;
 using show;
 using UnityEngine;
@@ -76,21 +75,6 @@ namespace map
             buildingTilemap.SetTiles(positions, building);
         }
 
-        public double[] GetLiquidity()
-        {
-            return _tileTypes.Select(tile => tile.liquidity).ToArray();
-        }
-
-        public double[] GetLoss()
-        {
-            return _tileTypes.Select(tile => tile.loss).ToArray();
-        }
-
-        public double GetLiquidity(int x, int y)
-        {
-            return _tileTypes[y * width + x].liquidity;
-        }
-
         public TileType[] GetTileTypes()
         {
             return _tileTypes.ToArray();
@@ -126,6 +110,12 @@ namespace map
             }
 
             return false;
+        }
+
+        public TileType GetTileType(int x, int y)
+        {
+            int index = y * width + x;
+            return _tileTypes[index];
         }
     }
 }

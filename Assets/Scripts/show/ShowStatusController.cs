@@ -1,4 +1,5 @@
 ﻿using System;
+using influence;
 using input;
 using UnityEngine;
 using Zenject;
@@ -8,8 +9,9 @@ namespace show
     public class ShowStatusController : MonoBehaviour
     {
         private bool _showTilemaps = true;
-        private bool _showInfluence = false;
         private bool _showInfluenceVisualizer = false;
+
+        private Layer? _currentLayer = null;
 
         [Inject] private InputEvents _inputEvents;
         [Inject] private ShowStatusEvents _showEvents;
@@ -31,7 +33,7 @@ namespace show
         private void Start()
         {
             _showEvents.ShowTilemapEvent(_showTilemaps);
-            _showEvents.ShowInfluenceEvent(_showInfluence);
+            _showEvents.ShowLayerEvent(_currentLayer);
             _showEvents.ShowInfluenceVisualizerEvent(_showInfluenceVisualizer);
         }
 
@@ -49,8 +51,21 @@ namespace show
 
         private void ToggleShowInfluence()
         {
-            _showInfluence = !_showInfluence;
-            _showEvents.ShowInfluenceEvent(_showInfluence);
+            if (_currentLayer == null)
+            {
+                _currentLayer = Layer.Food;
+            }
+            else
+            {
+                _currentLayer = null;
+            }
+
+            _showEvents.ShowLayerEvent(_currentLayer);
+        }
+
+        public Layer? CurrentLayer()
+        {
+            return _currentLayer;
         }
     }
 }

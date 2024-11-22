@@ -1,4 +1,5 @@
 ﻿using System;
+using influence;
 
 namespace show
 {
@@ -11,18 +12,18 @@ namespace show
             OnShowTilemap?.Invoke(show);
         }
 
-        public event Action<bool> OnShowInfluence;
-
-        public void ShowInfluenceEvent(bool show)
-        {
-            OnShowInfluence?.Invoke(show);
-        }
-
         public event Action<bool> OnShowInfluenceVisualizer;
 
         public void ShowInfluenceVisualizerEvent(bool show)
         {
             OnShowInfluenceVisualizer?.Invoke(show);
+        }
+
+        public event Action<Layer?> OnShowLayer;
+
+        public void ShowLayerEvent(Layer? layer)
+        {
+            OnShowLayer?.Invoke(layer);
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using influence;
 using map;
 using show;
-using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -22,6 +21,7 @@ namespace ui.influenceVisualizer
         [Inject] private MapController _mapController;
         [Inject] private InfluenceController _influenceController;
         [Inject] private ShowStatusEvents _showStatusEvents;
+        [Inject] private ShowStatusController _showStatusController;
 
         private void Start()
         {
@@ -74,6 +74,12 @@ namespace ui.influenceVisualizer
 
         private void UpdateTileViews(int centerX, int centerY)
         {
+            Layer? currentLayer = _showStatusController.CurrentLayer();
+            if (currentLayer == null)
+            {
+                return;
+            }
+
             for (int x = -GridSize + 1; x < GridSize; x++)
             {
                 for (int y = -GridSize + 1; y < GridSize; y++)
@@ -84,7 +90,7 @@ namespace ui.influenceVisualizer
 
                     if (_mapController.IsPointOnMap(worldX, worldY))
                     {
-                        tileView.SetValue(_influenceController.GetGrid().GetValue(worldX, worldY));
+                        tileView.SetValue(_influenceController.GetValue(currentLayer.Value, worldX, worldY));
                         tileView.gameObject.SetActive(true);
                     }
                     else

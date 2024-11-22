@@ -1,4 +1,5 @@
 ﻿using influence;
+using show;
 using UnityEngine;
 using Zenject;
 
@@ -10,10 +11,15 @@ namespace scriptableObjects.tool
         public int amount;
 
         [Inject] private InfluenceController _influenceController;
+        [Inject] private ShowStatusController _showStatusController;
 
         public override void Apply(int x, int y)
         {
-            _influenceController.RemoveInfluence(x, y, amount);
+            Layer? currentLayer = _showStatusController.CurrentLayer();
+            if (currentLayer != null)
+            {
+                _influenceController.RemoveInfluence(Layer.Food, x, y, amount);
+            }
         }
     }
 }

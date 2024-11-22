@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using input;
 using map;
-using scriptableObjects.map;
 using Unity.Burst;
 using UnityEngine;
 using Zenject;
@@ -19,10 +17,8 @@ namespace influence
         private static readonly int Liquidity = Shader.PropertyToID("Liquidity");
 
         [SerializeField] private ComputeShader propagateShader;
-        [SerializeField] private TileType productionTileType;
-        [SerializeField] private double productionAmount;
 
-        private InfluenceGrid _grid;
+        private InfluenceGrids _grids;
         private ComputeBuffer _inputBuffer;
         private ComputeBuffer _liquidityBuffer;
         private ComputeBuffer _outputBuffer;
@@ -39,12 +35,12 @@ namespace influence
             _width = _mapController.width;
             _height = _mapController.height;
 
-            _grid = new InfluenceGrid(_width, _height);
+            _grids = new InfluenceGrids(_width, _height);
         }
 
         private void Start()
         {
-            _grid.SetLiquidity(_mapController.GetLiquidity());
+            _grids.SetLiquidity(_mapController.GetTileTypes());
         }
 
         private void OnEnable()
@@ -75,7 +71,7 @@ namespace influence
             _outputBuffer.Release();
             _outputBuffer = null;
 
-            _grid.Dispose();
+            _grids.Dispose();
         }
 
         public void Tick()
@@ -90,22 +86,24 @@ namespace influence
         {
             var tileTypes = _mapController.GetTileTypes();
 
-            for (var i = 0; i < tileTypes.Length; i++)
-            {
-                if (tileTypes[i] == productionTileType)
-                {
-                    _grid.AddValue(i, productionAmount);
-                }
-            }
+            _grids.ApplyProduction(tileTypes);
         }
 
         private void Propagate()
         {
+            foreach (Layer layer in Enum.GetValues(typeof(Layer)))
+            {
+                Propagate(layer);
+            }
+        }
+
+        private void Propagate(Layer layer)
+        {
             double[] output = new double[_width * _height];
 
-            var values = _grid.GetValuesArray();
+            var values = _grids.GetValuesArray(layer);
             _inputBuffer.SetData(values);
-            var liquidity = _grid.GetLiquidityArray();
+            var liquidity = _grids.GetLiquidityArray(layer);
             _liquidityBuffer.SetData(liquidity);
             propagateShader.SetBuffer(0, Input, _inputBuffer);
             propagateShader.SetBuffer(0, Liquidity, _liquidityBuffer);
@@ -118,30 +116,30 @@ namespace influence
 
             _outputBuffer.GetData(output);
 
-            _grid.SetValues(output);
+            _grids.SetValues(layer, output);
         }
 
         private void ApplyLoss()
         {
-            var loss = _mapController.GetLoss();
-            _grid.RemoveValues(loss);
+            var tileTypes = _mapController.GetTileTypes();
+            _grids.ApplyLoss(tileTypes);
         }
 
-        public void AddInfluence(int x, int y, int amount)
+        public void AddInfluence(Layer layer, int x, int y, int amount)
         {
             if (x >= 0 && x < _width && y >= 0 && y < _height)
             {
-                _grid.AddValue(x, y, amount);
+                _grids.AddValue(layer, x, y, amount);
             }
 
             _gridEvents.GridUpdateEvent();
         }
 
-        public void RemoveInfluence(int x, int y, int amount)
+        public void RemoveInfluence(Layer layer, int x, int y, int amount)
         {
             if (x >= 0 && x < _width && y >= 0 && y < _height)
             {
-                _grid.RemoveValue(x, y, amount);
+                _grids.RemoveValue(layer, x, y, amount);
             }
 
             _gridEvents.GridUpdateEvent();
@@ -149,13 +147,18 @@ namespace influence
 
         private void MapTileChanged(Vector2Int pos)
         {
-            var liquidity = _mapController.GetLiquidity(pos.x, pos.y);
-            _grid.SetLiquidity(pos.x, pos.y, liquidity);
+            var tileType = _mapController.GetTileType(pos.x, pos.y);
+            _grids.UpdateTile(pos.x, pos.y, tileType);
         }
 
-        public InfluenceGrid GetGrid()
+        public double GetValue(Layer layer, int x, int y)
         {
-            return _grid;
+            return _grids.GetValue(layer, x, y);
+        }
+
+        public double[] GetValues(Layer layer)
+        {
+            return _grids.GetValues(layer);
         }
     }
 }

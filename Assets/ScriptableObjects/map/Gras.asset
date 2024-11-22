@@ -14,5 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrain: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
   building: {fileID: 0}
-  liquidity: 0.5
-  loss: 0.019999999552965164
+  layerInformation:
+  - layer: 0
+    liquidity: 0.5
+    loss: 0.009999999776482582
+    production: 0
+  - layer: 1
+    liquidity: 0.5
+    loss: 0.009999999776482582
+    production: 0
