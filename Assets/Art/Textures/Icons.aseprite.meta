@@ -291,6 +291,27 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+  - name: building_berries
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 226
+      y: 4
+      width: 32
+      height: 32
+    spriteID: d17330ad9653bb545b08e61c98a8158b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
     guid: -1744697416
@@ -305,7 +326,7 @@ ScriptedImporter:
       cellRect:
         x: 2
         y: 224
-        width: 220
+        width: 252
         height: 32
       spriteId: 19e28214dc3a20146a42ade80a4d1e6e
     linkedCells: []

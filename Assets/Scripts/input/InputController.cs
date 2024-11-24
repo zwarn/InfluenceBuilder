@@ -20,9 +20,19 @@ namespace input
                 _inputEvents.ToggleAutomaticEvent();
             }
 
-            if (Input.GetKeyUp(KeyCode.Alpha2))
+            if (Input.GetKeyUp(KeyCode.Alpha3))
             {
-                _inputEvents.ToggleShowInfluenceEvent();
+                _inputEvents.ToggleShowInfluenceEvent(0);
+            }
+            
+            if (Input.GetKeyUp(KeyCode.Alpha4))
+            {
+                _inputEvents.ToggleShowInfluenceEvent(1);
+            }
+            
+            if (Input.GetKeyUp(KeyCode.Alpha0))
+            {
+                _inputEvents.ToggleShowInfluenceEvent(-1);
             }
 
             if (Input.GetKeyUp(KeyCode.Alpha1))
@@ -30,7 +40,7 @@ namespace input
                 _inputEvents.ToggleShowTilemapEvent();
             }
 
-            if (Input.GetKeyUp(KeyCode.Alpha3))
+            if (Input.GetKeyUp(KeyCode.Alpha2))
             {
                 _inputEvents.ToggleShowInfluenceVisualizer();
             }

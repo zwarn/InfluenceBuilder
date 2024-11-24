@@ -9,27 +9,13 @@ StructuredBuffer<double> Input;
 StructuredBuffer<double> Liquidity;
 RWStructuredBuffer<double> Output;
 
-uint CountNeighbors(uint x, uint y)
-{
-    uint result = 0;
-    if (x > 0) result++;
-    if (x < Width - 1) result++;
-    if (y > 0) result++;
-    if (y < Height - 1) result++;
-    return result;
-}
-
-double CalculateContribution(uint index, uint neighbor)
-{
-    return Liquidity[index] * Input[neighbor] * 0.25;
-}
-
 [numthreads(8, 8, 1)]
 void CSMain(uint3 id : SV_DispatchThreadID)
 {
     const uint x = id.x;
     const uint y = id.y;
-    const uint index = y * Width + x;
+    const uint z = id.z;
+    const uint index = z * Width * Height + y * Width + x;
 
     double acc = 0;
     double flow = 0;
@@ -46,8 +32,8 @@ void CSMain(uint3 id : SV_DispatchThreadID)
 
             if (nx >= 0 && nx < Width && ny >= 0 && ny < Height)
             {
-                const uint neighborIndex = ny * Width + nx;
-                acc += CalculateContribution(index, neighborIndex);
+                const uint neighborIndex = z * Width * Height + ny * Width + nx;
+                acc += Liquidity[index] * Input[neighborIndex] * 0.25;
                 flow += Liquidity[neighborIndex] * 0.25;
             }
             else

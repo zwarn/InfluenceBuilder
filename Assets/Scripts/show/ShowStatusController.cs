@@ -49,17 +49,10 @@ namespace show
             _showEvents.ShowTilemapEvent(_showTilemaps);
         }
 
-        private void ToggleShowInfluence()
+        private void ToggleShowInfluence(int layer)
         {
-            if (_currentLayer == null)
-            {
-                _currentLayer = Layer.Food;
-            }
-            else
-            {
-                _currentLayer = null;
-            }
-
+            var values = Enum.GetValues(typeof(Layer));
+            _currentLayer = layer == -1 || layer >= values.Length ? null : (Layer)layer;
             _showEvents.ShowLayerEvent(_currentLayer);
         }
 

@@ -54,11 +54,11 @@ namespace input
             OnTranslate?.Invoke(delta);
         }
 
-        public event Action OnToggleShowInfluence;
+        public event Action<int> OnToggleShowInfluence;
 
-        public void ToggleShowInfluenceEvent()
+        public void ToggleShowInfluenceEvent(int layer)
         {
-            OnToggleShowInfluence?.Invoke();
+            OnToggleShowInfluence?.Invoke(layer);
         }
 
         public event Action OnToggleShowTilemap;

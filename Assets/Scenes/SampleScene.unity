@@ -1258,8 +1258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   propagateShader: {fileID: 7200000, guid: b677e72601f6e4b44b9304a9e6f360e0, type: 3}
-  productionTileType: {fileID: 11400000, guid: deee6d59084cc024f8ffbfcbd2201e6b, type: 2}
-  productionAmount: 10
 --- !u!1 &1251014500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1398,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1dc2c85066d99e6419ea41f412eff487, type: 2}
   - {fileID: 11400000, guid: 254b23995f777b7478ea4d313ac589aa, type: 2}
   - {fileID: 11400000, guid: 175993d72d865e649b5e21fa9243d8c9, type: 2}
+  - {fileID: 11400000, guid: a970eab93ea6e08448fe6f1c181d26fa, type: 2}
 --- !u!114 &1496735610
 MonoBehaviour:
   m_ObjectHideFlags: 0

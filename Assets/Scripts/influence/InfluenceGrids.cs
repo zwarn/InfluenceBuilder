@@ -7,10 +7,16 @@ namespace influence
     public class InfluenceGrids
     {
         private InfluenceGrid[] _grids;
+        private int _width;
+        private int _height;
+        private int _depth;
 
         public InfluenceGrids(int width, int height)
         {
-            _grids = new InfluenceGrid[Enum.GetValues(typeof(Layer)).Length];
+            _width = width;
+            _height = height;
+            _depth = Enum.GetValues(typeof(Layer)).Length;
+            _grids = new InfluenceGrid[_depth];
             for (var i = 0; i < _grids.Length; i++)
             {
                 _grids[i] = new InfluenceGrid(width, height);
@@ -106,6 +112,49 @@ namespace influence
         public double[] GetValues(Layer layer)
         {
             return _grids[(int)layer].GetValues();
+        }
+
+        public double[] GetValues()
+        {
+            double[] result = new double[_depth * _width * _height];
+
+            int offset = 0;
+            foreach (var grid in _grids)
+            {
+                var values = grid.GetValues();
+                Array.Copy(values, 0, result, offset, values.Length);
+                offset += values.Length;
+            }
+
+            return result;
+        }
+
+        public double[] GetLiquidity()
+        {
+            double[] result = new double[_depth * _width * _height];
+
+            int offset = 0;
+            foreach (var grid in _grids)
+            {
+                var values = grid.GetLiquidity();
+                Array.Copy(values, 0, result, offset, values.Length);
+                offset += values.Length;
+            }
+
+            return result;
+        }
+
+        public void SetValues(double[] values)
+        {
+            int size = _width * _height;
+
+            for (int layer = 0; layer < _depth; layer++)
+            {
+                double[] chunk = new double[size];
+                Array.Copy(values, layer * size, chunk, 0, size);
+
+                _grids[layer].SetValues(chunk);
+            }
         }
     }
 }

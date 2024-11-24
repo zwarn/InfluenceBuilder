@@ -10,18 +10,11 @@ namespace influence
     [BurstCompile]
     public class InfluenceController : MonoBehaviour
     {
-        private static readonly int Input = Shader.PropertyToID("Input");
-        private static readonly int Output = Shader.PropertyToID("Output");
-        private static readonly int Width = Shader.PropertyToID("Width");
-        private static readonly int Height = Shader.PropertyToID("Height");
-        private static readonly int Liquidity = Shader.PropertyToID("Liquidity");
-
+        
         [SerializeField] private ComputeShader propagateShader;
 
         private InfluenceGrids _grids;
-        private ComputeBuffer _inputBuffer;
-        private ComputeBuffer _liquidityBuffer;
-        private ComputeBuffer _outputBuffer;
+        private PropagateShader _shader;
 
         [Inject] private MapController _mapController;
         [Inject] private InputEvents _inputEvents;
@@ -50,13 +43,10 @@ namespace influence
 
             int width = _mapController.width;
             int height = _mapController.height;
-            int size = width * height;
-            _inputBuffer = new ComputeBuffer(size, sizeof(double));
-            _liquidityBuffer = new ComputeBuffer(size, sizeof(double));
-            _outputBuffer = new ComputeBuffer(size, sizeof(double));
+            int depth = Enum.GetValues(typeof(Layer)).Length;
 
-            propagateShader.SetInt(Width, width);
-            propagateShader.SetInt(Height, height);
+            _shader = new PropagateShader(width, height, depth, propagateShader);
+
         }
 
         private void OnDisable()
@@ -64,13 +54,7 @@ namespace influence
             _inputEvents.OnPerformStepCommand -= Tick;
             _gridEvents.OnMapTileChanged -= MapTileChanged;
 
-            _inputBuffer.Release();
-            _inputBuffer = null;
-            _liquidityBuffer.Release();
-            _liquidityBuffer = null;
-            _outputBuffer.Release();
-            _outputBuffer = null;
-
+            _shader.Dispose();
             _grids.Dispose();
         }
 
@@ -99,24 +83,11 @@ namespace influence
 
         private void Propagate(Layer layer)
         {
-            double[] output = new double[_width * _height];
+            var values = _grids.GetValues();
+            var liquidity = _grids.GetLiquidity();
 
-            var values = _grids.GetValuesArray(layer);
-            _inputBuffer.SetData(values);
-            var liquidity = _grids.GetLiquidityArray(layer);
-            _liquidityBuffer.SetData(liquidity);
-            propagateShader.SetBuffer(0, Input, _inputBuffer);
-            propagateShader.SetBuffer(0, Liquidity, _liquidityBuffer);
-            propagateShader.SetBuffer(0, Output, _outputBuffer);
-
-
-            int threadGroupsX = Mathf.CeilToInt(_width / 8.0f);
-            int threadGroupsY = Mathf.CeilToInt(_height / 8.0f);
-            propagateShader.Dispatch(0, threadGroupsX, threadGroupsY, 1);
-
-            _outputBuffer.GetData(output);
-
-            _grids.SetValues(layer, output);
+            var output = _shader.Propagate(values, liquidity);
+            _grids.SetValues(output);
         }
 
         private void ApplyLoss()

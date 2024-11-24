@@ -1,4 +1,5 @@
-﻿using Unity.Burst;
+﻿using System;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Mathematics;
 
@@ -38,6 +39,12 @@ namespace influence
         public NativeArray<double> GetLiquidityArray()
         {
             return _liquidity;
+        }
+        
+        
+        public double[] GetLiquidity()
+        {
+            return _liquidity.ToArray();
         }
 
         public void SetValues(double[] data)
@@ -102,5 +109,6 @@ namespace influence
             _values.Dispose();
             _liquidity.Dispose();
         }
+
     }
 }
