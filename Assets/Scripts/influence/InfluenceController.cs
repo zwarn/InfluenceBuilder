@@ -30,15 +30,9 @@ namespace influence
             _grids = new InfluenceGrids(_width, _height);
         }
 
-        private void Start()
-        {
-            _grids.SetLiquidity(_mapController.GetTiles(), _mapController.GetTileTypes());
-        }
-
         private void OnEnable()
         {
             _inputEvents.OnPerformStepCommand += Tick;
-            _gridEvents.OnMapTileChanged += MapTileChanged;
 
             int width = _mapController.width;
             int height = _mapController.height;
@@ -46,14 +40,14 @@ namespace influence
             int tileTypeCount = _mapController.GetTileTypes().Length;
 
             var liquidity = _mapController.LiquidityByTileType();
+            var loss = _mapController.LossByTileType();
 
-            _shader = new PropagateShader(width, height, depth, tileTypeCount, liquidity, propagateShader);
+            _shader = new PropagateShader(width, height, depth, tileTypeCount, liquidity, loss, propagateShader);
         }
 
         private void OnDisable()
         {
             _inputEvents.OnPerformStepCommand -= Tick;
-            _gridEvents.OnMapTileChanged -= MapTileChanged;
 
             _shader.Dispose();
             _grids.Dispose();
@@ -63,7 +57,6 @@ namespace influence
         {
             Produce();
             Propagate();
-            ApplyLoss();
             _gridEvents.GridUpdateEvent();
         }
 
@@ -79,12 +72,6 @@ namespace influence
 
             var output = _shader.Propagate(values, tiles);
             _grids.SetValues(output);
-        }
-
-        private void ApplyLoss()
-        {
-            //TODO: integrate into compute shader
-            _grids.ApplyLoss(_mapController.GetTiles(), _mapController.GetTileTypes());
         }
 
         public void AddInfluence(Layer layer, int x, int y, int amount)
@@ -105,12 +92,6 @@ namespace influence
             }
 
             _gridEvents.GridUpdateEvent();
-        }
-
-        private void MapTileChanged(Vector2Int pos)
-        {
-            var tileType = _mapController.GetTileType(pos.x, pos.y);
-            _grids.UpdateTile(pos.x, pos.y, tileType);
         }
 
         public double GetValue(Layer layer, int x, int y)

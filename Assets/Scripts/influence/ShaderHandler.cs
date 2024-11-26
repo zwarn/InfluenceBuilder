@@ -11,18 +11,20 @@ namespace influence
         private static readonly int Depth = Shader.PropertyToID("Depth");
         private static readonly int Tiles = Shader.PropertyToID("Tiles");
         private static readonly int Liquidity = Shader.PropertyToID("Liquidity");
+        private static readonly int Loss = Shader.PropertyToID("Loss");
 
         private ComputeShader _propagateShader;
         private ComputeBuffer _inputBuffer;
         private ComputeBuffer _tilesBuffer;
         private ComputeBuffer _liquidityBuffer;
+        private ComputeBuffer _lossBuffer;
         private ComputeBuffer _outputBuffer;
 
         private int _width;
         private int _height;
         private int _depth;
 
-        public PropagateShader(int width, int height, int depth, int tileTypeCount, double[] liquidity,
+        public PropagateShader(int width, int height, int depth, int tileTypeCount, double[] liquidity, double[] loss,
             ComputeShader propagateShader)
         {
             _width = width;
@@ -34,6 +36,7 @@ namespace influence
             _inputBuffer = new ComputeBuffer(size, sizeof(double));
             _tilesBuffer = new ComputeBuffer(width * height, sizeof(int));
             _liquidityBuffer = new ComputeBuffer(depth * tileTypeCount, sizeof(double));
+            _lossBuffer = new ComputeBuffer(depth * tileTypeCount, sizeof(double));
             _outputBuffer = new ComputeBuffer(size, sizeof(double));
 
             _propagateShader.SetInt(Width, width);
@@ -42,6 +45,8 @@ namespace influence
 
             _liquidityBuffer.SetData(liquidity);
             _propagateShader.SetBuffer(0, Liquidity, _liquidityBuffer);
+            _lossBuffer.SetData(loss);
+            _propagateShader.SetBuffer(0, Loss, _lossBuffer);
         }
 
         public void Dispose()
@@ -52,6 +57,8 @@ namespace influence
             _tilesBuffer = null;
             _liquidityBuffer.Release();
             _liquidityBuffer = null;
+            _lossBuffer.Release();
+            _lossBuffer = null;
             _outputBuffer.Release();
             _outputBuffer = null;
         }

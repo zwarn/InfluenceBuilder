@@ -9,6 +9,7 @@ uint Depth;
 StructuredBuffer<double> Input;
 StructuredBuffer<int> Tiles;
 StructuredBuffer<double> Liquidity;
+StructuredBuffer<double> Loss;
 RWStructuredBuffer<double> Output;
 
 [numthreads(8, 8, 1)]
@@ -50,6 +51,8 @@ void CSMain(uint3 id : SV_DispatchThreadID)
 
     // Add self-retention
     acc += Input[index] * (1 - flow);
+    // Subtract loss
+    acc -= Loss[z + Depth * Tiles[y * Height + x]];
 
-    Output[index] = acc;
+    Output[index] = max(acc, 0);
 }
