@@ -43,8 +43,11 @@ namespace influence
             int width = _mapController.width;
             int height = _mapController.height;
             int depth = Enum.GetValues(typeof(Layer)).Length;
+            int tileTypeCount = _mapController.GetTileTypes().Length;
 
-            _shader = new PropagateShader(width, height, depth, propagateShader);
+            var liquidity = _mapController.LiquidityByTileType();
+
+            _shader = new PropagateShader(width, height, depth, tileTypeCount, liquidity, propagateShader);
         }
 
         private void OnDisable()
@@ -72,9 +75,9 @@ namespace influence
         private void Propagate()
         {
             var values = _grids.GetValues();
-            var liquidity = _grids.GetLiquidity();
+            var tiles = _mapController.GetTiles();
 
-            var output = _shader.Propagate(values, liquidity);
+            var output = _shader.Propagate(values, tiles);
             _grids.SetValues(output);
         }
 

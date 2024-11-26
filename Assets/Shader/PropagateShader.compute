@@ -3,9 +3,11 @@
 // Grid properties, set from C#:
 uint Width;
 uint Height;
+uint Depth;
 
 // Input and output buffers
 StructuredBuffer<double> Input;
+StructuredBuffer<int> Tiles;
 StructuredBuffer<double> Liquidity;
 RWStructuredBuffer<double> Output;
 
@@ -30,16 +32,18 @@ void CSMain(uint3 id : SV_DispatchThreadID)
             int nx = x + dx;
             int ny = y + dy;
 
+            const double currentLiquidity = Liquidity[z + Depth * Tiles[y * Height + x]];
             if (nx >= 0 && nx < Width && ny >= 0 && ny < Height)
             {
                 const uint neighborIndex = z * Width * Height + ny * Width + nx;
-                acc += Liquidity[index] * Input[neighborIndex] * 0.25;
-                flow += Liquidity[neighborIndex] * 0.25;
+                const double neighborLiquidity = Liquidity[z + Depth * Tiles[ny * Height + nx]];
+                acc += currentLiquidity * Input[neighborIndex] * 0.25;
+                flow += neighborLiquidity * 0.25;
             }
             else
             {
-                acc += Input[index] * Liquidity[index] * 0.25;
-                flow += Liquidity[index] * 0.25;
+                acc += Input[index] * currentLiquidity * 0.25;
+                flow += currentLiquidity * 0.25;
             }
         }
     }

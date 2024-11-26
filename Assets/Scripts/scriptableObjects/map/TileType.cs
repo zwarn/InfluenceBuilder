@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using influence;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -12,6 +13,11 @@ namespace scriptableObjects.map
         public TileBase building;
 
         public TileTypeInformation[] layerInformation;
+
+        public TileTypeInformation ByLayer(int layer)
+        {
+            return layerInformation.First(info => (int)info.layer == layer);
+        }
     }
 
     [Serializable]

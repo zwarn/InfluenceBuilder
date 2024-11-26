@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using helper;
 using influence;
 using scriptableObjects.map;
 using show;
@@ -18,7 +19,7 @@ namespace map
         [SerializeField] private Tilemap buildingTilemap;
         [SerializeField] private MapCreator mapCreator;
 
-        private TileType[] _tileTypes;
+        private TileType[] TileTypes => mapCreator.GetTileTypes();
         private int[] _tiles;
 
         [Inject] private ShowStatusEvents _showStatusEvents;
@@ -50,7 +51,6 @@ namespace map
         private void CreateMap()
         {
             _tiles = mapCreator.CreateMap(width, height);
-            _tileTypes = mapCreator.GetTileTypes();
         }
 
         private void UpdateMapView()
@@ -68,8 +68,8 @@ namespace map
                 {
                     var index = y * height + x;
                     positions[index] = new Vector3Int(x, y);
-                    terrain[index] = _tileTypes[_tiles[index]].terrain;
-                    building[index] = _tileTypes[_tiles[index]].building;
+                    terrain[index] = TileTypes[_tiles[index]].terrain;
+                    building[index] = TileTypes[_tiles[index]].building;
                 }
             }
 
@@ -79,7 +79,7 @@ namespace map
 
         public TileType[] GetTileTypes()
         {
-            return _tileTypes.ToArray();
+            return TileTypes.ToArray();
         }
 
         public int[] GetTiles()
@@ -95,7 +95,7 @@ namespace map
                 return;
             }
 
-            int tileTypeIndex = Array.IndexOf(_tileTypes, type);
+            int tileTypeIndex = Array.IndexOf(TileTypes, type);
             _tiles[index] = tileTypeIndex;
 
             terrainTilemap.SetTile(new Vector3Int(x, y), type.terrain);
@@ -123,7 +123,39 @@ namespace map
         public TileType GetTileType(int x, int y)
         {
             int index = y * width + x;
-            return _tileTypes[_tiles[index]];
+            return TileTypes[_tiles[index]];
+        }
+
+        private T[] FromTileInformation<T>(Func<TileTypeInformation, T> func)
+        {
+            int layers = EnumUtils.GetLength<Layer>();
+            int tileTypes = TileTypes.Length;
+            T[] result = new T[layers * tileTypes];
+
+            for (int layer = 0; layer < layers; layer++)
+            {
+                for (int tileType = 0; tileType < tileTypes; tileType++)
+                {
+                    result[tileType * layers + layer] = func.Invoke(TileTypes[tileType].ByLayer(layer));
+                }
+            }
+
+            return result;
+        }
+
+        public double[] LossByTileType()
+        {
+            return FromTileInformation(info => info.loss);
+        }
+
+        public double[] LiquidityByTileType()
+        {
+            return FromTileInformation(info => info.liquidity);
+        }
+
+        public double[] ProductionByTileType()
+        {
+            return FromTileInformation(info => info.production);
         }
     }
 }
