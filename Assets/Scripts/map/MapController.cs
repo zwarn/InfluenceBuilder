@@ -19,6 +19,7 @@ namespace map
         [SerializeField] private MapCreator mapCreator;
 
         private TileType[] _tileTypes;
+        private int[] _tiles;
 
         [Inject] private ShowStatusEvents _showStatusEvents;
         [Inject] private GridEvents _gridEvents;
@@ -48,7 +49,8 @@ namespace map
 
         private void CreateMap()
         {
-            _tileTypes = mapCreator.CreateMap(width, height);
+            _tiles = mapCreator.CreateMap(width, height);
+            _tileTypes = mapCreator.GetTileTypes();
         }
 
         private void UpdateMapView()
@@ -66,8 +68,8 @@ namespace map
                 {
                     var index = y * height + x;
                     positions[index] = new Vector3Int(x, y);
-                    terrain[index] = _tileTypes[index].terrain;
-                    building[index] = _tileTypes[index].building;
+                    terrain[index] = _tileTypes[_tiles[index]].terrain;
+                    building[index] = _tileTypes[_tiles[index]].building;
                 }
             }
 
@@ -80,15 +82,21 @@ namespace map
             return _tileTypes.ToArray();
         }
 
+        public int[] GetTiles()
+        {
+            return _tiles.ToArray();
+        }
+
         public void ChangeTile(int x, int y, TileType type)
         {
             int index = y * width + x;
-            if (index < 0 || index > _tileTypes.Length)
+            if (index < 0 || index > _tiles.Length)
             {
                 return;
             }
 
-            _tileTypes[index] = type;
+            int tileTypeIndex = Array.IndexOf(_tileTypes, type);
+            _tiles[index] = tileTypeIndex;
 
             terrainTilemap.SetTile(new Vector3Int(x, y), type.terrain);
             buildingTilemap.SetTile(new Vector3Int(x, y), type.building);
@@ -115,7 +123,7 @@ namespace map
         public TileType GetTileType(int x, int y)
         {
             int index = y * width + x;
-            return _tileTypes[index];
+            return _tileTypes[_tiles[index]];
         }
     }
 }

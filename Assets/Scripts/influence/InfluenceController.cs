@@ -10,7 +10,6 @@ namespace influence
     [BurstCompile]
     public class InfluenceController : MonoBehaviour
     {
-        
         [SerializeField] private ComputeShader propagateShader;
 
         private InfluenceGrids _grids;
@@ -33,7 +32,7 @@ namespace influence
 
         private void Start()
         {
-            _grids.SetLiquidity(_mapController.GetTileTypes());
+            _grids.SetLiquidity(_mapController.GetTiles(), _mapController.GetTileTypes());
         }
 
         private void OnEnable()
@@ -46,7 +45,6 @@ namespace influence
             int depth = Enum.GetValues(typeof(Layer)).Length;
 
             _shader = new PropagateShader(width, height, depth, propagateShader);
-
         }
 
         private void OnDisable()
@@ -68,20 +66,10 @@ namespace influence
 
         private void Produce()
         {
-            var tileTypes = _mapController.GetTileTypes();
-
-            _grids.ApplyProduction(tileTypes);
+            _grids.ApplyProduction(_mapController.GetTiles(), _mapController.GetTileTypes());
         }
 
         private void Propagate()
-        {
-            foreach (Layer layer in Enum.GetValues(typeof(Layer)))
-            {
-                Propagate(layer);
-            }
-        }
-
-        private void Propagate(Layer layer)
         {
             var values = _grids.GetValues();
             var liquidity = _grids.GetLiquidity();
@@ -92,8 +80,8 @@ namespace influence
 
         private void ApplyLoss()
         {
-            var tileTypes = _mapController.GetTileTypes();
-            _grids.ApplyLoss(tileTypes);
+            //TODO: integrate into compute shader
+            _grids.ApplyLoss(_mapController.GetTiles(), _mapController.GetTileTypes());
         }
 
         public void AddInfluence(Layer layer, int x, int y, int amount)

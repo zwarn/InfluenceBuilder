@@ -23,35 +23,33 @@ namespace influence
             }
         }
 
-        public void SetLiquidity(TileType[] tileTypes)
+        public void SetLiquidity(int[] tiles, TileType[] tileTypes)
         {
-            for (var index = 0; index < tileTypes.Length; index++)
+            for (var index = 0; index < tiles.Length; index++)
             {
-                foreach (var info in tileTypes[index].layerInformation)
+                foreach (var info in tileTypes[tiles[index]].layerInformation)
                 {
                     _grids[(int)info.layer].SetLiquidity(index, info.liquidity);
                 }
             }
         }
 
-
-        public void ApplyLoss(TileType[] tileTypes)
+        public void ApplyLoss(int[] tiles, TileType[] tileTypes)
         {
-            for (var index = 0; index < tileTypes.Length; index++)
+            for (var index = 0; index < tiles.Length; index++)
             {
-                foreach (var info in tileTypes[index].layerInformation)
+                foreach (var info in tileTypes[tiles[index]].layerInformation)
                 {
                     _grids[(int)info.layer].RemoveValue(index, info.loss);
                 }
             }
         }
 
-
-        public void ApplyProduction(TileType[] tileTypes)
+        public void ApplyProduction(int[] tiles, TileType[] tileTypes)
         {
-            for (var index = 0; index < tileTypes.Length; index++)
+            for (var index = 0; index < tiles.Length; index++)
             {
-                foreach (var info in tileTypes[index].layerInformation)
+                foreach (var info in tileTypes[tiles[index]].layerInformation)
                 {
                     _grids[(int)info.layer].AddValue(index, info.production);
                 }

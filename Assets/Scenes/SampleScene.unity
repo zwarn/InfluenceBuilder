@@ -1697,6 +1697,12 @@ MonoBehaviour:
   gras: {fileID: 11400000, guid: 37cd480e3ab9ebb499fe06634a72e538, type: 2}
   wall: {fileID: 11400000, guid: a9ff0a582f981ed458a99953b5910ac9, type: 2}
   road: {fileID: 11400000, guid: 088b1b1867934aa44a11e61cf695067e, type: 2}
+  tileTypes:
+  - {fileID: 11400000, guid: 46c1e033fdc89ba4296f171855803cab, type: 2}
+  - {fileID: 11400000, guid: 37cd480e3ab9ebb499fe06634a72e538, type: 2}
+  - {fileID: 11400000, guid: 088b1b1867934aa44a11e61cf695067e, type: 2}
+  - {fileID: 11400000, guid: deee6d59084cc024f8ffbfcbd2201e6b, type: 2}
+  - {fileID: 11400000, guid: a9ff0a582f981ed458a99953b5910ac9, type: 2}
 --- !u!1 &1822127821
 GameObject:
   m_ObjectHideFlags: 0
