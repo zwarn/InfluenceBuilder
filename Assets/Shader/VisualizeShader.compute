@@ -1,0 +1,42 @@
+#pragma kernel CSMain
+
+uint Width;
+uint Height;
+float Alpha = 0.3;
+float MinValue = 0.001;
+float MaxValue = 5000;
+
+StructuredBuffer<double> Values;
+
+RWTexture2D<float4> Result;
+
+float3 GetHeatmapColor(float normalizedValue)
+{
+    normalizedValue = clamp(normalizedValue, 0.0, 1.0);
+
+    float r = 0.5 + 0.5 * sin(6.28318 * (normalizedValue + 0.0));
+    float g = 0.5 + 0.5 * sin(6.28318 * (normalizedValue + 0.33));
+    float b = 0.5 + 0.5 * sin(6.28318 * (normalizedValue + 0.66));
+
+    return float3(r, g, b);
+}
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    uint x = id.x;
+    uint y = id.y;
+
+    if (x >= Width || y >= Height) return;
+
+    const uint index = y * Width + x;
+
+    float value = Values[index];
+
+    value = max(value, MinValue);
+    float normalizedValue = (log10(value) - log10(MinValue)) / (log10(MaxValue) - log10(MinValue));
+
+    float3 color = GetHeatmapColor(normalizedValue);
+
+    Result[int2(x, y)] = float4(color, normalizedValue);
+}

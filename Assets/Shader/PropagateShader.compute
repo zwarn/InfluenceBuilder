@@ -29,10 +29,10 @@ void CSMain(uint3 id : SV_DispatchThreadID)
         for (int dy = -1; dy <= 1; dy++)
         {
             if (abs(dx) + abs(dy) != 1) continue; // Skip non-adjacent cells
-
+    
             int nx = x + dx;
             int ny = y + dy;
-
+    
             const double currentLiquidity = Liquidity[z + Depth * Tiles[y * Height + x]];
             if (nx >= 0 && nx < Width && ny >= 0 && ny < Height)
             {

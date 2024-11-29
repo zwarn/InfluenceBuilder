@@ -3,6 +3,7 @@ using input;
 using map;
 using Unity.Burst;
 using UnityEngine;
+using UnityEngine.Profiling;
 using Zenject;
 
 namespace influence
@@ -55,8 +56,12 @@ namespace influence
 
         public void Tick()
         {
+            Profiler.BeginSample("Produce");
             Produce();
+            Profiler.EndSample();
+            Profiler.BeginSample("Produce");
             Propagate();
+            Profiler.EndSample();
             _gridEvents.GridUpdateEvent();
         }
 

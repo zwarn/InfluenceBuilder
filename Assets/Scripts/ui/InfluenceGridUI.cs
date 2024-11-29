@@ -9,40 +9,66 @@ namespace ui
 {
     public class InfluenceGridUI : MonoBehaviour
     {
+        private static readonly int Values = Shader.PropertyToID("Values");
+        private static readonly int Result = Shader.PropertyToID("Result");
+        private static readonly int Width = Shader.PropertyToID("Width");
+        private static readonly int Height = Shader.PropertyToID("Height");
+        private static readonly int Alpha = Shader.PropertyToID("Alpha");
+        private static readonly int MinValue = Shader.PropertyToID("MinValue");
+        private static readonly int MaxValue = Shader.PropertyToID("MaxValue");
+
         [SerializeField] private Renderer quad;
-        private Texture2D _texture2D;
-        private Layer? _currentLayer = Layer.Food;
+        [SerializeField] private ComputeShader visualizeShader;
+
+        private RenderTexture _renderTexture;
+        private ComputeBuffer _valuesBuffer;
+        private Layer? _currentLayer = null;
+        private int _width;
+        private int _height;
 
         [Inject] private InfluenceController _influenceController;
-        [Inject] private IColorChooser _colorChooser;
         [Inject] private GridEvents _gridEvents;
         [Inject] private ShowStatusEvents _showStatusEvents;
         [Inject] private MapController _mapController;
 
+
         private void Start()
         {
-            int width = _mapController.width;
-            int height = _mapController.height;
+            _width = _mapController.width;
+            _height = _mapController.height;
 
-            quad.transform.position = new Vector3(width / 2f, height / 2f, -1);
-            quad.transform.localScale = new Vector3(width, height, width);
+            quad.transform.position = new Vector3(_width / 2f, _height / 2f, -1);
+            quad.transform.localScale = new Vector3(_width, _height, _width);
 
-            _texture2D = new Texture2D(width, height);
-            _texture2D.filterMode = FilterMode.Point;
+            _renderTexture = new RenderTexture(_width, _height, 0, RenderTextureFormat.ARGB32)
+            {
+                enableRandomWrite = true,
+                filterMode = FilterMode.Point
+            };
+            _renderTexture.Create();
+
+            quad.material.mainTexture = _renderTexture;
             OnUpdate();
-            quad.material.mainTexture = _texture2D;
         }
 
         private void OnEnable()
         {
             _gridEvents.OnGridUpdate += OnUpdate;
             _showStatusEvents.OnShowLayer += OnShowLayer;
+
+            _width = _mapController.width;
+            _height = _mapController.height;
+
+            _valuesBuffer = new ComputeBuffer(_width * _height, sizeof(double));
         }
 
         private void OnDisable()
         {
             _gridEvents.OnGridUpdate -= OnUpdate;
             _showStatusEvents.OnShowLayer -= OnShowLayer;
+
+            _valuesBuffer.Dispose();
+            _valuesBuffer = null;
         }
 
         private void OnShowLayer(Layer? layer)
@@ -68,18 +94,20 @@ namespace ui
 
         private void UpdateLayer(Layer layer)
         {
-            int index = 0;
             var values = _influenceController.GetValues(layer);
-            var colors = new Color[values.Length];
 
-            while (index < values.Length)
-            {
-                colors[index] = _colorChooser.GetColor(values[index]);
-                index++;
-            }
+            _valuesBuffer.SetData(values);
 
-            _texture2D.SetPixels(colors);
-            _texture2D.Apply();
+            visualizeShader.SetBuffer(0, Values, _valuesBuffer);
+            visualizeShader.SetTexture(0, Result, _renderTexture);
+            visualizeShader.SetInt(Width, _width);
+            visualizeShader.SetInt(Height, _height);
+            visualizeShader.SetFloat(MinValue, 0.001f);
+            visualizeShader.SetFloat(MaxValue, 5000);
+            visualizeShader.SetFloat(Alpha, 0.25f);
+
+            visualizeShader.Dispatch(visualizeShader.FindKernel("CSMain"), Mathf.CeilToInt(_width / 8f),
+                Mathf.CeilToInt(_height / 8f), 1);
         }
     }
 }

@@ -3,7 +3,6 @@ using input;
 using map;
 using show;
 using tool;
-using ui;
 using ui.tool;
 using Zenject;
 
@@ -14,8 +13,6 @@ public class GameInstaller : MonoInstaller
     public InfluenceController influenceController;
     public ShowStatusController showStatusController;
 
-    public GradientColorChooser colorChooser;
-
     public ToolbarUI toolbarUI;
 
     public override void InstallBindings()
@@ -24,8 +21,6 @@ public class GameInstaller : MonoInstaller
         Container.Bind<GameController>().FromInstance(gameController).AsSingle();
         Container.Bind<InfluenceController>().FromInstance(influenceController).AsSingle();
         Container.Bind<ShowStatusController>().FromInstance(showStatusController).AsSingle();
-
-        Container.Bind<IColorChooser>().FromInstance(colorChooser).AsSingle();
 
         Container.Bind<InputEvents>().FromNew().AsSingle();
         Container.Bind<ToolEvents>().FromNew().AsSingle();
