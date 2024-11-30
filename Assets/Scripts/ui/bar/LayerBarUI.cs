@@ -14,10 +14,10 @@ namespace ui.bar
         [SerializeField] private ButtonView prefab;
 
         private Dictionary<Layer?, ButtonView> _buttonViews = new();
-        
+        private ButtonView _emptyButton;
+
         public List<LayerType> layerTypes;
         public Sprite emptyIcon;
-        public ButtonView emptyButton;
 
         [Inject] private ShowStatusEvents _showStatusEvents;
         [Inject] private InputEvents _inputEvents;
@@ -39,10 +39,10 @@ namespace ui.bar
 
         private void CreateButtonViews()
         {
-            emptyButton = Instantiate(prefab, transform);
-            emptyButton.SetData(emptyIcon, () => _inputEvents.ToggleShowInfluenceEvent(-1));
-            emptyButton.SetSelected(true);
-            
+            _emptyButton = Instantiate(prefab, transform);
+            _emptyButton.SetData(emptyIcon, () => _inputEvents.ToggleShowInfluenceEvent(-1));
+            _emptyButton.SetSelected(true);
+
             layerTypes.ForEach(layer =>
             {
                 var buttonView = Instantiate(prefab, transform);
@@ -54,8 +54,8 @@ namespace ui.bar
 
         private void LayerSelection(Layer? layer)
         {
-            emptyButton.SetSelected(layer == null);
-            
+            _emptyButton.SetSelected(layer == null);
+
             foreach (var pair in _buttonViews)
             {
                 pair.Value.SetSelected(pair.Key == layer);

@@ -1076,7 +1076,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -10}
+  m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &717397640
@@ -2367,7 +2367,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_StartCorner: 2
+  m_StartCorner: 1
   m_StartAxis: 0
   m_CellSize: {x: 64, y: 64}
   m_Spacing: {x: 5, y: 5}
@@ -2390,7 +2390,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 445c854a2ad6770459200957b9a6f780, type: 2}
   - {fileID: 11400000, guid: 73cf9dd3617b8724488ce1d679b806d1, type: 2}
   emptyIcon: {fileID: -1125069832884410659, guid: 8da9d8a8406c9c143a2931ee602982e4, type: 3}
-  emptyButton: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

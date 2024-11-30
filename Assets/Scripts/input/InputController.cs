@@ -15,7 +15,7 @@ namespace input
                 _inputEvents.PerformStepCommanEvent();
             }
 
-            if (Input.GetKeyUp(KeyCode.A))
+            if (Input.GetKeyUp(KeyCode.O))
             {
                 _inputEvents.ToggleAutomaticEvent();
             }
