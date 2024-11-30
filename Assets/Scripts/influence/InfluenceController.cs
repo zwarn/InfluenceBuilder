@@ -33,7 +33,7 @@ namespace influence
 
         private void OnEnable()
         {
-            _inputEvents.OnPerformStepCommand += Tick;
+            _inputEvents.OnPerformStepCommand += Step;
 
             int width = _mapController.width;
             int height = _mapController.height;
@@ -48,13 +48,13 @@ namespace influence
 
         private void OnDisable()
         {
-            _inputEvents.OnPerformStepCommand -= Tick;
+            _inputEvents.OnPerformStepCommand -= Step;
 
             _shader.Dispose();
             _grids.Dispose();
         }
 
-        public void Tick()
+        public void Step()
         {
             Profiler.BeginSample("Produce");
             Produce();

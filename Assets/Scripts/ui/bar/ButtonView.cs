@@ -1,27 +1,23 @@
-﻿using scriptableObjects.tool;
-using tool;
+﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Zenject;
 
-namespace ui.tool
+namespace ui.bar
 {
-    public class ToolView : MonoBehaviour, IPointerClickHandler
+    public class ButtonView : MonoBehaviour, IPointerClickHandler
     {
-        public Image icon;
+        public Image iconImage;
         public Image image;
         public Sprite button;
         public Sprite activeButton;
 
-        private SelectableTool _tool;
+        private Action _onClick;
 
-        [Inject] private ToolEvents _toolEvents;
-
-        public void SetTool(SelectableTool tool)
+        public void SetData(Sprite icon, Action onClick)
         {
-            _tool = tool;
-            icon.sprite = tool.icon;
+            iconImage.sprite = icon;
+            _onClick = onClick;
         }
 
         public void SetSelected(bool highlight)
@@ -31,7 +27,7 @@ namespace ui.tool
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _toolEvents.ToolSelectionEvent(_tool);
+            _onClick.Invoke();
         }
     }
 }

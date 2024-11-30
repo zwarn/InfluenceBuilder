@@ -2,8 +2,9 @@ using influence;
 using input;
 using map;
 using show;
+using time;
 using tool;
-using ui.tool;
+using ui.bar;
 using Zenject;
 
 public class GameInstaller : MonoInstaller
@@ -12,6 +13,7 @@ public class GameInstaller : MonoInstaller
     public MapController mapController;
     public InfluenceController influenceController;
     public ShowStatusController showStatusController;
+    public TimeController timeController;
 
     public ToolbarUI toolbarUI;
 
@@ -21,6 +23,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<GameController>().FromInstance(gameController).AsSingle();
         Container.Bind<InfluenceController>().FromInstance(influenceController).AsSingle();
         Container.Bind<ShowStatusController>().FromInstance(showStatusController).AsSingle();
+        Container.Bind<TimeController>().FromInstance(timeController).AsSingle();
 
         Container.Bind<InputEvents>().FromNew().AsSingle();
         Container.Bind<ToolEvents>().FromNew().AsSingle();

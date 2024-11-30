@@ -1,43 +1,24 @@
+using System;
 using influence;
-using input;
+using time;
 using UnityEngine;
 using Zenject;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private Transform quad;
-    private bool _automatic = false;
-
     [Inject] private InfluenceController _influenceController;
-    [Inject] private InputEvents _inputEvents;
-
-    private void OnEnable()
-    {
-        _inputEvents.OnPerformStepCommand += Tick;
-        _inputEvents.OnToggleAutomaticCommand += ToggleAutomatic;
-    }
-
-    private void OnDisable()
-    {
-        _inputEvents.OnPerformStepCommand -= Tick;
-        _inputEvents.OnToggleAutomaticCommand -= ToggleAutomatic;
-    }
+    [Inject] private TimeController _timeController;
 
     private void Update()
     {
-        if (_automatic)
+        if (_timeController.ShouldStep())
         {
-            Tick();
+            Step();
         }
     }
 
-    public void Tick()
+    public void Step()
     {
-        _influenceController.Tick();
-    }
-
-    public void ToggleAutomatic()
-    {
-        _automatic = !_automatic;
+        _influenceController.Step();
     }
 }
