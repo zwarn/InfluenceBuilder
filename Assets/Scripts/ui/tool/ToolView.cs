@@ -10,10 +10,9 @@ namespace ui.tool
     public class ToolView : MonoBehaviour, IPointerClickHandler
     {
         public Image icon;
-        public Image background;
-        public Image border;
-        public Color highlightColor;
-        public Color lowLightColor;
+        public Image image;
+        public Sprite button;
+        public Sprite activeButton;
 
         private SelectableTool _tool;
 
@@ -27,8 +26,7 @@ namespace ui.tool
 
         public void SetSelected(bool highlight)
         {
-            background.color = highlight ? highlightColor : lowLightColor;
-            border.gameObject.SetActive(highlight);
+            image.sprite = highlight ? activeButton : button;
         }
 
         public void OnPointerClick(PointerEventData eventData)
