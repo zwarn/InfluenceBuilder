@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a22e822e2e74bf4a77a8f39e5efa518, type: 3}
+  m_Name: FoodLayer
+  m_EditorClassIdentifier: 
+  icon: {fileID: -8953645019653192028, guid: 8da9d8a8406c9c143a2931ee602982e4, type: 3}
+  layer: 0

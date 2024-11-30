@@ -153,7 +153,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 36
+      y: 227
       width: 32
       height: 32
     spriteID: 4bbc28d9cee949e49a2a333717c29abe
@@ -174,7 +174,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 36
-      y: 36
+      y: 227
       width: 32
       height: 32
     spriteID: d390e4046ab235744bfc05f0aa921a6f
@@ -195,7 +195,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 68
-      y: 36
+      y: 227
       width: 32
       height: 32
     spriteID: 5158eb0295bbc8e4faf755ec421b0336
@@ -216,7 +216,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 100
-      y: 36
+      y: 227
       width: 32
       height: 32
     spriteID: d2659dd1bf515f447973edb520e84369
@@ -237,7 +237,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 132
-      y: 36
+      y: 227
       width: 32
       height: 32
     spriteID: 536772f2d5aae6a42bdbe8d2710b09dd
@@ -258,7 +258,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 164
-      y: 36
+      y: 227
       width: 32
       height: 32
     spriteID: 1261f5eaedcb45a4c9a8db2eca67127a
@@ -279,7 +279,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 195
-      y: 36
+      y: 227
       width: 32
       height: 32
     spriteID: e5b7578dabb12bf4ea01baf08298a600
@@ -299,8 +299,8 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 229
-      y: 36
+      x: 228
+      y: 227
       width: 32
       height: 32
     spriteID: d17330ad9653bb545b08e61c98a8158b
@@ -321,7 +321,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 195
       width: 32
       height: 32
     spriteID: 5969464ab92b2ee41871233ba73e7eb4
@@ -342,7 +342,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 36
-      y: 4
+      y: 195
       width: 32
       height: 32
     spriteID: 975747e48826bfe4ab84d92a733a46d3
@@ -363,7 +363,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 68
-      y: 4
+      y: 195
       width: 32
       height: 32
     spriteID: 16244017acbe51f408eaae6c5b32d80b
@@ -384,7 +384,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 100
-      y: 4
+      y: 195
       width: 32
       height: 32
     spriteID: dd1e0ba6b9338284ba6c3e6150aaba00
@@ -405,10 +405,73 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 132
-      y: 4
+      y: 195
       width: 32
       height: 32
     spriteID: ae59d6f56e0a61641b9137d77af0ecb1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Icons_6
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 164
+      y: 195
+      width: 32
+      height: 32
+    spriteID: 87359ddb2d70b3245a5dea508e1a5d99
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Icons_7
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 196
+      y: 195
+      width: 32
+      height: 32
+    spriteID: b185f2c8794ea394ba216e2d48421c62
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Icons_8
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 228
+      y: 195
+      width: 32
+      height: 32
+    spriteID: 8a553521847faf44a94344cbf8d1c9fe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -430,9 +493,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 0
-        y: 192
-        width: 254
-        height: 64
+        y: 1
+        width: 255
+        height: 255
       spriteId: 19e28214dc3a20146a42ade80a4d1e6e
     linkedCells: []
     parentIndex: -1
