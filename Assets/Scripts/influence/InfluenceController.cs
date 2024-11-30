@@ -3,7 +3,6 @@ using input;
 using map;
 using Unity.Burst;
 using UnityEngine;
-using UnityEngine.Profiling;
 using Zenject;
 
 namespace influence
@@ -56,18 +55,7 @@ namespace influence
 
         public void Step()
         {
-            Profiler.BeginSample("Produce");
-            Produce();
-            Profiler.EndSample();
-            Profiler.BeginSample("Produce");
             Propagate();
-            Profiler.EndSample();
-            _gridEvents.GridUpdateEvent();
-        }
-
-        private void Produce()
-        {
-            _grids.ApplyProduction(_mapController.GetTiles(), _mapController.GetTileTypes());
         }
 
         private void Propagate()
@@ -79,7 +67,7 @@ namespace influence
             _grids.SetValues(output);
         }
 
-        public void AddInfluence(Layer layer, int x, int y, int amount)
+        public void AddInfluence(Layer layer, int x, int y, double amount)
         {
             if (x >= 0 && x < _width && y >= 0 && y < _height)
             {
@@ -89,7 +77,7 @@ namespace influence
             _gridEvents.GridUpdateEvent();
         }
 
-        public void RemoveInfluence(Layer layer, int x, int y, int amount)
+        public void RemoveInfluence(Layer layer, int x, int y, double amount)
         {
             if (x >= 0 && x < _width && y >= 0 && y < _height)
             {

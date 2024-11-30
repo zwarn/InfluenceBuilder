@@ -24,17 +24,6 @@ namespace influence
             _values = new double[_width * _height * _depth];
         }
 
-        public void ApplyProduction(int[] tiles, TileType[] tileTypes)
-        {
-            for (var index = 0; index < tiles.Length; index++)
-            {
-                foreach (var info in tileTypes[tiles[index]].layerInformation)
-                {
-                    AddValue(info.layer, index, info.production);
-                }
-            }
-        }
-
         public void Dispose()
         {
         }

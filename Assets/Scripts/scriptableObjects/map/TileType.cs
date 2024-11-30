@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using influence;
+using influence.buildings;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -17,6 +18,16 @@ namespace scriptableObjects.map
         public TileTypeInformation ByLayer(int layer)
         {
             return layerInformation.First(info => (int)info.layer == layer);
+        }
+
+        public BuildingType BuildingType()
+        {
+            if (!layerInformation.Any(info => info.production > 0))
+            {
+                return null;
+            }
+            var typeInformation = layerInformation.FirstOrDefault(info => info.production > 0);
+            return new BuildingType(typeInformation.production, typeInformation.layer);
         }
     }
 

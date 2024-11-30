@@ -2,6 +2,7 @@
 using System.Linq;
 using helper;
 using influence;
+using influence.buildings;
 using scriptableObjects.map;
 using show;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace map
 
         [Inject] private ShowStatusEvents _showStatusEvents;
         [Inject] private GridEvents _gridEvents;
+        [Inject] private BuildingController _buildingController;
 
         private void Awake()
         {
@@ -70,11 +72,26 @@ namespace map
                     positions[index] = new Vector3Int(x, y);
                     terrain[index] = TileTypes[_tiles[index]].terrain;
                     building[index] = TileTypes[_tiles[index]].building;
+
+                    HandleBuilding(x, y, index);
                 }
             }
 
             terrainTilemap.SetTiles(positions, terrain);
             buildingTilemap.SetTiles(positions, building);
+        }
+
+        private void HandleBuilding(int x, int y, int tileType)
+        {
+            var buildingType = TileTypes[_tiles[tileType]].BuildingType();
+            if (buildingType == null)
+            {
+                _buildingController.RemoveBuilding(new Vector2Int(x, y));
+            }
+            else
+            {
+                _buildingController.AddBuilding(new Vector2Int(x, y), buildingType);
+            }
         }
 
         public TileType[] GetTileTypes()
@@ -100,6 +117,8 @@ namespace map
 
             terrainTilemap.SetTile(new Vector3Int(x, y), type.terrain);
             buildingTilemap.SetTile(new Vector3Int(x, y), type.building);
+
+            HandleBuilding(x, y, index);
 
             _gridEvents.MapTileChangedEvent(x, y);
         }
@@ -151,11 +170,6 @@ namespace map
         public double[] LiquidityByTileType()
         {
             return FromTileInformation(info => info.liquidity);
-        }
-
-        public double[] ProductionByTileType()
-        {
-            return FromTileInformation(info => info.production);
         }
     }
 }
