@@ -15,13 +15,13 @@ namespace tool
 
         private void OnEnable()
         {
-            _inputEvents.OnLeftClick += LeftClick;
+            _inputEvents.OnUseTool += UseTool;
             _toolEvents.OnToolSelection += SetTool;
         }
 
         private void OnDisable()
         {
-            _inputEvents.OnLeftClick -= LeftClick;
+            _inputEvents.OnUseTool -= UseTool;
             _toolEvents.OnToolSelection -= SetTool;
         }
 
@@ -31,7 +31,7 @@ namespace tool
             _toolEvents.ToolSelectedEvent(tool);
         }
 
-        private void LeftClick(Vector2Int pos)
+        private void UseTool(Vector2Int pos)
         {
             if (_currentTool != null)
             {

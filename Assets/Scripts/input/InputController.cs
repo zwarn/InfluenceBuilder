@@ -50,7 +50,7 @@ namespace input
                 var worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var x = (int)worldMouse.x;
                 var y = (int)worldMouse.y;
-                _inputEvents.LeftClickEvent(x, y);
+                _inputEvents.UseToolEvent(x, y);
             }
 
             if (Input.GetMouseButton(1) && !EventSystem.current.IsPointerOverGameObject())
@@ -58,7 +58,7 @@ namespace input
                 var worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var x = (int)worldMouse.x;
                 var y = (int)worldMouse.y;
-                _inputEvents.RightClickEvent(x, y);
+                _inputEvents.AltUseToolEvent(x, y);
             }
 
             HandleTranslate();

@@ -19,18 +19,18 @@ namespace input
             OnPerformStepCommand?.Invoke();
         }
 
-        public event Action<Vector2Int> OnLeftClick;
+        public event Action<Vector2Int> OnUseTool;
 
-        public void LeftClickEvent(int x, int y)
+        public void UseToolEvent(int x, int y)
         {
-            OnLeftClick?.Invoke(new Vector2Int(x, y));
+            OnUseTool?.Invoke(new Vector2Int(x, y));
         }
 
-        public event Action<Vector2Int> OnRightClick;
+        public event Action<Vector2Int> OnAltUseTool;
 
-        public void RightClickEvent(int x, int y)
+        public void AltUseToolEvent(int x, int y)
         {
-            OnRightClick?.Invoke(new Vector2Int(x, y));
+            OnAltUseTool?.Invoke(new Vector2Int(x, y));
         }
 
         public event Action OnZoomOut;

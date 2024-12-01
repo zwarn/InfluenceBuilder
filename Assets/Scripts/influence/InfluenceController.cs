@@ -1,5 +1,4 @@
 ﻿using System;
-using input;
 using map;
 using Unity.Burst;
 using UnityEngine;
@@ -16,7 +15,6 @@ namespace influence
         private PropagateShader _shader;
 
         [Inject] private MapController _mapController;
-        [Inject] private InputEvents _inputEvents;
         [Inject] private GridEvents _gridEvents;
 
         private int _width;
@@ -32,8 +30,6 @@ namespace influence
 
         private void OnEnable()
         {
-            _inputEvents.OnPerformStepCommand += Step;
-
             int width = _mapController.width;
             int height = _mapController.height;
             int depth = Enum.GetValues(typeof(Layer)).Length;
@@ -47,8 +43,6 @@ namespace influence
 
         private void OnDisable()
         {
-            _inputEvents.OnPerformStepCommand -= Step;
-
             _shader.Dispose();
             _grids.Dispose();
         }
