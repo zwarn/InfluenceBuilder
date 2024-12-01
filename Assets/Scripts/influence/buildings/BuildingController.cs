@@ -14,7 +14,15 @@ namespace influence.buildings
 
         public void AddBuilding(Vector2Int position, BuildingType buildingType)
         {
-            RemoveBuilding(position);
+            if (_buildings.TryGetValue(position, out var old))
+            {
+                if (buildingType.BuildingTypeSO == old.BuildingType.BuildingTypeSO)
+                {
+                    return;
+                }
+
+                RemoveBuilding(position);
+            }
 
             var building = new Building(buildingType, position, _influenceController);
             _buildings[position] = building;

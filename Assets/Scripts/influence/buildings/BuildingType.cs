@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using scriptableObjects.building;
 
-namespace scriptableObjects.building
+namespace influence.buildings
 {
     public class BuildingType
     {
-        public List<BuildingFunction> Functions;
+        public readonly List<BuildingFunction> Functions;
+        public readonly BuildingTypeSO BuildingTypeSO;
 
-        public BuildingType(List<BuildingFunction> functions)
+        public BuildingType(BuildingTypeSO buildingTypeSO)
         {
-            Functions = functions;
+            BuildingTypeSO = buildingTypeSO;
+            Functions = buildingTypeSO.functions.Select(so => so.CreateFunction()).ToList();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using influence;
+using influence.buildings;
 using UnityEngine;
 
 namespace scriptableObjects.building

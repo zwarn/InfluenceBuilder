@@ -1,7 +1,6 @@
-﻿using influence;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace scriptableObjects.building
+namespace influence.buildings
 {
     public abstract class BuildingFunction
     {

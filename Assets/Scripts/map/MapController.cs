@@ -3,6 +3,7 @@ using System.Linq;
 using helper;
 using influence;
 using influence.buildings;
+using scriptableObjects.building;
 using scriptableObjects.map;
 using show;
 using UnityEngine;
@@ -86,13 +87,14 @@ namespace map
 
         private void HandleBuilding(int x, int y, int tileType)
         {
-            var buildingType = TileTypes[_tiles[tileType]].buildingType?.CreateBuildingType();
-            if (buildingType == null)
+            var buildingTypeSO = TileTypes[_tiles[tileType]].buildingType;
+            if (buildingTypeSO == null)
             {
                 _buildingController.RemoveBuilding(new Vector2Int(x, y));
             }
             else
             {
+                var buildingType = new BuildingType(buildingTypeSO);
                 _buildingController.AddBuilding(new Vector2Int(x, y), buildingType);
             }
         }
@@ -114,9 +116,16 @@ namespace map
             {
                 return;
             }
-
+            
             int tileTypeIndex = Array.IndexOf(TileTypes, type);
+
+            if (_tiles[index] == tileTypeIndex)
+            {
+                return;
+            }
+            
             _tiles[index] = tileTypeIndex;
+            
 
             terrainTilemap.SetTile(new Vector3Int(x, y), type.terrain);
             buildingTilemap.SetTile(new Vector3Int(x, y), type.building);

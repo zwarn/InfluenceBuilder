@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace scriptableObjects.building
@@ -10,10 +9,5 @@ namespace scriptableObjects.building
     public class BuildingTypeSO : ScriptableObject
     {
         [SerializeField] public List<BuildingFunctionSO> functions;
-        
-        public BuildingType CreateBuildingType()
-        {
-            return new BuildingType(functions.Select(so => so.CreateFunction()).ToList());
-        }
     }
 }
