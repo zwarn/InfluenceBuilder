@@ -620,7 +620,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1483,6 +1483,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quad: {fileID: 1933500703}
   visualizeShader: {fileID: 7200000, guid: c850b06757d49c44480cc48eb80abd00, type: 3}
+  alpha: 0.5
+  minValue: 0.001
+  maxValue: 5000
 --- !u!1 &1190408526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1955,6 +1958,8 @@ MonoBehaviour:
   terrainTilemap: {fileID: 1687783082}
   buildingTilemap: {fileID: 483071892}
   mapCreator: {fileID: 1800029682}
+  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  darkColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1800029682
 MonoBehaviour:
   m_ObjectHideFlags: 0

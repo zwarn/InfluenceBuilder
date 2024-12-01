@@ -9,7 +9,14 @@ namespace ui.influenceVisualizer
 
         public void SetValue(double value)
         {
-            text.text = value.ToString("F");
+            string format = value switch
+            {
+                >= 100 => "F0",
+                >= 10 => "F1",
+                _ => "F"
+            };
+
+            text.text = value.ToString(format);
         }
     }
 }

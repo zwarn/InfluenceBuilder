@@ -20,6 +20,9 @@ namespace map
         [SerializeField] private Tilemap buildingTilemap;
         [SerializeField] private MapCreator mapCreator;
 
+        [SerializeField] private Color lightColor = Color.white;
+        [SerializeField] private Color darkColor = Color.grey;
+
         private TileType[] TileTypes => mapCreator.GetTileTypes();
         private int[] _tiles;
 
@@ -125,8 +128,8 @@ namespace map
 
         public void Darken(bool dark)
         {
-            terrainTilemap.color = dark ? Color.grey : Color.white;
-            buildingTilemap.color = dark ? Color.grey : Color.white;
+            terrainTilemap.color = dark ? darkColor : lightColor;
+            buildingTilemap.color = dark ? darkColor : lightColor;
         }
 
         public bool IsPointOnMap(int x, int y)

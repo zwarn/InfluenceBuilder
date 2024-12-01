@@ -2,9 +2,9 @@
 
 uint Width;
 uint Height;
-float Alpha = 0.3;
-float MinValue = 0.001;
-float MaxValue = 5000;
+float Alpha;
+float MinValue;
+float MaxValue;
 
 StructuredBuffer<double> Values;
 
@@ -45,9 +45,9 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     float value = Values[index];
 
     value = max(value, MinValue);
-    float normalizedValue = (log10(value) - log10(MinValue)) / (log10(MaxValue) - log10(MinValue));
+    const float normalizedValue = (log10(value) - log10(MinValue)) / (log10(MaxValue) - log10(MinValue));
 
     float3 color = GetHeatmapColor(normalizedValue);
 
-    Result[int2(x, y)] = float4(color, normalizedValue);
+    Result[int2(x, y)] = float4(color, normalizedValue * Alpha);
 }

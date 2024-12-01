@@ -19,6 +19,9 @@ namespace ui
 
         [SerializeField] private Renderer quad;
         [SerializeField] private ComputeShader visualizeShader;
+        [SerializeField] float alpha = 0.15f;
+        [SerializeField] float minValue = 0.001f;
+        [SerializeField] float maxValue = 5000;
 
         private RenderTexture _renderTexture;
         private ComputeBuffer _valuesBuffer;
@@ -102,9 +105,9 @@ namespace ui
             visualizeShader.SetTexture(0, Result, _renderTexture);
             visualizeShader.SetInt(Width, _width);
             visualizeShader.SetInt(Height, _height);
-            visualizeShader.SetFloat(MinValue, 0.001f);
-            visualizeShader.SetFloat(MaxValue, 5000);
-            visualizeShader.SetFloat(Alpha, 0.25f);
+            visualizeShader.SetFloat(MinValue, minValue);
+            visualizeShader.SetFloat(MaxValue, maxValue);
+            visualizeShader.SetFloat(Alpha, alpha);
 
             visualizeShader.Dispatch(visualizeShader.FindKernel("CSMain"), Mathf.CeilToInt(_width / 8f),
                 Mathf.CeilToInt(_height / 8f), 1);
