@@ -83,7 +83,7 @@ namespace map
 
         private void HandleBuilding(int x, int y, int tileType)
         {
-            var buildingType = TileTypes[_tiles[tileType]].BuildingType();
+            var buildingType = TileTypes[_tiles[tileType]].buildingType?.CreateBuildingType();
             if (buildingType == null)
             {
                 _buildingController.RemoveBuilding(new Vector2Int(x, y));
@@ -107,7 +107,7 @@ namespace map
         public void ChangeTile(int x, int y, TileType type)
         {
             int index = y * width + x;
-            if (index < 0 || index > _tiles.Length)
+            if (x < 0 || x >= width || y < 0 || y >= height)
             {
                 return;
             }

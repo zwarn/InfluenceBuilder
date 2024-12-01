@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using influence;
-using influence.buildings;
+using scriptableObjects.building;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,22 +12,13 @@ namespace scriptableObjects.map
     {
         public TileBase terrain;
         public TileBase building;
+        public BuildingTypeSO buildingType;
 
         public TileTypeInformation[] layerInformation;
 
         public TileTypeInformation ByLayer(int layer)
         {
             return layerInformation.First(info => (int)info.layer == layer);
-        }
-
-        public BuildingType BuildingType()
-        {
-            if (!layerInformation.Any(info => info.production > 0))
-            {
-                return null;
-            }
-            var typeInformation = layerInformation.FirstOrDefault(info => info.production > 0);
-            return new BuildingType(typeInformation.production, typeInformation.layer);
         }
     }
 
@@ -37,6 +28,5 @@ namespace scriptableObjects.map
         public Layer layer;
         [Range(0, 1)] public double liquidity;
         [Range(0, 1)] public double loss;
-        [Range(0, 10)] public double production;
     }
 }

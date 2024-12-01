@@ -1,17 +1,14 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
-namespace influence.buildings
+namespace scriptableObjects.building
 {
-    [Serializable]
     public class BuildingType
     {
-        public double production;
-        public Layer layer;
+        public List<BuildingFunction> Functions;
 
-        public BuildingType(double production, Layer layer)
+        public BuildingType(List<BuildingFunction> functions)
         {
-            this.production = production;
-            this.layer = layer;
+            Functions = functions;
         }
     }
 }
