@@ -2,23 +2,21 @@
 using influence.buildings;
 using UnityEngine;
 
-namespace scriptableObjects.building
+namespace scriptableObjects.building.production
 {
     public class ProductionFunction : BuildingFunction
     {
-        private readonly double _production;
+        private readonly Layered<double> _production;
         private readonly int _cooldown;
-        private readonly Layer _layer;
 
         private Vector2Int _position;
         private InfluenceController _influenceController;
         private int _stepCounter;
 
-        public ProductionFunction(double production, int cooldown, Layer layer)
+        public ProductionFunction(Layered<double> production, int cooldown)
         {
             _production = production;
             _cooldown = cooldown;
-            _layer = layer;
         }
 
         public override void Init(Vector2Int position, InfluenceController influenceController)
@@ -40,7 +38,8 @@ namespace scriptableObjects.building
 
         private void Produce()
         {
-            _influenceController.AddInfluence(_layer, _position.x, _position.y, _production);
+            _production.ForEach((layer, value) =>
+                _influenceController.AddInfluence(layer, _position.x, _position.y, value));
         }
 
         public override void Remove()

@@ -16,10 +16,26 @@ namespace scriptableObjects.map
 
         public TileTypeInformation[] layerInformation;
 
-        public TileTypeInformation ByLayer(int layer)
+        public Layered<double> GetLiquidity()
         {
-            return layerInformation.First(info => (int)info.layer == layer);
+            var layeredLiquidity = new Layered<double>();
+            foreach (var entry in layerInformation)
+            {
+                layeredLiquidity.AddOrUpdate(entry.layer, entry.liquidity,(a, b) => a + b);
+            }
+            return layeredLiquidity;
         }
+        
+        public Layered<double> GetLoss()
+        {
+            var layeredLoss = new Layered<double>();
+            foreach (var entry in layerInformation)
+            {
+                layeredLoss.AddOrUpdate(entry.layer, entry.loss,(a, b) => a + b);
+            }
+            return layeredLoss;
+        }
+
     }
 
     [Serializable]

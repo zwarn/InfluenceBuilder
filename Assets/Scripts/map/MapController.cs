@@ -116,16 +116,16 @@ namespace map
             {
                 return;
             }
-            
+
             int tileTypeIndex = Array.IndexOf(TileTypes, type);
 
             if (_tiles[index] == tileTypeIndex)
             {
                 return;
             }
-            
+
             _tiles[index] = tileTypeIndex;
-            
+
 
             terrainTilemap.SetTile(new Vector3Int(x, y), type.terrain);
             buildingTilemap.SetTile(new Vector3Int(x, y), type.building);
@@ -157,18 +157,17 @@ namespace map
             return TileTypes[_tiles[index]];
         }
 
-        private T[] FromTileInformation<T>(Func<TileTypeInformation, T> func)
+        private T[] FromTileInformation<T>(Func<TileType, Layered<T>> func)
         {
             int layers = EnumUtils.GetLength<Layer>();
             int tileTypes = TileTypes.Length;
             T[] result = new T[layers * tileTypes];
 
-            for (int layer = 0; layer < layers; layer++)
+            for (int tileType = 0; tileType < tileTypes; tileType++)
             {
-                for (int tileType = 0; tileType < tileTypes; tileType++)
-                {
-                    result[tileType * layers + layer] = func.Invoke(TileTypes[tileType].ByLayer(layer));
-                }
+                var layered = func.Invoke(TileTypes[tileType]);
+                var type = tileType;
+                layered.ForEach((layer, value) => result[type * layers + (int)layer] = value);
             }
 
             return result;
@@ -176,12 +175,12 @@ namespace map
 
         public double[] LossByTileType()
         {
-            return FromTileInformation(info => info.loss);
+            return FromTileInformation(tileType => tileType.GetLoss());
         }
 
         public double[] LiquidityByTileType()
         {
-            return FromTileInformation(info => info.liquidity);
+            return FromTileInformation(tileType => tileType.GetLiquidity());
         }
     }
 }

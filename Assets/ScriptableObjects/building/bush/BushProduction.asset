@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e2334754b874a92b9567862712813b6, type: 3}
   m_Name: BushProduction
   m_EditorClassIdentifier: 
-  production: 1
   cooldown: 1
-  layer: 0
+  production:
+  - layer: 0
+    value: 1
