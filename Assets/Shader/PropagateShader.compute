@@ -28,18 +28,38 @@ StructuredBuffer<double> Consumption;
 StructuredBuffer<int> Cooldown;
 RWStructuredBuffer<int> Timer;
 
+uint tileIndex(uint x, uint y)
+{
+    return y * Width + x;
+}
+
+uint layeredTileIndex(uint x, uint y, uint z)
+{
+    return z * Width * Height + y * Width + x;
+}
+
+uint tileTypeIndex(uint x, uint y)
+{
+    return Tiles[tileIndex(x, y)];
+}
+
+uint layeredTileTypeIndex(uint x, uint y, uint z)
+{
+    return z + Depth * Tiles[tileIndex(x, y)];
+}
+
 [numthreads(8, 8, 1)]
 void CSMain(uint3 id : SV_DispatchThreadID)
 {
     const uint x = id.x;
     const uint y = id.y;
     const uint z = id.z;
-    const uint index = z * Width * Height + y * Width + x;
+    const uint index = layeredTileTypeIndex(x, y, z);
+    const uint layeredTileType = layeredTileTypeIndex(x, y, z);
 
     double acc = 0;
     double flow = 0;
 
-    const uint layeredTileType = z + Depth * Tiles[y * Width + x];
     for (int dx = -1; dx <= 1; dx++)
     {
         for (int dy = -1; dy <= 1; dy++)
@@ -52,8 +72,8 @@ void CSMain(uint3 id : SV_DispatchThreadID)
             const double currentLiquidity = Liquidity[layeredTileType];
             if (nx >= 0 && nx < Width && ny >= 0 && ny < Height)
             {
-                const uint neighborIndex = z * Width * Height + ny * Width + nx;
-                const double neighborLiquidity = Liquidity[z + Depth * Tiles[ny * Height + nx]];
+                const uint neighborIndex = layeredTileIndex(nx, ny, z);
+                const double neighborLiquidity = Liquidity[layeredTileTypeIndex(nx, ny, z)];
                 acc += currentLiquidity * Input[neighborIndex] * 0.25;
                 flow += neighborLiquidity * 0.25;
             }
@@ -72,12 +92,12 @@ void CSMain(uint3 id : SV_DispatchThreadID)
     acc -= toStore;
 
     //Production + Consumption
-    if (Timer[y * Width + x] % Cooldown[Tiles[y * Width + x]] == 0 && z == 0)
+    if (Timer[tileIndex(x, y)] % Cooldown[tileTypeIndex(x, y)] == 0 && z == 0)
     {
         bool productionReady = true;
         for (int layer = 0; layer < Depth; layer++)
         {
-            if (Store[layer * Width * Height + y * Width + x] < Consumption[layer + Depth * Tiles[y * Width + x]])
+            if (Store[layeredTileIndex(x, y, layer)] < Consumption[layeredTileTypeIndex(x, y, layer)])
             {
                 productionReady = false;
                 break;
@@ -88,8 +108,8 @@ void CSMain(uint3 id : SV_DispatchThreadID)
         {
             for (int layer = 0; layer < Depth; layer++)
             {
-                Store[layer * Width * Height + y * Width + x] -= Consumption[layer + Depth * Tiles[y * Width + x]];
-                Store[layer * Width * Height + y * Width + x] += Production[layer + Depth * Tiles[y * Width + x]];
+                Store[layeredTileIndex(x, y, layer)] -= Consumption[layeredTileTypeIndex(x, y, layer)];
+                Store[layeredTileIndex(x, y, layer)] += Production[layeredTileTypeIndex(x, y, layer)];
             }
         }
     }
