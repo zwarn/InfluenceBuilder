@@ -1,9 +1,9 @@
 #pragma kernel CSMain
 
 // Grid properties, set from C#:
-uint Width;
-uint Height;
-uint Depth;
+int Width;
+int Height;
+int Depth;
 
 // Input and output buffers
 
@@ -28,37 +28,30 @@ StructuredBuffer<double> Consumption;
 StructuredBuffer<int> Cooldown;
 RWStructuredBuffer<int> Timer;
 
-uint tileIndex(uint x, uint y)
+int tile_index(const int x, const int y)
 {
     return y * Width + x;
 }
 
-uint layeredTileIndex(uint x, uint y, uint z)
+int layered_tile_index(const int x, const int y, const int z)
 {
     return z * Width * Height + y * Width + x;
 }
 
-uint tileTypeIndex(uint x, uint y)
+int tile_type_index(const int x, const int y)
 {
-    return Tiles[tileIndex(x, y)];
+    return Tiles[tile_index(x, y)];
 }
 
-uint layeredTileTypeIndex(uint x, uint y, uint z)
+int layered_tile_type_index(const int x, const int y, const int z)
 {
-    return z + Depth * Tiles[tileIndex(x, y)];
+    return z + Depth * Tiles[tile_index(x, y)];
 }
 
-[numthreads(8, 8, 1)]
-void CSMain(uint3 id : SV_DispatchThreadID)
+double do_propagate(const int x, const int y, const int z, const int index, double acc)
 {
-    const uint x = id.x;
-    const uint y = id.y;
-    const uint z = id.z;
-    const uint index = layeredTileTypeIndex(x, y, z);
-    const uint layeredTileType = layeredTileTypeIndex(x, y, z);
-
-    double acc = 0;
     double flow = 0;
+    const int layeredTileType = layered_tile_type_index(x, y, z);
 
     for (int dx = -1; dx <= 1; dx++)
     {
@@ -66,14 +59,14 @@ void CSMain(uint3 id : SV_DispatchThreadID)
         {
             if (abs(dx) + abs(dy) != 1) continue; // Skip non-adjacent cells
 
-            int nx = x + dx;
-            int ny = y + dy;
+            const int nx = x + dx;
+            const int ny = y + dy;
 
             const double currentLiquidity = Liquidity[layeredTileType];
             if (nx >= 0 && nx < Width && ny >= 0 && ny < Height)
             {
-                const uint neighborIndex = layeredTileIndex(nx, ny, z);
-                const double neighborLiquidity = Liquidity[layeredTileTypeIndex(nx, ny, z)];
+                const int neighborIndex = layered_tile_index(nx, ny, z);
+                const double neighborLiquidity = Liquidity[layered_tile_type_index(nx, ny, z)];
                 acc += currentLiquidity * Input[neighborIndex] * 0.25;
                 flow += neighborLiquidity * 0.25;
             }
@@ -84,39 +77,58 @@ void CSMain(uint3 id : SV_DispatchThreadID)
             }
         }
     }
+    return acc + Input[index] * (1 - flow);
+}
 
-    acc += Input[index] * (1 - flow);
-    // Store
+double do_store(const int index, const int layeredTileType, double acc)
+{
     const double toStore = min(min(StoreRate[layeredTileType], StoreSize[layeredTileType] - Store[index]), acc);
     Store[index] += toStore;
-    acc -= toStore;
+    return acc - toStore;
+}
 
-    //Production + Consumption
-    if (Timer[tileIndex(x, y)] % Cooldown[tileTypeIndex(x, y)] == 0 && z == 0)
+void do_production(const int x, const int y, const int z)
+{
+    if (Timer[tile_index(x, y)] % Cooldown[tile_type_index(x, y)] != 0 || z != 0)
     {
-        bool productionReady = true;
-        for (int layer = 0; layer < Depth; layer++)
-        {
-            if (Store[layeredTileIndex(x, y, layer)] < Consumption[layeredTileTypeIndex(x, y, layer)])
-            {
-                productionReady = false;
-                break;
-            }
-        }
+        return;
+    }
 
-        if (productionReady)
+    for (int layer = 0; layer < Depth; layer++)
+    {
+        if (Store[layered_tile_index(x, y, layer)] < Consumption[layered_tile_type_index(x, y, layer)])
         {
-            for (int layer = 0; layer < Depth; layer++)
-            {
-                Store[layeredTileIndex(x, y, layer)] -= Consumption[layeredTileTypeIndex(x, y, layer)];
-                Store[layeredTileIndex(x, y, layer)] += Production[layeredTileTypeIndex(x, y, layer)];
-            }
+            return;
         }
     }
 
-    // Subtract loss
-    acc -= Loss[layeredTileType];
+    for (int layer = 0; layer < Depth; layer++)
+    {
+        Store[layered_tile_index(x, y, layer)] -= Consumption[layered_tile_type_index(x, y, layer)];
+        Store[layered_tile_index(x, y, layer)] += Production[layered_tile_type_index(x, y, layer)];
+    }
+}
+
+double do_loss(const int layeredTileType, double acc)
+{
+    return acc - Loss[layeredTileType];
+}
+
+[numthreads(8, 8, 1)]
+void CSMain(int3 id : SV_DispatchThreadID)
+{
+    const int x = id.x;
+    const int y = id.y;
+    const int z = id.z;
+    const int index = layered_tile_index(x, y, z);
+    const int layeredTileType = layered_tile_type_index(x, y, z);
+
+    double acc = 0;
+    acc = do_propagate(x, y, z, index, acc);
+    acc = do_store(index, layeredTileType, acc);
+    do_production(x, y, z);
+    acc = do_loss(layeredTileType, acc);
 
     Output[index] = max(acc, 0);
-    Timer[y * Width + x]++;
+    Timer[tile_index(x, y)]++;
 }

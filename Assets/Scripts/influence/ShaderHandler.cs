@@ -151,7 +151,7 @@ namespace influence
             int threadGroupsX = Mathf.CeilToInt(_width / 8.0f);
             int threadGroupsY = Mathf.CeilToInt(_height / 8.0f);
             int threadGroupsZ = Mathf.CeilToInt(_depth);
-            _propagateShader.Dispatch(0, threadGroupsX, threadGroupsY, threadGroupsZ);
+            _propagateShader.Dispatch(_propagateShader.FindKernel("CSMain"), threadGroupsX, threadGroupsY, threadGroupsZ);
 
             _outputBuffer.GetData(output);
             _storeBuffer.GetData(store);
