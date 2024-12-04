@@ -6,6 +6,8 @@ namespace influence
     public class InfluenceGrids
     {
         private double[] _values;
+        private double[] _store;
+        private int[] _timer;
 
         private int _width;
         private int _height;
@@ -22,6 +24,8 @@ namespace influence
             _area = _width * height;
 
             _values = new double[_width * _height * _depth];
+            _store = new double[_width * _height * _depth];
+            _timer = new int[_width * _height];
         }
 
         public void Dispose()
@@ -81,6 +85,26 @@ namespace influence
         public void SetValues(double[] values)
         {
             _values = values;
+        }
+
+        public double[] GetStore()
+        {
+            return _store;
+        }
+
+        public void SetStore(double[] store)
+        {
+            _store = store;
+        }
+
+        public int[] GetTimer()
+        {
+            return _timer;
+        }
+
+        public void SetTimer(int[] timer)
+        {
+            _timer = timer;
         }
     }
 }

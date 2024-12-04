@@ -1,6 +1,5 @@
 using System;
 using influence;
-using influence.buildings;
 using time;
 using UnityEngine;
 using Zenject;
@@ -8,7 +7,6 @@ using Zenject;
 public class GameController : MonoBehaviour
 {
     [Inject] private InfluenceController _influenceController;
-    [Inject] private BuildingController _buildingController;
     [Inject] private TimeController _timeController;
     [Inject] private GridEvents _gridEvents;
 
@@ -23,7 +21,6 @@ public class GameController : MonoBehaviour
     public void Step()
     {
         _influenceController.Step();
-        _buildingController.Step();
         _gridEvents.GridUpdateEvent();
     }
 }

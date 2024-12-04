@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrain: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
   building: {fileID: 11400000, guid: 615a9e02a520c5f42aeb12570541dd4b, type: 2}
-  buildingType: {fileID: 11400000, guid: 78ba4641cf008dc4f908e7678ec699c9, type: 2}
   layerInformation:
   - layer: 0
     liquidity: 0.5
@@ -22,3 +21,15 @@ MonoBehaviour:
   - layer: 1
     liquidity: 0.5
     loss: 0
+  productionInformation:
+  - layer: 1
+    production: 100
+    consumption: 0
+    storeSize: 0
+    storeRate: 0
+  - layer: 0
+    production: 0
+    consumption: 20
+    storeSize: 50
+    storeRate: 2.5
+  cooldown: 20

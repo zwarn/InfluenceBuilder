@@ -3,6 +3,7 @@ using System.Linq;
 using helper;
 using influence;
 using influence.buildings;
+using ModestTree;
 using scriptableObjects.building;
 using scriptableObjects.map;
 using show;
@@ -29,7 +30,6 @@ namespace map
 
         [Inject] private ShowStatusEvents _showStatusEvents;
         [Inject] private GridEvents _gridEvents;
-        [Inject] private BuildingController _buildingController;
 
         private void Awake()
         {
@@ -76,27 +76,11 @@ namespace map
                     positions[index] = new Vector3Int(x, y);
                     terrain[index] = TileTypes[_tiles[index]].terrain;
                     building[index] = TileTypes[_tiles[index]].building;
-
-                    HandleBuilding(x, y, index);
                 }
             }
 
             terrainTilemap.SetTiles(positions, terrain);
             buildingTilemap.SetTiles(positions, building);
-        }
-
-        private void HandleBuilding(int x, int y, int tileType)
-        {
-            var buildingTypeSO = TileTypes[_tiles[tileType]].buildingType;
-            if (buildingTypeSO == null)
-            {
-                _buildingController.RemoveBuilding(new Vector2Int(x, y));
-            }
-            else
-            {
-                var buildingType = new BuildingType(buildingTypeSO);
-                _buildingController.AddBuilding(new Vector2Int(x, y), buildingType);
-            }
         }
 
         public TileType[] GetTileTypes()
@@ -129,8 +113,6 @@ namespace map
 
             terrainTilemap.SetTile(new Vector3Int(x, y), type.terrain);
             buildingTilemap.SetTile(new Vector3Int(x, y), type.building);
-
-            HandleBuilding(x, y, index);
 
             _gridEvents.MapTileChangedEvent(x, y);
         }
@@ -181,6 +163,40 @@ namespace map
         public double[] LiquidityByTileType()
         {
             return FromTileInformation(tileType => tileType.GetLiquidity());
+        }
+
+        public double[] StoreSizeByTileType()
+        {
+            return FromTileInformation(tileType => tileType.GetProductionInformation().Select(info => info.storeSize));
+        }
+
+        public double[] StoreRateByTileType()
+        {
+            return FromTileInformation(tileType => tileType.GetProductionInformation().Select(info => info.storeRate));
+        }
+
+        public double[] ProductionByTileType()
+        {
+            return FromTileInformation(tileType => tileType.GetProductionInformation().Select(info => info.production));
+        }
+
+        public double[] ConsumptionByTileType()
+        {
+            return FromTileInformation(tileType =>
+                tileType.GetProductionInformation().Select(info => info.consumption));
+        }
+
+        public int[] CooldownByTileType()
+        {
+            int tileTypes = TileTypes.Length;
+            int[] result = new int[tileTypes];
+
+            for (int tileType = 0; tileType < tileTypes; tileType++)
+            {
+                result[tileType] = TileTypes[tileType].cooldown;
+            }
+
+            return result;
         }
     }
 }

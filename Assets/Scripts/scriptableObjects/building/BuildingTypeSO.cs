@@ -8,6 +8,5 @@ namespace scriptableObjects.building
     [CreateAssetMenu(fileName = "BuildingType", menuName = "building/BuildingType", order = 0)]
     public class BuildingTypeSO : ScriptableObject
     {
-        [SerializeField] public List<BuildingFunctionSO> functions;
     }
 }

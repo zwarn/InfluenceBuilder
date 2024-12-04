@@ -1483,7 +1483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quad: {fileID: 1933500703}
   visualizeShader: {fileID: 7200000, guid: c850b06757d49c44480cc48eb80abd00, type: 3}
-  alpha: 0.5
+  alpha: 0.8
   minValue: 0.001
   maxValue: 5000
 --- !u!1 &1190408526
@@ -1566,7 +1566,6 @@ MonoBehaviour:
   influenceController: {fileID: 1190408528}
   showStatusController: {fileID: 1822127823}
   timeController: {fileID: 2093729254}
-  buildingController: {fileID: 2010206993}
   toolbarUI: {fileID: 1496735609}
 --- !u!114 &1251014502
 MonoBehaviour:
@@ -2268,6 +2267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b48bd39c9a544d29db4083b4c642378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _influenceController: {fileID: 0}
 --- !u!1 &2057266488
 GameObject:
   m_ObjectHideFlags: 0

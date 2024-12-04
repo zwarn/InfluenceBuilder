@@ -37,8 +37,14 @@ namespace influence
 
             var liquidity = _mapController.LiquidityByTileType();
             var loss = _mapController.LossByTileType();
+            var storeSize = _mapController.StoreSizeByTileType();
+            var storeRate = _mapController.StoreRateByTileType();
+            var production = _mapController.ProductionByTileType();
+            var consumption = _mapController.ConsumptionByTileType();
+            var cooldown = _mapController.CooldownByTileType();
 
-            _shader = new PropagateShader(width, height, depth, tileTypeCount, liquidity, loss, propagateShader);
+            _shader = new PropagateShader(propagateShader, width, height, depth, tileTypeCount, liquidity, loss,
+                storeSize, storeRate, production, consumption, cooldown);
         }
 
         private void OnDisable()
@@ -55,10 +61,14 @@ namespace influence
         private void Propagate()
         {
             var values = _grids.GetValues();
+            var store = _grids.GetStore();
+            var timer = _grids.GetTimer();
             var tiles = _mapController.GetTiles();
 
-            var output = _shader.Propagate(values, tiles);
+            var (output, newStore, newTimer) = _shader.Propagate(values, tiles, timer, store);
             _grids.SetValues(output);
+            _grids.SetStore(newStore);
+            _grids.SetTimer(newTimer);
         }
 
         public void AddInfluence(Layer layer, int x, int y, double amount)

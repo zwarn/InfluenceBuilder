@@ -6,11 +6,27 @@ uint Height;
 uint Depth;
 
 // Input and output buffers
-StructuredBuffer<double> Input;
+
 StructuredBuffer<int> Tiles;
+
+//Store
+StructuredBuffer<double> StoreSize;
+StructuredBuffer<double> StoreRate;
+RWStructuredBuffer<double> Store;
+
+//Propagation
+StructuredBuffer<double> Input;
 StructuredBuffer<double> Liquidity;
-StructuredBuffer<double> Loss;
 RWStructuredBuffer<double> Output;
+
+//Loss
+StructuredBuffer<double> Loss;
+
+//Production
+StructuredBuffer<double> Production;
+StructuredBuffer<double> Consumption;
+StructuredBuffer<int> Cooldown;
+RWStructuredBuffer<int> Timer;
 
 [numthreads(8, 8, 1)]
 void CSMain(uint3 id : SV_DispatchThreadID)
@@ -23,17 +39,17 @@ void CSMain(uint3 id : SV_DispatchThreadID)
     double acc = 0;
     double flow = 0;
 
-    // Add contributions from neighbors or retain mass at borders
+    const uint layeredTileType = z + Depth * Tiles[y * Width + x];
     for (int dx = -1; dx <= 1; dx++)
     {
         for (int dy = -1; dy <= 1; dy++)
         {
             if (abs(dx) + abs(dy) != 1) continue; // Skip non-adjacent cells
-    
+
             int nx = x + dx;
             int ny = y + dy;
-    
-            const double currentLiquidity = Liquidity[z + Depth * Tiles[y * Height + x]];
+
+            const double currentLiquidity = Liquidity[layeredTileType];
             if (nx >= 0 && nx < Width && ny >= 0 && ny < Height)
             {
                 const uint neighborIndex = z * Width * Height + ny * Width + nx;
@@ -49,10 +65,38 @@ void CSMain(uint3 id : SV_DispatchThreadID)
         }
     }
 
-    // Add self-retention
     acc += Input[index] * (1 - flow);
+    // Store
+    const double toStore = min(min(StoreRate[layeredTileType], StoreSize[layeredTileType] - Store[index]), acc);
+    Store[index] += toStore;
+    acc -= toStore;
+
+    //Production + Consumption
+    if (Timer[y * Width + x] % Cooldown[Tiles[y * Width + x]] == 0 && z == 0)
+    {
+        bool productionReady = true;
+        for (int layer = 0; layer < Depth; layer++)
+        {
+            if (Store[layer * Width * Height + y * Width + x] < Consumption[layer + Depth * Tiles[y * Width + x]])
+            {
+                productionReady = false;
+                break;
+            }
+        }
+
+        if (productionReady)
+        {
+            for (int layer = 0; layer < Depth; layer++)
+            {
+                Store[layer * Width * Height + y * Width + x] -= Consumption[layer + Depth * Tiles[y * Width + x]];
+                Store[layer * Width * Height + y * Width + x] += Production[layer + Depth * Tiles[y * Width + x]];
+            }
+        }
+    }
+
     // Subtract loss
-    acc -= Loss[z + Depth * Tiles[y * Height + x]];
+    acc -= Loss[layeredTileType];
 
     Output[index] = max(acc, 0);
+    Timer[y * Width + x]++;
 }
