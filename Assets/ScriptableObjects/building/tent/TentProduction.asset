@@ -15,4 +15,9 @@ MonoBehaviour:
   cooldown: 20
   production:
   - layer: 1
-    value: 100
+    production: 100
+  consumption:
+  - layer: 0
+    consumption: 10
+    localStorage: 20
+    storageRate: 1

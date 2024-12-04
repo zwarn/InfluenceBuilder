@@ -12,6 +12,7 @@ namespace scriptableObjects.tool
 
         [Inject] private InfluenceController _influenceController;
         [Inject] private ShowStatusController _showStatusController;
+        [Inject] private GridEvents _gridEvents;
 
         public override void Apply(int x, int y)
         {
@@ -19,6 +20,7 @@ namespace scriptableObjects.tool
             if (currentLayer != null)
             {
                 _influenceController.RemoveInfluence(Layer.Food, x, y, amount);
+                _gridEvents.GridUpdateEvent();
             }
         }
     }

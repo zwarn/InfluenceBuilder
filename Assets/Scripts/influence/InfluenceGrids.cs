@@ -53,10 +53,12 @@ namespace influence
             _values[GetIndex(layer, x, y)] += amount;
         }
 
-        public void RemoveValue(Layer layer, int x, int y, double amount)
+        public double RemoveValue(Layer layer, int x, int y, double amount)
         {
             int index = GetIndex(layer, x, y);
-            _values[index] = Math.Max(_values[index] - amount, 0);
+            double reduction = Math.Min(_values[index], amount);
+            _values[index] -= reduction;
+            return reduction;
         }
 
         public double GetValue(Layer layer, int x, int y)

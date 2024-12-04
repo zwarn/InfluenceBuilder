@@ -15,4 +15,5 @@ MonoBehaviour:
   cooldown: 1
   production:
   - layer: 0
-    value: 1
+    production: 1
+  consumption: []
