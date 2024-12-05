@@ -40,13 +40,15 @@ namespace ui.bar
         private void CreateButtonViews()
         {
             _emptyButton = Instantiate(prefab, transform);
-            _emptyButton.SetData(emptyIcon, () => _inputEvents.ToggleShowInfluenceEvent(-1));
+            _emptyButton.SetData(emptyIcon, () => _inputEvents.ToggleShowInfluenceEvent(-1), null, null);
             _emptyButton.SetSelected(true);
 
             layerTypes.ForEach(layer =>
             {
                 var buttonView = Instantiate(prefab, transform);
-                buttonView.SetData(layer.icon, () => _inputEvents.ToggleShowInfluenceEvent((int)layer.layer));
+                buttonView.SetData(layer.icon, () => _inputEvents.ToggleShowInfluenceEvent((int)layer.layer),
+                    () => _inputEvents.PreviewShowInfluenceEvent((int)layer.layer),
+                    () => _inputEvents.PreviewShowInfluenceEvent(-1));
                 _buttonViews.Add(layer.layer, buttonView);
                 buttonView.SetSelected(false);
             });

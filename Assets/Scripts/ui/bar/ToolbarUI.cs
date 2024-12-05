@@ -35,7 +35,7 @@ namespace ui.bar
             toolSelection.ForEach(tool =>
             {
                 var buttonView = Instantiate(prefab, transform);
-                buttonView.SetData(tool.icon, () => _toolEvents.ToolSelectionEvent(tool));
+                buttonView.SetData(tool.icon, () => _toolEvents.ToolSelectionEvent(tool), null, null);
                 _buttonViews.Add(tool, buttonView);
                 buttonView.SetSelected(false);
             });

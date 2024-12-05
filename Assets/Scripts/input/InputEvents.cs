@@ -74,5 +74,12 @@ namespace input
         {
             OnToggleShowInfluenceVisualizer?.Invoke();
         }
+
+        public event Action<int> OnPreviewInfluence;
+        
+        public void PreviewShowInfluenceEvent(int layer)
+        {
+            OnPreviewInfluence?.Invoke(layer);
+        }
     }
 }

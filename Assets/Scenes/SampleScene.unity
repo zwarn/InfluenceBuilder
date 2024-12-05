@@ -1957,7 +1957,7 @@ MonoBehaviour:
   buildingTilemap: {fileID: 483071892}
   mapCreator: {fileID: 1800029682}
   lightColor: {r: 1, g: 1, b: 1, a: 1}
-  darkColor: {r: 1, g: 1, b: 1, a: 1}
+  darkColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
 --- !u!114 &1800029682
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ namespace ui.bar
         private ButtonView CreateButtonView(Sprite icon, Action onClick)
         {
             var buttonView = Instantiate(prefab, transform);
-            buttonView.SetData(icon, onClick);
+            buttonView.SetData(icon, onClick, null, null);
             return buttonView;
         }
 

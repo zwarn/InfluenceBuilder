@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace ui.bar
 {
-    public class ButtonView : MonoBehaviour, IPointerClickHandler
+    public class ButtonView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         public Image iconImage;
         public Image image;
@@ -13,11 +13,15 @@ namespace ui.bar
         public Sprite activeButton;
 
         private Action _onClick;
+        private Action _onHoverEnter;
+        private Action _onHoverLeave;
 
-        public void SetData(Sprite icon, Action onClick)
+        public void SetData(Sprite icon, Action onClick, Action onHoverEnter, Action onHoverLeave)
         {
             iconImage.sprite = icon;
             _onClick = onClick;
+            _onHoverEnter = onHoverEnter;
+            _onHoverLeave = onHoverLeave;
         }
 
         public void SetSelected(bool highlight)
@@ -27,7 +31,17 @@ namespace ui.bar
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _onClick.Invoke();
+            _onClick?.Invoke();
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            _onHoverEnter?.Invoke();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            _onHoverLeave?.Invoke();
         }
     }
 }
