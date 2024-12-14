@@ -14,6 +14,7 @@ namespace scriptableObjects.map
 
         public TileTypeInformation[] layerInformation;
         public ProductionInformation[] productionInformation;
+        public StoreInformation[] storeInformation;
         public int cooldown;
 
         public Layered<double> GetLiquidity()
@@ -53,6 +54,17 @@ namespace scriptableObjects.map
 
             return layeredProduction;
         }
+        
+        public Layered<StoreInformation> GetStoreInformation()
+        {
+            var layeredStorage = new Layered<StoreInformation>();
+            foreach (var entry in storeInformation)
+            {
+                layeredStorage.AddOrUpdate(entry.layer, entry, Layered<StoreInformation>.Override());
+            }
+
+            return layeredStorage;
+        }
     }
 
     [Serializable]
@@ -69,6 +81,12 @@ namespace scriptableObjects.map
         public Layer layer;
         public double production;
         public double consumption;
+    }
+
+    [Serializable]
+    public struct StoreInformation
+    {
+        public Layer layer;
         public double storeSize;
         public double storeRate;
     }

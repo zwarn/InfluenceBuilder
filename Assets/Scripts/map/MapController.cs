@@ -2,9 +2,6 @@
 using System.Linq;
 using helper;
 using influence;
-using influence.buildings;
-using ModestTree;
-using scriptableObjects.building;
 using scriptableObjects.map;
 using show;
 using UnityEngine;
@@ -167,12 +164,12 @@ namespace map
 
         public double[] StoreSizeByTileType()
         {
-            return FromTileInformation(tileType => tileType.GetProductionInformation().Select(info => info.storeSize));
+            return FromTileInformation(tileType => tileType.GetStoreInformation().Select(info => info.storeSize));
         }
 
         public double[] StoreRateByTileType()
         {
-            return FromTileInformation(tileType => tileType.GetProductionInformation().Select(info => info.storeRate));
+            return FromTileInformation(tileType => tileType.GetStoreInformation().Select(info => info.storeRate));
         }
 
         public double[] ProductionByTileType()

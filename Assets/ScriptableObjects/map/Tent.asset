@@ -25,11 +25,11 @@ MonoBehaviour:
   - layer: 1
     production: 100
     consumption: 0
-    storeSize: 0
-    storeRate: 0
   - layer: 0
     production: 0
     consumption: 20
+  storeInformation:
+  - layer: 0
     storeSize: 50
-    storeRate: 2.5
+    storeRate: 1.5
   cooldown: 20
