@@ -1,6 +1,5 @@
 ﻿using System;
 using influence;
-using ModestTree;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,15 +11,15 @@ namespace scriptableObjects.map
         public TileBase terrain;
         public TileBase building;
 
-        public TileTypeInformation[] layerInformation;
-        public ProductionInformation[] productionInformation;
-        public StoreInformation[] storeInformation;
-        public int cooldown;
+        public LayeredProperties[] properties;
+        public Production production;
+        public LayeredConsumption[] consumptionInformation;
+        public LayeredStore[] storeInformation;
 
         public Layered<double> GetLiquidity()
         {
             var layeredLiquidity = new Layered<double>();
-            foreach (var entry in layerInformation)
+            foreach (var entry in properties)
             {
                 layeredLiquidity.AddOrUpdate(entry.layer, entry.liquidity, (a, b) => a + b);
             }
@@ -31,7 +30,7 @@ namespace scriptableObjects.map
         public Layered<double> GetLoss()
         {
             var layeredLoss = new Layered<double>();
-            foreach (var entry in layerInformation)
+            foreach (var entry in properties)
             {
                 layeredLoss.AddOrUpdate(entry.layer, entry.loss, (a, b) => a + b);
             }
@@ -39,28 +38,33 @@ namespace scriptableObjects.map
             return layeredLoss;
         }
 
-        public bool HasProduction()
+        public Layered<LayeredProduction> GetProductionInformation()
         {
-            return !productionInformation.IsEmpty();
-        }
-
-        public Layered<ProductionInformation> GetProductionInformation()
-        {
-            var layeredProduction = new Layered<ProductionInformation>();
-            foreach (var entry in productionInformation)
+            var layeredProduction = new Layered<LayeredProduction>();
+            foreach (var entry in production.layeredProduction)
             {
-                layeredProduction.AddOrUpdate(entry.layer, entry, Layered<ProductionInformation>.Override());
+                layeredProduction.AddOrUpdate(entry.layer, entry, Layered<LayeredProduction>.Override());
             }
 
             return layeredProduction;
+        }        
+        public Layered<LayeredConsumption> GetConsumptionInformation()
+        {
+            var layeredConsumption = new Layered<LayeredConsumption>();
+            foreach (var entry in consumptionInformation)
+            {
+                layeredConsumption.AddOrUpdate(entry.layer, entry, Layered<LayeredConsumption>.Override());
+            }
+
+            return layeredConsumption;
         }
         
-        public Layered<StoreInformation> GetStoreInformation()
+        public Layered<LayeredStore> GetStoreInformation()
         {
-            var layeredStorage = new Layered<StoreInformation>();
+            var layeredStorage = new Layered<LayeredStore>();
             foreach (var entry in storeInformation)
             {
-                layeredStorage.AddOrUpdate(entry.layer, entry, Layered<StoreInformation>.Override());
+                layeredStorage.AddOrUpdate(entry.layer, entry, Layered<LayeredStore>.Override());
             }
 
             return layeredStorage;
@@ -68,7 +72,7 @@ namespace scriptableObjects.map
     }
 
     [Serializable]
-    public struct TileTypeInformation
+    public struct LayeredProperties
     {
         public Layer layer;
         [Range(0, 1)] public double liquidity;
@@ -76,15 +80,28 @@ namespace scriptableObjects.map
     }
 
     [Serializable]
-    public struct ProductionInformation
+    public struct Production
+    {
+        public LayeredProduction[] layeredProduction;
+        public int cooldown;
+    }
+    
+    [Serializable]
+    public struct LayeredProduction
     {
         public Layer layer;
         public double production;
+    }
+
+    [Serializable]
+    public struct LayeredConsumption
+    {
+        public Layer layer;
         public double consumption;
     }
 
     [Serializable]
-    public struct StoreInformation
+    public struct LayeredStore
     {
         public Layer layer;
         public double storeSize;

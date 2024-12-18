@@ -180,7 +180,7 @@ namespace map
         public double[] ConsumptionByTileType()
         {
             return FromTileInformation(tileType =>
-                tileType.GetProductionInformation().Select(info => info.consumption));
+                tileType.GetConsumptionInformation().Select(info => info.consumption));
         }
 
         public int[] CooldownByTileType()
@@ -190,7 +190,7 @@ namespace map
 
             for (int tileType = 0; tileType < tileTypes; tileType++)
             {
-                result[tileType] = TileTypes[tileType].cooldown;
+                result[tileType] = TileTypes[tileType].production.cooldown;
             }
 
             return result;
