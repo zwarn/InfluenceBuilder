@@ -39,12 +39,14 @@ namespace influence
             var loss = _mapController.LossByTileType();
             var storeSize = _mapController.StoreSizeByTileType();
             var storeRate = _mapController.StoreRateByTileType();
-            var production = _mapController.ProductionByTileType();
+            var minProduction = _mapController.MinProductionByTileType();
+            var maxProduction = _mapController.MaxProductionByTileType();
             var consumption = _mapController.ConsumptionByTileType();
-            var cooldown = _mapController.CooldownByTileType();
+            var consumptionWeight = _mapController.ConsumptionWeightByTileType();
+            var productionWeight = _mapController.ConsumptionWeightByTileType();
 
             _shader = new PropagateShader(propagateShader, width, height, depth, tileTypeCount, liquidity, loss,
-                storeSize, storeRate, production, consumption, cooldown);
+                storeSize, storeRate, minProduction, maxProduction, consumption, consumptionWeight);
         }
 
         private void OnDisable()
@@ -62,13 +64,13 @@ namespace influence
         {
             var values = _grids.GetValues();
             var store = _grids.GetStore();
-            var timer = _grids.GetTimer();
             var tiles = _mapController.GetTiles();
+            var happiness = _grids.GetHappiness();
 
-            var (output, newStore, newTimer) = _shader.Propagate(values, tiles, timer, store);
+            var (output, newStore, newHappiness) = _shader.Propagate(values, tiles, happiness, store);
             _grids.SetValues(output);
             _grids.SetStore(newStore);
-            _grids.SetTimer(newTimer);
+            _grids.SetHappiness(newHappiness);
         }
 
         public void AddInfluence(Layer layer, int x, int y, double amount)

@@ -15,11 +15,12 @@ namespace influence
         private static readonly int Loss = Shader.PropertyToID("Loss");
         private static readonly int StoreSize = Shader.PropertyToID("StoreSize");
         private static readonly int StoreRate = Shader.PropertyToID("StoreRate");
-        private static readonly int Production = Shader.PropertyToID("Production");
+        private static readonly int MinProduction = Shader.PropertyToID("MinProduction");
+        private static readonly int MaxProduction = Shader.PropertyToID("MaxProduction");
         private static readonly int Consumption = Shader.PropertyToID("Consumption");
-        private static readonly int Cooldown = Shader.PropertyToID("Cooldown");
-        private static readonly int Timer = Shader.PropertyToID("Timer");
+        private static readonly int ConsumptionWeight = Shader.PropertyToID("ConsumptionWeight");
         private static readonly int Store = Shader.PropertyToID("Store");
+        private static readonly int Happiness = Shader.PropertyToID("Happiness");
 
         private ComputeShader _propagateShader;
 
@@ -35,10 +36,11 @@ namespace influence
 
         private ComputeBuffer _lossBuffer;
 
-        private ComputeBuffer _productionBuffer;
+        private ComputeBuffer _minProductionBuffer;
+        private ComputeBuffer _maxProductionBuffer;
         private ComputeBuffer _consumptionBuffer;
-        private ComputeBuffer _cooldownBuffer;
-        private ComputeBuffer _timerBuffer;
+        private ComputeBuffer _consumptionWeightBuffer;
+        private ComputeBuffer _happinessBuffer;
 
 
         private int _width;
@@ -46,8 +48,8 @@ namespace influence
         private int _depth;
 
         public PropagateShader(ComputeShader propagateShader, int width, int height, int depth, int tileTypeCount,
-            double[] liquidity, double[] loss, double[] storeSize, double[] storeRate, double[] production,
-            double[] consumption, int[] cooldown)
+            double[] liquidity, double[] loss, double[] storeSize, double[] storeRate, double[] minProduction,
+            double[] maxProduction, double[] consumption, double[] consumptionWeight)
         {
             _width = width;
             _height = height;
@@ -70,10 +72,11 @@ namespace influence
 
             _lossBuffer = new ComputeBuffer(layersPerTileType, sizeof(double));
 
-            _productionBuffer = new ComputeBuffer(layersPerTileType, sizeof(double));
+            _minProductionBuffer = new ComputeBuffer(layersPerTileType, sizeof(double));
+            _maxProductionBuffer = new ComputeBuffer(layersPerTileType, sizeof(double));
             _consumptionBuffer = new ComputeBuffer(layersPerTileType, sizeof(double));
-            _cooldownBuffer = new ComputeBuffer(tileTypeCount, sizeof(int));
-            _timerBuffer = new ComputeBuffer(tiles, sizeof(int));
+            _consumptionWeightBuffer = new ComputeBuffer(layersPerTileType, sizeof(double));
+            _happinessBuffer = new ComputeBuffer(tiles, sizeof(double));
 
             _propagateShader.SetInt(Width, width);
             _propagateShader.SetInt(Height, height);
@@ -90,12 +93,14 @@ namespace influence
             _lossBuffer.SetData(loss);
             _propagateShader.SetBuffer(0, Loss, _lossBuffer);
 
-            _productionBuffer.SetData(production);
-            _propagateShader.SetBuffer(0, Production, _productionBuffer);
+            _minProductionBuffer.SetData(minProduction);
+            _propagateShader.SetBuffer(0, MinProduction, _minProductionBuffer);
+            _maxProductionBuffer.SetData(maxProduction);
+            _propagateShader.SetBuffer(0, MaxProduction, _maxProductionBuffer);
             _consumptionBuffer.SetData(consumption);
             _propagateShader.SetBuffer(0, Consumption, _consumptionBuffer);
-            _cooldownBuffer.SetData(cooldown);
-            _propagateShader.SetBuffer(0, Cooldown, _cooldownBuffer);
+            _consumptionWeightBuffer.SetData(consumptionWeight);
+            _propagateShader.SetBuffer(0, ConsumptionWeight, _consumptionWeightBuffer);
         }
 
         public void Dispose()
@@ -121,43 +126,46 @@ namespace influence
             _lossBuffer.Release();
             _lossBuffer = null;
 
-            _productionBuffer.Release();
-            _productionBuffer = null;
+            _minProductionBuffer.Release();
+            _minProductionBuffer = null;
+            _maxProductionBuffer.Release();
+            _maxProductionBuffer = null;
             _consumptionBuffer.Release();
             _consumptionBuffer = null;
-            _cooldownBuffer.Release();
-            _cooldownBuffer = null;
-            _timerBuffer.Release();
-            _timerBuffer = null;
+            _consumptionWeightBuffer.Release();
+            _consumptionWeightBuffer = null;
+            _happinessBuffer.Release();
+            _happinessBuffer = null;
         }
 
-        public (double[] output, double[] store, int[] timer) Propagate(double[] values, int[] tiles, int[] timer,
-            double[] store)
+        public (double[] output, double[] store, double[] happiness) Propagate(double[] values,
+            int[] tiles, double[] happiness, double[] store)
         {
             double[] output = new double[_width * _height * _depth];
 
             _inputBuffer.SetData(values);
             _tilesBuffer.SetData(tiles);
             _storeBuffer.SetData(store);
-            _timerBuffer.SetData(timer);
+            _happinessBuffer.SetData(happiness);
 
             _propagateShader.SetBuffer(0, Input, _inputBuffer);
             _propagateShader.SetBuffer(0, Tiles, _tilesBuffer);
             _propagateShader.SetBuffer(0, Output, _outputBuffer);
             _propagateShader.SetBuffer(0, Store, _storeBuffer);
-            _propagateShader.SetBuffer(0, Timer, _timerBuffer);
+            _propagateShader.SetBuffer(0, Happiness, _happinessBuffer);
 
 
             int threadGroupsX = Mathf.CeilToInt(_width / 8.0f);
             int threadGroupsY = Mathf.CeilToInt(_height / 8.0f);
             int threadGroupsZ = Mathf.CeilToInt(_depth);
-            _propagateShader.Dispatch(_propagateShader.FindKernel("CSMain"), threadGroupsX, threadGroupsY, threadGroupsZ);
+            _propagateShader.Dispatch(_propagateShader.FindKernel("CSMain"), threadGroupsX, threadGroupsY,
+                threadGroupsZ);
 
             _outputBuffer.GetData(output);
             _storeBuffer.GetData(store);
-            _timerBuffer.GetData(timer);
+            _happinessBuffer.GetData(happiness);
 
-            return (output, store, timer);
+            return (output, store, happiness);
         }
     }
 }

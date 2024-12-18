@@ -7,7 +7,7 @@ namespace influence
     {
         private double[] _values;
         private double[] _store;
-        private int[] _timer;
+        private double[] _happiness;
 
         private int _width;
         private int _height;
@@ -25,7 +25,7 @@ namespace influence
 
             _values = new double[_width * _height * _depth];
             _store = new double[_width * _height * _depth];
-            _timer = new int[_width * _height];
+            _happiness = new double[_width * _height];
         }
 
         public void Dispose()
@@ -97,14 +97,14 @@ namespace influence
             _store = store;
         }
 
-        public int[] GetTimer()
+        public double[] GetHappiness()
         {
-            return _timer;
+            return _happiness;
         }
 
-        public void SetTimer(int[] timer)
+        public void SetHappiness(double[] happiness)
         {
-            _timer = timer;
+            _happiness = happiness;
         }
     }
 }

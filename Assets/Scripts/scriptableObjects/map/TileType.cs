@@ -83,14 +83,14 @@ namespace scriptableObjects.map
     public struct Production
     {
         public LayeredProduction[] layeredProduction;
-        public int cooldown;
     }
     
     [Serializable]
     public struct LayeredProduction
     {
         public Layer layer;
-        public double production;
+        public double minHappinessProduction;
+        public double maxHappinessProduction;
     }
 
     [Serializable]
@@ -98,6 +98,7 @@ namespace scriptableObjects.map
     {
         public Layer layer;
         public double consumption;
+        public double weight;
     }
 
     [Serializable]

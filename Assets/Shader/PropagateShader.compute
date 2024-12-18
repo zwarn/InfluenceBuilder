@@ -22,11 +22,14 @@ RWStructuredBuffer<double> Output;
 //Loss
 StructuredBuffer<double> Loss;
 
-//Production
-StructuredBuffer<double> Production;
-StructuredBuffer<double> Consumption;
+//Production + Consumption
+StructuredBuffer<double> MinProduction;
+StructuredBuffer<double> MaxProduction;
 StructuredBuffer<int> Cooldown;
+StructuredBuffer<double> Consumption;
+StructuredBuffer<double> ConsumptionWeight;
 RWStructuredBuffer<int> Timer;
+RWStructuredBuffer<double> Happiness;
 
 int tile_index(const int x, const int y)
 {
@@ -87,25 +90,40 @@ double do_store(const int index, const int layeredTileType, double acc)
     return acc - toStore;
 }
 
+void do_consumption(const int x, const int y, const int z)
+{
+    if (z != 0)
+    {
+        return;
+    }
+
+    double result = 0;
+
+    for (int layer = 0; layer < Depth; layer++)
+    {
+        double want = Consumption[layered_tile_type_index(x, y, layer)];
+        if (want == 0) continue;
+        double have = Store[layered_tile_index(x, y, layer)];
+        double consumed = min(want, have);
+        Store[layered_tile_index(x, y, layer)] -= consumed;
+        result += consumed / want * ConsumptionWeight[layered_tile_type_index(x, y, layer)];
+    }
+
+    Happiness[tile_index(x, y)] = clamp(result, 0, 1);
+}
+
 void do_production(const int x, const int y, const int z)
 {
-    if (Timer[tile_index(x, y)] % Cooldown[tile_type_index(x, y)] != 0 || z != 0)
+    if (z != 0)
     {
         return;
     }
 
     for (int layer = 0; layer < Depth; layer++)
     {
-        if (Store[layered_tile_index(x, y, layer)] < Consumption[layered_tile_type_index(x, y, layer)])
-        {
-            return;
-        }
-    }
-
-    for (int layer = 0; layer < Depth; layer++)
-    {
-        Store[layered_tile_index(x, y, layer)] -= Consumption[layered_tile_type_index(x, y, layer)];
-        Store[layered_tile_index(x, y, layer)] += Production[layered_tile_type_index(x, y, layer)];
+        Store[layered_tile_index(x, y, layer)] += lerp(MinProduction[layered_tile_type_index(x, y, layer)],
+                                                       MaxProduction[layered_tile_type_index(x, y, layer)],
+                                                       Happiness[tile_index(x, y)]);
     }
 }
 
@@ -126,6 +144,7 @@ void CSMain(int3 id : SV_DispatchThreadID)
     double acc = 0;
     acc = do_propagate(x, y, z, index, acc);
     acc = do_store(index, layeredTileType, acc);
+    do_consumption(x, y, z);
     do_production(x, y, z);
     acc = do_loss(layeredTileType, acc);
 

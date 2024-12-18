@@ -172,9 +172,16 @@ namespace map
             return FromTileInformation(tileType => tileType.GetStoreInformation().Select(info => info.storeRate));
         }
 
-        public double[] ProductionByTileType()
+        public double[] MinProductionByTileType()
         {
-            return FromTileInformation(tileType => tileType.GetProductionInformation().Select(info => info.production));
+            return FromTileInformation(tileType =>
+                tileType.GetProductionInformation().Select(info => info.minHappinessProduction));
+        }
+
+        public double[] MaxProductionByTileType()
+        {
+            return FromTileInformation(tileType =>
+                tileType.GetProductionInformation().Select(info => info.maxHappinessProduction));
         }
 
         public double[] ConsumptionByTileType()
@@ -183,17 +190,10 @@ namespace map
                 tileType.GetConsumptionInformation().Select(info => info.consumption));
         }
 
-        public int[] CooldownByTileType()
+        public double[] ConsumptionWeightByTileType()
         {
-            int tileTypes = TileTypes.Length;
-            int[] result = new int[tileTypes];
-
-            for (int tileType = 0; tileType < tileTypes; tileType++)
-            {
-                result[tileType] = TileTypes[tileType].production.cooldown;
-            }
-
-            return result;
+            return FromTileInformation(tileType =>
+                tileType.GetConsumptionInformation().Select(info => info.weight));
         }
     }
 }

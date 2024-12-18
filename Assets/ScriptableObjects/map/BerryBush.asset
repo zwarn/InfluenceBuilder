@@ -24,7 +24,11 @@ MonoBehaviour:
   production:
     layeredProduction:
     - layer: 0
-      production: 1
+      minHappinessProduction: 1
+      maxHappinessProduction: 1
     cooldown: 1
   consumptionInformation: []
-  storeInformation: []
+  storeInformation:
+  - layer: 0
+    storeSize: 1
+    storeRate: 0
