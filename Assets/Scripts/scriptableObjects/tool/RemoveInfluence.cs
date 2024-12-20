@@ -1,4 +1,5 @@
 ﻿using influence;
+using lens;
 using show;
 using UnityEngine;
 using Zenject;
@@ -16,10 +17,10 @@ namespace scriptableObjects.tool
 
         public override void Apply(int x, int y)
         {
-            Layer? currentLayer = _showStatusController.CurrentLayer();
-            if (currentLayer != null)
+            Lens currentLens = _showStatusController.CurrentLens();
+            if (currentLens is LayerLens layerLens)
             {
-                _influenceController.RemoveInfluence(Layer.Food, x, y, amount);
+                _influenceController.RemoveInfluence(layerLens.GetLayer(), x, y, amount);
                 _gridEvents.GridUpdateEvent();
             }
         }

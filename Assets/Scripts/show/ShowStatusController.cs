@@ -1,6 +1,7 @@
 ﻿using System;
 using influence;
 using input;
+using lens;
 using UnityEngine;
 using Zenject;
 
@@ -11,8 +12,8 @@ namespace show
         private bool _showTilemaps = true;
         private bool _showInfluenceVisualizer = false;
 
-        private Layer? _currentLayer = null;
-        private Layer? _previewLayer = null;
+        private Lens _currentLens = null;
+        private Lens _previewLens = null;
 
         [Inject] private InputEvents _inputEvents;
         [Inject] private ShowStatusEvents _showEvents;
@@ -24,7 +25,7 @@ namespace show
             _inputEvents.OnToggleShowTilemap += ToggleShowTilemap;
             _inputEvents.OnToggleShowInfluenceVisualizer += ToggleShowInfluenceVisualizer;
         }
-        
+
         private void OnDisable()
         {
             _inputEvents.OnToggleShowInfluence -= ToggleShowInfluence;
@@ -36,7 +37,7 @@ namespace show
         private void Start()
         {
             _showEvents.ShowTilemapEvent(_showTilemaps);
-            _showEvents.ShowLayerEvent(_currentLayer);
+            _showEvents.ShowLensEvent(_currentLens);
             _showEvents.ShowInfluenceVisualizerEvent(_showInfluenceVisualizer);
         }
 
@@ -52,38 +53,37 @@ namespace show
             _showEvents.ShowTilemapEvent(_showTilemaps);
         }
 
-        private void ToggleShowInfluence(int layer)
+        private void ToggleShowInfluence(Lens lens)
         {
-            var values = Enum.GetValues(typeof(Layer));
-            _currentLayer = layer == -1 || layer >= values.Length ? null : (Layer)layer;
-            _showEvents.ShowLayerEvent(_currentLayer);
+            _currentLens = lens;
+            _showEvents.ShowLensEvent(_currentLens);
             UpdateLayer();
         }
-        
-        private void PreviewInfluence(int layer)
+
+        private void PreviewInfluence(Lens lens)
         {
-            var values = Enum.GetValues(typeof(Layer));
-            _previewLayer = layer == -1 || layer >= values.Length ? null : (Layer)layer;
+            _previewLens = lens;
             UpdateLayer();
         }
 
         private void UpdateLayer()
         {
-            Layer? shownLayer = null;
-            if (_previewLayer.HasValue)
+            Lens shownLens = null;
+            if (_previewLens != null)
             {
-                shownLayer = _previewLayer.Value;
+                shownLens = _previewLens;
             }
-            else if (_currentLayer.HasValue)
+            else if (_currentLens != null)
             {
-                shownLayer = _currentLayer.Value;
+                shownLens = _currentLens;
             }
-            _showEvents.ShowLayerEvent(shownLayer);
+
+            _showEvents.ShowLensEvent(shownLens);
         }
 
-        public Layer? CurrentLayer()
+        public Lens CurrentLens()
         {
-            return _currentLayer;
+            return _currentLens;
         }
     }
 }

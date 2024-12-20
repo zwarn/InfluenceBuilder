@@ -1,5 +1,6 @@
 ﻿using System;
 using influence;
+using lens;
 
 namespace show
 {
@@ -19,11 +20,11 @@ namespace show
             OnShowInfluenceVisualizer?.Invoke(show);
         }
 
-        public event Action<Layer?> OnShowLayer;
+        public event Action<Lens> OnShowLens;
 
-        public void ShowLayerEvent(Layer? layer)
+        public void ShowLensEvent(Lens lens)
         {
-            OnShowLayer?.Invoke(layer);
+            OnShowLens?.Invoke(lens);
         }
     }
 }

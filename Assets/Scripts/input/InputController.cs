@@ -20,21 +20,6 @@ namespace input
                 _inputEvents.ToggleAutomaticEvent();
             }
 
-            if (Input.GetKeyUp(KeyCode.Alpha3))
-            {
-                _inputEvents.ToggleShowInfluenceEvent(0);
-            }
-            
-            if (Input.GetKeyUp(KeyCode.Alpha4))
-            {
-                _inputEvents.ToggleShowInfluenceEvent(1);
-            }
-            
-            if (Input.GetKeyUp(KeyCode.Alpha0))
-            {
-                _inputEvents.ToggleShowInfluenceEvent(-1);
-            }
-
             if (Input.GetKeyUp(KeyCode.Alpha1))
             {
                 _inputEvents.ToggleShowTilemapEvent();

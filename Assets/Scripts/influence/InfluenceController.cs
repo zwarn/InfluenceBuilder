@@ -102,5 +102,15 @@ namespace influence
         {
             return _grids.GetValues(layer);
         }
+
+        public double GetHappiness(int x, int y)
+        {
+            return _grids.GetHappiness(x, y);
+        }
+
+        public double[] GetHappiness()
+        {
+            return _grids.GetHappiness();
+        }
     }
 }

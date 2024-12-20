@@ -70,6 +70,11 @@ namespace influence
             return _values[GetIndex(layer, x, y)];
         }
 
+        public double GetHappiness(int x, int y)
+        {
+            return _happiness[y * _width + x];
+        }
+
         public double[] GetValues(Layer layer)
         {
             var result = new double[_area];

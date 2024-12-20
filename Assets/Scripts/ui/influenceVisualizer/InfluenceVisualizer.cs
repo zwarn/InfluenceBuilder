@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using influence;
+using lens;
 using map;
 using show;
 using UnityEngine;
@@ -74,8 +75,8 @@ namespace ui.influenceVisualizer
 
         private void UpdateTileViews(int centerX, int centerY)
         {
-            Layer? currentLayer = _showStatusController.CurrentLayer();
-            if (currentLayer == null)
+            Lens currentLens = _showStatusController.CurrentLens();
+            if (currentLens == null)
             {
                 return;
             }
@@ -90,7 +91,7 @@ namespace ui.influenceVisualizer
 
                     if (_mapController.IsPointOnMap(worldX, worldY))
                     {
-                        tileView.SetValue(_influenceController.GetValue(currentLayer.Value, worldX, worldY));
+                        tileView.SetValue(currentLens.GetValue(_influenceController, worldX, worldY));
                         tileView.gameObject.SetActive(true);
                     }
                     else

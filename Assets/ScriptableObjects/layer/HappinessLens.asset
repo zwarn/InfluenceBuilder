@@ -10,7 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: FoodLayer
-  m_EditorClassIdentifier: Assembly-CSharp:scriptableObjects.lens:LayerLensType
-  icon: {fileID: -8953645019653192028, guid: 8da9d8a8406c9c143a2931ee602982e4, type: 3}
-  layer: 0
+  m_Name: HappinessLens
+  m_EditorClassIdentifier: Assembly-CSharp:scriptableObjects.lens:HappinessLensType
+  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

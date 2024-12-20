@@ -1,5 +1,6 @@
 ﻿using System;
 using influence;
+using lens;
 using map;
 using show;
 using UnityEngine;
@@ -7,7 +8,7 @@ using Zenject;
 
 namespace ui
 {
-    public class InfluenceGridUI : MonoBehaviour
+    public class LensGridUI : MonoBehaviour
     {
         private static readonly int Values = Shader.PropertyToID("Values");
         private static readonly int Result = Shader.PropertyToID("Result");
@@ -16,16 +17,16 @@ namespace ui
         private static readonly int Alpha = Shader.PropertyToID("Alpha");
         private static readonly int MinValue = Shader.PropertyToID("MinValue");
         private static readonly int MaxValue = Shader.PropertyToID("MaxValue");
+        private static readonly int IsExponential = Shader.PropertyToID("IsExponential");
 
         [SerializeField] private Renderer quad;
         [SerializeField] private ComputeShader visualizeShader;
-        [SerializeField] float alpha = 0.15f;
-        [SerializeField] float minValue = 0.001f;
-        [SerializeField] float maxValue = 5000;
 
         private RenderTexture _renderTexture;
         private ComputeBuffer _valuesBuffer;
-        private Layer? _currentLayer = null;
+
+        private Lens _currentLens = null;
+
         private int _width;
         private int _height;
 
@@ -57,7 +58,7 @@ namespace ui
         private void OnEnable()
         {
             _gridEvents.OnGridUpdate += OnUpdate;
-            _showStatusEvents.OnShowLayer += OnShowLayer;
+            _showStatusEvents.OnShowLens += OnShowLens;
 
             _width = _mapController.width;
             _height = _mapController.height;
@@ -68,36 +69,36 @@ namespace ui
         private void OnDisable()
         {
             _gridEvents.OnGridUpdate -= OnUpdate;
-            _showStatusEvents.OnShowLayer -= OnShowLayer;
+            _showStatusEvents.OnShowLens -= OnShowLens;
 
             _valuesBuffer.Dispose();
             _valuesBuffer = null;
         }
 
-        private void OnShowLayer(Layer? layer)
+        private void OnShowLens(Lens lens)
         {
-            _currentLayer = layer;
-            quad.gameObject.SetActive(layer != null);
-            _mapController.Darken(layer != null);
-            if (layer != null)
+            _currentLens = lens;
+            quad.gameObject.SetActive(lens != null);
+            _mapController.Darken(lens != null);
+            if (lens != null)
             {
-                UpdateLayer(layer.Value);
+                UpdateLens(lens);
             }
         }
 
         private void OnUpdate()
         {
-            if (_currentLayer == null)
+            if (_currentLens == null)
             {
                 return;
             }
 
-            UpdateLayer(_currentLayer.Value);
+            UpdateLens(_currentLens);
         }
 
-        private void UpdateLayer(Layer layer)
+        private void UpdateLens(Lens lens)
         {
-            var values = _influenceController.GetValues(layer);
+            var values = lens.GetValues(_influenceController);
 
             _valuesBuffer.SetData(values);
 
@@ -105,9 +106,10 @@ namespace ui
             visualizeShader.SetTexture(0, Result, _renderTexture);
             visualizeShader.SetInt(Width, _width);
             visualizeShader.SetInt(Height, _height);
-            visualizeShader.SetFloat(MinValue, minValue);
-            visualizeShader.SetFloat(MaxValue, maxValue);
-            visualizeShader.SetFloat(Alpha, alpha);
+            visualizeShader.SetFloat(MinValue, lens.MinValue);
+            visualizeShader.SetFloat(MaxValue, lens.MaxValue);
+            visualizeShader.SetFloat(Alpha, lens.Alpha);
+            visualizeShader.SetBool(IsExponential, lens.IsExponential);
 
             visualizeShader.Dispatch(visualizeShader.FindKernel("CSMain"), Mathf.CeilToInt(_width / 8f),
                 Mathf.CeilToInt(_height / 8f), 1);

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using influence;
 using input;
-using scriptableObjects.map;
+using lens;
+using scriptableObjects.lens;
 using show;
 using UnityEngine;
 using Zenject;
@@ -13,10 +13,10 @@ namespace ui.bar
     {
         [SerializeField] private ButtonView prefab;
 
-        private Dictionary<Layer?, ButtonView> _buttonViews = new();
+        private Dictionary<Lens, ButtonView> _buttonViews = new();
         private ButtonView _emptyButton;
 
-        public List<LayerType> layerTypes;
+        public List<LensType> layerTypes;
         public Sprite emptyIcon;
 
         [Inject] private ShowStatusEvents _showStatusEvents;
@@ -29,38 +29,38 @@ namespace ui.bar
 
         private void OnEnable()
         {
-            _showStatusEvents.OnShowLayer += LayerSelection;
+            _showStatusEvents.OnShowLens += LensSelection;
         }
 
         private void OnDisable()
         {
-            _showStatusEvents.OnShowLayer -= LayerSelection;
+            _showStatusEvents.OnShowLens -= LensSelection;
         }
 
         private void CreateButtonViews()
         {
             _emptyButton = Instantiate(prefab, transform);
-            _emptyButton.SetData(emptyIcon, () => _inputEvents.ToggleShowInfluenceEvent(-1), null, null);
+            _emptyButton.SetData(emptyIcon, () => _inputEvents.ToggleShowInfluenceEvent(null), null, null);
             _emptyButton.SetSelected(true);
 
-            layerTypes.ForEach(layer =>
+            layerTypes.ForEach(lensType =>
             {
                 var buttonView = Instantiate(prefab, transform);
-                buttonView.SetData(layer.icon, () => _inputEvents.ToggleShowInfluenceEvent((int)layer.layer),
-                    () => _inputEvents.PreviewShowInfluenceEvent((int)layer.layer),
-                    () => _inputEvents.PreviewShowInfluenceEvent(-1));
-                _buttonViews.Add(layer.layer, buttonView);
+                buttonView.SetData(lensType.GetIcon(), () => _inputEvents.ToggleShowInfluenceEvent(lensType.GetLens()),
+                    () => _inputEvents.PreviewShowInfluenceEvent(lensType.GetLens()),
+                    () => _inputEvents.PreviewShowInfluenceEvent(null));
+                _buttonViews.Add(lensType.GetLens(), buttonView);
                 buttonView.SetSelected(false);
             });
         }
 
-        private void LayerSelection(Layer? layer)
+        private void LensSelection(Lens lens)
         {
-            _emptyButton.SetSelected(layer == null);
+            _emptyButton.SetSelected(lens == null);
 
             foreach (var pair in _buttonViews)
             {
-                pair.Value.SetSelected(pair.Key == layer);
+                pair.Value.SetSelected(pair.Key == lens);
             }
         }
     }

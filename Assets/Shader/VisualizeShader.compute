@@ -5,6 +5,7 @@ uint Height;
 float Alpha;
 float MinValue;
 float MaxValue;
+bool IsExponential;
 
 StructuredBuffer<double> Values;
 
@@ -33,7 +34,7 @@ float3 GetHeatmapColor(float normalizedValue)
 }
 
 [numthreads(8,8,1)]
-void CSMain (uint3 id : SV_DispatchThreadID)
+void CSMain(uint3 id : SV_DispatchThreadID)
 {
     uint x = id.x;
     uint y = id.y;
@@ -45,7 +46,11 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     float value = Values[index];
 
     value = max(value, MinValue);
-    const float normalizedValue = (log10(value) - log10(MinValue)) / (log10(MaxValue) - log10(MinValue));
+    float normalizedValue = value;
+    if (IsExponential)
+    {
+        normalizedValue = (log10(value) - log10(MinValue)) / (log10(MaxValue) - log10(MinValue));
+    }
 
     float3 color = GetHeatmapColor(normalizedValue);
 

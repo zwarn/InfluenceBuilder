@@ -1,4 +1,5 @@
 ﻿using System;
+using lens;
 using UnityEngine;
 
 namespace input
@@ -54,11 +55,11 @@ namespace input
             OnTranslate?.Invoke(delta);
         }
 
-        public event Action<int> OnToggleShowInfluence;
+        public event Action<Lens> OnToggleShowInfluence;
 
-        public void ToggleShowInfluenceEvent(int layer)
+        public void ToggleShowInfluenceEvent(Lens lens)
         {
-            OnToggleShowInfluence?.Invoke(layer);
+            OnToggleShowInfluence?.Invoke(lens);
         }
 
         public event Action OnToggleShowTilemap;
@@ -75,11 +76,11 @@ namespace input
             OnToggleShowInfluenceVisualizer?.Invoke();
         }
 
-        public event Action<int> OnPreviewInfluence;
-        
-        public void PreviewShowInfluenceEvent(int layer)
+        public event Action<Lens> OnPreviewInfluence;
+
+        public void PreviewShowInfluenceEvent(Lens lens)
         {
-            OnPreviewInfluence?.Invoke(layer);
+            OnPreviewInfluence?.Invoke(lens);
         }
     }
 }
