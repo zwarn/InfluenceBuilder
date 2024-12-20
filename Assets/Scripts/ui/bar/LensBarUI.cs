@@ -5,18 +5,19 @@ using lens;
 using scriptableObjects.lens;
 using show;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace ui.bar
 {
-    public class LayerBarUI : MonoBehaviour
+    public class LensBarUI : MonoBehaviour
     {
         [SerializeField] private ButtonView prefab;
 
         private Dictionary<Lens, ButtonView> _buttonViews = new();
         private ButtonView _emptyButton;
 
-        public List<LensType> layerTypes;
+        public List<LensType> lensTypes;
         public Sprite emptyIcon;
 
         [Inject] private ShowStatusEvents _showStatusEvents;
@@ -43,7 +44,7 @@ namespace ui.bar
             _emptyButton.SetData(emptyIcon, () => _inputEvents.ToggleShowInfluenceEvent(null), null, null);
             _emptyButton.SetSelected(true);
 
-            layerTypes.ForEach(lensType =>
+            lensTypes.ForEach(lensType =>
             {
                 var buttonView = Instantiate(prefab, transform);
                 buttonView.SetData(lensType.GetIcon(), () => _inputEvents.ToggleShowInfluenceEvent(lensType.GetLens()),

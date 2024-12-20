@@ -28,7 +28,6 @@ StructuredBuffer<double> MaxProduction;
 StructuredBuffer<int> Cooldown;
 StructuredBuffer<double> Consumption;
 StructuredBuffer<double> ConsumptionWeight;
-RWStructuredBuffer<int> Timer;
 RWStructuredBuffer<double> Happiness;
 
 int tile_index(const int x, const int y)
@@ -149,5 +148,4 @@ void CSMain(int3 id : SV_DispatchThreadID)
     acc = do_loss(layeredTileType, acc);
 
     Output[index] = max(acc, 0);
-    Timer[tile_index(x, y)]++;
 }
