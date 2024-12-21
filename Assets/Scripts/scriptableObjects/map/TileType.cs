@@ -18,61 +18,6 @@ namespace scriptableObjects.map
         public readonly Dictionary<Layer, Production> Production = new();
         public readonly Dictionary<Layer, Consumption> Consumption = new();
         public readonly Dictionary<Layer, Store> Store = new();
-
-        public Layered<double> GetLiquidity()
-        {
-            var layeredLiquidity = new Layered<double>();
-            foreach (var entry in Properties)
-            {
-                layeredLiquidity.AddOrUpdate(entry.Key, entry.Value.liquidity, (a, b) => a + b);
-            }
-
-            return layeredLiquidity;
-        }
-
-        public Layered<double> GetLoss()
-        {
-            var layeredLoss = new Layered<double>();
-            foreach (var entry in Properties)
-            {
-                layeredLoss.AddOrUpdate(entry.Key, entry.Value.loss, (a, b) => a + b);
-            }
-
-            return layeredLoss;
-        }
-
-        public Layered<Production> GetProduction()
-        {
-            var layeredProduction = new Layered<Production>();
-            foreach (var entry in Production)
-            {
-                layeredProduction.AddOrUpdate(entry.Key, entry.Value, Layered<Production>.Override());
-            }
-
-            return layeredProduction;
-        }
-
-        public Layered<Consumption> GetConsumption()
-        {
-            var layeredConsumption = new Layered<Consumption>();
-            foreach (var entry in Consumption)
-            {
-                layeredConsumption.AddOrUpdate(entry.Key, entry.Value, Layered<Consumption>.Override());
-            }
-
-            return layeredConsumption;
-        }
-
-        public Layered<Store> GetStoreInformation()
-        {
-            var layeredStorage = new Layered<Store>();
-            foreach (var entry in Store)
-            {
-                layeredStorage.AddOrUpdate(entry.Key, entry.Value, Layered<Store>.Override());
-            }
-
-            return layeredStorage;
-        }
     }
 
     [Serializable]

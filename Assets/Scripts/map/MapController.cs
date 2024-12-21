@@ -136,17 +136,19 @@ namespace map
             return TileTypes[_tiles[index]];
         }
 
-        private T[] FromTileInformation<T>(Func<TileType, Layered<T>> func)
+        private T[] FromTileType<T>(Func<TileType, Layer, T> func)
         {
             int layers = EnumUtils.GetLength<Layer>();
             int tileTypes = TileTypes.Length;
             T[] result = new T[layers * tileTypes];
 
-            for (int tileType = 0; tileType < tileTypes; tileType++)
+            for (int type = 0; type < tileTypes; type++)
             {
-                var layered = func.Invoke(TileTypes[tileType]);
-                var type = tileType;
-                layered.ForEach((layer, value) => result[type * layers + (int)layer] = value);
+                var tileType = TileTypes[type];
+                for (int layer = 0; layer < layers; layer++)
+                {
+                    result[type * layers + layer] = func.Invoke(tileType, (Layer)layer);
+                }
             }
 
             return result;
@@ -154,46 +156,52 @@ namespace map
 
         public double[] LossByTileType()
         {
-            return FromTileInformation(tileType => tileType.GetLoss());
+            return FromTileType((tileType, layer) =>
+                tileType.Properties.TryGetValue(layer, out var property) ? property.loss : 0);
         }
 
         public double[] LiquidityByTileType()
         {
-            return FromTileInformation(tileType => tileType.GetLiquidity());
+            return FromTileType((tileType, layer) =>
+                tileType.Properties.TryGetValue(layer, out var property) ? property.liquidity : 0);
         }
 
         public double[] StoreSizeByTileType()
         {
-            return FromTileInformation(tileType => tileType.GetStoreInformation().Select(info => info.storeSize));
+            return FromTileType((tileType, layer) =>
+                tileType.Store.TryGetValue(layer, out var store) ? store.storeSize : 0);
         }
 
         public double[] StoreRateByTileType()
         {
-            return FromTileInformation(tileType => tileType.GetStoreInformation().Select(info => info.storeRate));
+            return FromTileType((tileType, layer) =>
+                tileType.Store.TryGetValue(layer, out var store) ? store.storeRate : 0);
         }
 
         public double[] MinProductionByTileType()
         {
-            return FromTileInformation(tileType =>
-                tileType.GetProduction().Select(info => info.minHappinessProduction));
+            return FromTileType((tileType, layer) => tileType.Production.TryGetValue(layer, out var production)
+                ? production.minHappinessProduction
+                : 0);
         }
 
         public double[] MaxProductionByTileType()
         {
-            return FromTileInformation(tileType =>
-                tileType.GetProduction().Select(info => info.maxHappinessProduction));
+            return FromTileType((tileType, layer) => tileType.Production.TryGetValue(layer, out var production)
+                ? production.maxHappinessProduction
+                : 0);
         }
 
         public double[] ConsumptionByTileType()
         {
-            return FromTileInformation(tileType =>
-                tileType.GetConsumption().Select(info => info.consumption));
+            return FromTileType((tileType, layer) =>
+                tileType.Consumption.TryGetValue(layer, out var consumption) ? consumption.consumption : 0);
         }
 
         public double[] ConsumptionWeightByTileType()
         {
-            return FromTileInformation(tileType =>
-                tileType.GetConsumption().Select(info => info.weight));
+            return FromTileType((tileType, layer) =>
+                tileType.Consumption.TryGetValue(layer, out var consumption) ? consumption.weight : 0);
         }
     }
 }
