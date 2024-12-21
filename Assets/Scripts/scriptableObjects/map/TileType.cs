@@ -1,27 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
 using influence;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace scriptableObjects.map
 {
     [CreateAssetMenu(fileName = "TileType", menuName = "map/TileType", order = 0)]
-    public class TileType : ScriptableObject
+    public class TileType : SerializedScriptableObject
     {
         public TileBase terrain;
         public TileBase building;
 
-        public LayeredProperties[] properties;
-        public Production production;
-        public LayeredConsumption[] consumptionInformation;
-        public LayeredStore[] storeInformation;
+        public bool isBuilding;
+        public readonly Dictionary<Layer, Properties> Properties = new();
+        public readonly Dictionary<Layer, Production> Production = new();
+        public readonly Dictionary<Layer, Consumption> Consumption = new();
+        public readonly Dictionary<Layer, Store> Store = new();
 
         public Layered<double> GetLiquidity()
         {
             var layeredLiquidity = new Layered<double>();
-            foreach (var entry in properties)
+            foreach (var entry in Properties)
             {
-                layeredLiquidity.AddOrUpdate(entry.layer, entry.liquidity, (a, b) => a + b);
+                layeredLiquidity.AddOrUpdate(entry.Key, entry.Value.liquidity, (a, b) => a + b);
             }
 
             return layeredLiquidity;
@@ -30,41 +33,42 @@ namespace scriptableObjects.map
         public Layered<double> GetLoss()
         {
             var layeredLoss = new Layered<double>();
-            foreach (var entry in properties)
+            foreach (var entry in Properties)
             {
-                layeredLoss.AddOrUpdate(entry.layer, entry.loss, (a, b) => a + b);
+                layeredLoss.AddOrUpdate(entry.Key, entry.Value.loss, (a, b) => a + b);
             }
 
             return layeredLoss;
         }
 
-        public Layered<LayeredProduction> GetProductionInformation()
+        public Layered<Production> GetProduction()
         {
-            var layeredProduction = new Layered<LayeredProduction>();
-            foreach (var entry in production.layeredProduction)
+            var layeredProduction = new Layered<Production>();
+            foreach (var entry in Production)
             {
-                layeredProduction.AddOrUpdate(entry.layer, entry, Layered<LayeredProduction>.Override());
+                layeredProduction.AddOrUpdate(entry.Key, entry.Value, Layered<Production>.Override());
             }
 
             return layeredProduction;
-        }        
-        public Layered<LayeredConsumption> GetConsumptionInformation()
+        }
+
+        public Layered<Consumption> GetConsumption()
         {
-            var layeredConsumption = new Layered<LayeredConsumption>();
-            foreach (var entry in consumptionInformation)
+            var layeredConsumption = new Layered<Consumption>();
+            foreach (var entry in Consumption)
             {
-                layeredConsumption.AddOrUpdate(entry.layer, entry, Layered<LayeredConsumption>.Override());
+                layeredConsumption.AddOrUpdate(entry.Key, entry.Value, Layered<Consumption>.Override());
             }
 
             return layeredConsumption;
         }
-        
-        public Layered<LayeredStore> GetStoreInformation()
+
+        public Layered<Store> GetStoreInformation()
         {
-            var layeredStorage = new Layered<LayeredStore>();
-            foreach (var entry in storeInformation)
+            var layeredStorage = new Layered<Store>();
+            foreach (var entry in Store)
             {
-                layeredStorage.AddOrUpdate(entry.layer, entry, Layered<LayeredStore>.Override());
+                layeredStorage.AddOrUpdate(entry.Key, entry.Value, Layered<Store>.Override());
             }
 
             return layeredStorage;
@@ -72,9 +76,8 @@ namespace scriptableObjects.map
     }
 
     [Serializable]
-    public struct LayeredProperties
+    public struct Properties
     {
-        public Layer layer;
         [Range(0, 1)] public double liquidity;
         [Range(0, 1)] public double loss;
     }
@@ -82,29 +85,20 @@ namespace scriptableObjects.map
     [Serializable]
     public struct Production
     {
-        public LayeredProduction[] layeredProduction;
-    }
-    
-    [Serializable]
-    public struct LayeredProduction
-    {
-        public Layer layer;
         public double minHappinessProduction;
         public double maxHappinessProduction;
     }
 
     [Serializable]
-    public struct LayeredConsumption
+    public struct Consumption
     {
-        public Layer layer;
         public double consumption;
         public double weight;
     }
 
     [Serializable]
-    public struct LayeredStore
+    public struct Store
     {
-        public Layer layer;
         public double storeSize;
         public double storeRate;
     }

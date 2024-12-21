@@ -175,25 +175,25 @@ namespace map
         public double[] MinProductionByTileType()
         {
             return FromTileInformation(tileType =>
-                tileType.GetProductionInformation().Select(info => info.minHappinessProduction));
+                tileType.GetProduction().Select(info => info.minHappinessProduction));
         }
 
         public double[] MaxProductionByTileType()
         {
             return FromTileInformation(tileType =>
-                tileType.GetProductionInformation().Select(info => info.maxHappinessProduction));
+                tileType.GetProduction().Select(info => info.maxHappinessProduction));
         }
 
         public double[] ConsumptionByTileType()
         {
             return FromTileInformation(tileType =>
-                tileType.GetConsumptionInformation().Select(info => info.consumption));
+                tileType.GetConsumption().Select(info => info.consumption));
         }
 
         public double[] ConsumptionWeightByTileType()
         {
             return FromTileInformation(tileType =>
-                tileType.GetConsumptionInformation().Select(info => info.weight));
+                tileType.GetConsumption().Select(info => info.weight));
         }
     }
 }
