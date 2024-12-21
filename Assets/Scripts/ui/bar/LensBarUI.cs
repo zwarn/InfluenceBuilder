@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using input;
 using lens;
 using scriptableObjects.lens;
 using show;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace ui.bar
@@ -61,7 +59,7 @@ namespace ui.bar
 
             foreach (var pair in _buttonViews)
             {
-                pair.Value.SetSelected(pair.Key == lens);
+                pair.Value.SetSelected(pair.Key.Equals(lens));
             }
         }
     }

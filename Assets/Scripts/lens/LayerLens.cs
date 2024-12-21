@@ -4,6 +4,7 @@ namespace lens
 {
     public class LayerLens : Lens
     {
+
         private readonly Layer _layer;
 
         public LayerLens(Layer layer)
@@ -32,5 +33,23 @@ namespace lens
         public override float Alpha => 0.8f;
 
         public override bool IsExponential => true;
+
+        private bool Equals(LayerLens other)
+        {
+            return _layer == other._layer;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((LayerLens)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)_layer;
+        }
     }
 }
