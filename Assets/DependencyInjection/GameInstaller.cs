@@ -14,6 +14,7 @@ public class GameInstaller : MonoInstaller
     public InfluenceController influenceController;
     public ShowStatusController showStatusController;
     public TimeController timeController;
+    public BuildingController buildingController;
 
     public ToolbarUI toolbarUI;
 
@@ -24,6 +25,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<InfluenceController>().FromInstance(influenceController).AsSingle();
         Container.Bind<ShowStatusController>().FromInstance(showStatusController).AsSingle();
         Container.Bind<TimeController>().FromInstance(timeController).AsSingle();
+        Container.Bind<BuildingController>().FromInstance(buildingController).AsSingle();
 
         Container.Bind<InputEvents>().FromNew().AsSingle();
         Container.Bind<ToolEvents>().FromNew().AsSingle();

@@ -1563,6 +1563,7 @@ MonoBehaviour:
   influenceController: {fileID: 1190408528}
   showStatusController: {fileID: 1822127823}
   timeController: {fileID: 2093729254}
+  buildingController: {fileID: 1473929370}
   toolbarUI: {fileID: 1496735609}
 --- !u!114 &1251014502
 MonoBehaviour:
@@ -1611,6 +1612,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1473929368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1473929369}
+  - component: {fileID: 1473929370}
+  m_Layer: 0
+  m_Name: BuildingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1473929369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473929368}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1539395983}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1473929370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473929368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c59aa87422a4028a735082d886ceb0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1496735607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1669,6 +1714,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 254b23995f777b7478ea4d313ac589aa, type: 2}
   - {fileID: 11400000, guid: 175993d72d865e649b5e21fa9243d8c9, type: 2}
   - {fileID: 11400000, guid: a970eab93ea6e08448fe6f1c181d26fa, type: 2}
+  - {fileID: 11400000, guid: e4213fa0136c7a244b36ccf2bafe4732, type: 2}
 --- !u!114 &1496735610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1730,6 +1776,7 @@ Transform:
   - {fileID: 585277082}
   - {fileID: 1822127822}
   - {fileID: 2093729253}
+  - {fileID: 1473929369}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1640637681
@@ -1976,6 +2023,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 088b1b1867934aa44a11e61cf695067e, type: 2}
   - {fileID: 11400000, guid: deee6d59084cc024f8ffbfcbd2201e6b, type: 2}
   - {fileID: 11400000, guid: a9ff0a582f981ed458a99953b5910ac9, type: 2}
+  - {fileID: 11400000, guid: 72331f2f8312bac4ea2b5b1cf665ecdf, type: 2}
 --- !u!1 &1822127821
 GameObject:
   m_ObjectHideFlags: 0

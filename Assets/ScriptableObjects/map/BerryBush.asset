@@ -179,6 +179,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: Transformations
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[scriptableObjects.map.Transformation,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   terrain: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
   building: {fileID: 11400000, guid: d96e54df4db4bf4409d093dd1f14bca1, type: 2}
   isBuilding: 1

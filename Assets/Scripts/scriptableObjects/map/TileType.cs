@@ -18,6 +18,7 @@ namespace scriptableObjects.map
         public readonly Dictionary<Layer, Production> Production = new();
         public readonly Dictionary<Layer, Consumption> Consumption = new();
         public readonly Dictionary<Layer, Store> Store = new();
+        public readonly List<Transformation> Transformations = new();
     }
 
     [Serializable]
@@ -46,5 +47,13 @@ namespace scriptableObjects.map
     {
         public double storeSize;
         public double storeRate;
+    }
+
+    [Serializable]
+    public struct Transformation
+    {
+        [SerializeReference] public List<TileCondition> conditions;
+        public Dictionary<Layer, double> costs;
+        public TileType successor;
     }
 }

@@ -112,5 +112,14 @@ namespace influence
         {
             return _grids.GetHappiness();
         }
+        public double GetStore(Layer layer, int x, int y)
+        {
+            return _grids.GetStore(layer, x, y);
+        }
+
+        public double RemoveStore(Layer layer, int x, int y, double amount)
+        {
+            return _grids.RemoveStore(layer, x, y, amount);
+        }
     }
 }

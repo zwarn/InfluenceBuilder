@@ -27,6 +27,7 @@ namespace map
 
         [Inject] private ShowStatusEvents _showStatusEvents;
         [Inject] private GridEvents _gridEvents;
+        [Inject] private BuildingController _buildingController;
 
         private void Awake()
         {
@@ -73,6 +74,8 @@ namespace map
                     positions[index] = new Vector3Int(x, y);
                     terrain[index] = TileTypes[_tiles[index]].terrain;
                     building[index] = TileTypes[_tiles[index]].building;
+
+                    _buildingController.ChangeTile(x, y, TileTypes[_tiles[index]]);
                 }
             }
 
@@ -110,6 +113,8 @@ namespace map
 
             terrainTilemap.SetTile(new Vector3Int(x, y), type.terrain);
             buildingTilemap.SetTile(new Vector3Int(x, y), type.building);
+
+            _buildingController.ChangeTile(x, y, type);
 
             _gridEvents.MapTileChangedEvent(x, y);
         }

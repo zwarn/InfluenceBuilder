@@ -65,6 +65,14 @@ namespace influence
             return reduction;
         }
 
+        public double RemoveStore(Layer layer, int x, int y, double amount)
+        {
+            int index = GetIndex(layer, x, y);
+            double reduction = Math.Min(_store[index], amount);
+            _store[index] -= reduction;
+            return reduction;
+        }
+
         public double GetValue(Layer layer, int x, int y)
         {
             return _values[GetIndex(layer, x, y)];
@@ -95,6 +103,11 @@ namespace influence
         public double[] GetStore()
         {
             return _store;
+        }
+
+        public double GetStore(Layer layer, int x, int y)
+        {
+            return _store[GetIndex(layer, x, y)];
         }
 
         public void SetStore(double[] store)
