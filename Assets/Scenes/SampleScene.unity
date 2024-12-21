@@ -2389,9 +2389,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8009565651263387407, guid: 18317a865eaef4d4c826e91e1faa2cf1, type: 3}
   lensTypes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 55764eb515fa7b94d95a4d8ac570ca3b, type: 2}
+  - {fileID: 11400000, guid: 6fc340631c32fb44a97f0fb8558dc936, type: 2}
+  - {fileID: 11400000, guid: 6eff49cd66a0f6443ac4df7034f13a84, type: 2}
   emptyIcon: {fileID: -1125069832884410659, guid: 8da9d8a8406c9c143a2931ee602982e4, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
