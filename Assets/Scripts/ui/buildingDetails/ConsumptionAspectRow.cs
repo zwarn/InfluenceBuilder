@@ -23,14 +23,7 @@ namespace ui.buildingDetails
         private String FormatPercentage(double happiness)
         {
             var percent = happiness * 100;
-            if (percent >= 100)
-            {
-                return percent.ToString("+#0;-#0;0") + "%";
-            }
-            else
-            {
-                return percent.ToString("+#0.0;-#0.0;0.0") + "%";
-            }
+            return percent.ToString("+#0;-#0;0") + "%";
         }
     }
 }
