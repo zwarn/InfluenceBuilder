@@ -1,6 +1,7 @@
 ﻿using System;
 using influence;
 using lens;
+using UnityEngine;
 
 namespace show
 {
@@ -25,6 +26,13 @@ namespace show
         public void ShowLensEvent(Lens lens)
         {
             OnShowLens?.Invoke(lens);
+        }
+
+        public event Action<Vector2Int> OnSelectTile;
+
+        public void SelectTileEvent(Vector2Int position)
+        {
+            OnSelectTile?.Invoke(position);
         }
     }
 }

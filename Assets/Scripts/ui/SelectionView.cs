@@ -7,7 +7,7 @@ namespace ui
 {
     public class SelectionView : MonoBehaviour
     {
-        [SerializeField] private GameObject Image;
+        [SerializeField] private GameObject image;
 
         [Inject] private MapController _mapController;
 
@@ -22,7 +22,7 @@ namespace ui
                 transform.position = new Vector3(x, y);
             }
 
-            Image.SetActive(_mapController.IsPointOnMap(x, y));
+            image.SetActive(_mapController.IsPointOnMap(x, y));
         }
     }
 }
