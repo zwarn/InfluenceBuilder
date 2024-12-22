@@ -15,7 +15,8 @@ namespace ui.buildingDetails
     {
         [SerializeField] private Transform content;
         [SerializeField] private TMP_Text nameLabel;
-        [SerializeField] private LayeredAspectPanel storePanel;
+        [SerializeField] private StoreAspectPanel storePanel;
+        [SerializeField] private ConsumptionAspectPanel consumptionPanel;
 
         private Vector2Int? _currentSelection;
 
@@ -44,6 +45,7 @@ namespace ui.buildingDetails
             }
 
             storePanel.Initialize("store", layerLabels);
+            consumptionPanel.Initialize("consumption", layerLabels);
         }
 
         private void Update()
@@ -65,7 +67,15 @@ namespace ui.buildingDetails
             nameLabel.text = tileType.name;
 
             storePanel.SetData(tileType.Store.ToDictionary(pair => pair.Key,
-                pair => (_influenceController.GetStore(pair.Key, position.x, position.y), pair.Value.storeSize)));
+                pair => new CurrentMax(_influenceController.GetStore(pair.Key, position.x, position.y),
+                    pair.Value.storeSize)));
+
+            consumptionPanel.SetData(tileType.Consumption.ToDictionary(pair => pair.Key,
+                pair => new ConsumptionData(
+                    _influenceController.GetStore(pair.Key, position.x, position.y),
+                    pair.Value.consumption,
+                    _influenceController.GetHappiness(position.x, position.y),
+                    pair.Value.weight)));
         }
 
         private void OnSelectTile(Vector2Int position)

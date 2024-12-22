@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace ui.buildingDetails
 {
-    public class AspectPanel<T> : MonoBehaviour
+    public class AspectPanel<T, V> : MonoBehaviour
     {
-        [SerializeField] private AspectRow rowPrefab;
+        [SerializeField] private AspectRow<V> rowPrefab;
         [SerializeField] private Transform rowsParent;
         [SerializeField] private TMP_Text label;
 
-        private readonly Dictionary<T, AspectRow> _rows = new();
+        private readonly Dictionary<T, AspectRow<V>> _rows = new();
 
         public void Initialize(String aspectName, Dictionary<T, String> labels)
         {
@@ -26,7 +26,7 @@ namespace ui.buildingDetails
             }
         }
 
-        public void SetData(Dictionary<T, (double, double)> values)
+        public void SetData(Dictionary<T, V> values)
         {
             gameObject.SetActive(!values.IsEmpty());
 
