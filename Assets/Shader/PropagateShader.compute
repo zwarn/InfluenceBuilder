@@ -142,9 +142,9 @@ void CSMain(int3 id : SV_DispatchThreadID)
 
     double acc = 0;
     acc = do_propagate(x, y, z, index, acc);
-    acc = do_store(index, layeredTileType, acc);
     do_consumption(x, y, z);
     do_production(x, y, z);
+    acc = do_store(index, layeredTileType, acc);
     acc = do_loss(layeredTileType, acc);
 
     Output[index] = max(acc, 0);
