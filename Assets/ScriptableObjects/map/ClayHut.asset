@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 747aa0dab1194758b8d2aaef05e82b41, type: 3}
-  m_Name: Tent
+  m_Name: ClayHut
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -224,5 +224,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   terrain: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
-  building: {fileID: 11400000, guid: 888cb346ab56af5469e9d8f0abd4ebf9, type: 2}
+  building: {fileID: 11400000, guid: 8bf09cdcae4e81a4dabf36f41a2f63df, type: 2}
   isBuilding: 1

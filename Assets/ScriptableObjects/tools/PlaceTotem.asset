@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82040cbe143b433693b758f4b2380325, type: 3}
-  m_Name: PlaceTent
+  m_Name: PlaceTotem
   m_EditorClassIdentifier: 
-  icon: {fileID: 737975453152542498, guid: 62fe42e9ebade7f49bd9bb341c3c53ad, type: 3}
+  icon: {fileID: -7656505475193459468, guid: 62fe42e9ebade7f49bd9bb341c3c53ad, type: 3}
   name: Place Tent
-  target: {fileID: 11400000, guid: deee6d59084cc024f8ffbfcbd2201e6b, type: 2}
+  target: {fileID: 11400000, guid: 71892e90573a96a41896b940425689a2, type: 2}
