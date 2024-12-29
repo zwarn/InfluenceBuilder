@@ -11,23 +11,48 @@ StructuredBuffer<double> Values;
 
 RWTexture2D<float4> Result;
 
-float3 GetHeatmapColor(float normalizedValue)
+float3 positiveColor(float normalizedValue)
+{
+    if (normalizedValue <= 0.33)
+    {
+        return lerp(float3(1.0, 0.0, 0.5), float3(1.0, 0.0, 0.0), normalizedValue / 0.33);
+    }
+
+    if (normalizedValue <= 0.66)
+    {
+        return lerp(float3(1.0, 0.0, 0.0), float3(1.0, 1.0, 0.0), (normalizedValue - 0.33) / 0.33);
+    }
+    
+    return lerp(float3(1.0, 1.0, 0.0), float3(0.0, 1.0, 0.0), (normalizedValue - 0.66) / 0.34);
+}
+
+float3 negativeColor(float normalizedValue)
+{
+    if (normalizedValue <= 0.33)
+    {
+        return lerp(float3(1.0, 0.0, 0.5), float3(0.5, 0.0, 0.5), normalizedValue / 0.33);
+    }
+
+    if (normalizedValue <= 0.66)
+    {
+        return lerp(float3(0.5, 0.0, 0.5), float3(0.25, 0.0, 0.5), (normalizedValue - 0.33) / 0.33);
+    }
+    
+    return lerp(float3(0.25, 0.0, 0.5), float3(0.0, 0.0, 0.5), (normalizedValue - 0.66) / 0.34);
+}
+
+float3 GetHeatmapColor(float normalizedValue, bool negative)
 {
     normalizedValue = clamp(normalizedValue, 0.0, 1.0);
 
     float3 color;
 
-    if (normalizedValue <= 0.33)
+    if (negative)
     {
-        color = lerp(float3(0.0, 0.0, 0.0), float3(1.0, 0.0, 0.0), normalizedValue / 0.33);
-    }
-    else if (normalizedValue <= 0.66)
+        color = negativeColor(normalizedValue);
+    } else
     {
-        color = lerp(float3(1.0, 0.0, 0.0), float3(1.0, 1.0, 0.0), (normalizedValue - 0.33) / 0.33);
-    }
-    else
-    {
-        color = lerp(float3(1.0, 1.0, 0.0), float3(0.0, 1.0, 0.0), (normalizedValue - 0.66) / 0.34);
+        color = positiveColor(normalizedValue);
     }
 
     return color;
@@ -44,6 +69,8 @@ void CSMain(uint3 id : SV_DispatchThreadID)
     const uint index = y * Width + x;
 
     float value = Values[index];
+    const bool negative = value < 0;
+    value = abs(value);
 
     value = max(value, MinValue);
     float normalizedValue = value;
@@ -52,7 +79,7 @@ void CSMain(uint3 id : SV_DispatchThreadID)
         normalizedValue = (log10(value) - log10(MinValue)) / (log10(MaxValue) - log10(MinValue));
     }
 
-    float3 color = GetHeatmapColor(normalizedValue);
+    float3 color = GetHeatmapColor(normalizedValue, negative);
 
     Result[int2(x, y)] = float4(color, normalizedValue * Alpha);
 }

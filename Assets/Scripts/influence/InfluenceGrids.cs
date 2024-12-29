@@ -64,6 +64,11 @@ namespace influence
             _values[index] -= reduction;
             return reduction;
         }
+        
+        public void MinusValue(Layer layer, int x, int y, double amount)
+        {
+            _values[GetIndex(layer, x, y)] -= amount;
+        }
 
         public double RemoveStore(Layer layer, int x, int y, double amount)
         {

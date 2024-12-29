@@ -83,14 +83,14 @@ namespace influence
             _gridEvents.GridUpdateEvent();
         }
 
-        public double RemoveInfluence(Layer layer, int x, int y, double amount)
+        public void MinusInfluence(Layer layer, int x, int y, double amount)
         {
             if (x >= 0 && x < _width && y >= 0 && y < _height)
             {
-                return _grids.RemoveValue(layer, x, y, amount);
+                _grids.MinusValue(layer, x, y, amount);
             }
-
-            return 0;
+            
+            _gridEvents.GridUpdateEvent();
         }
 
         public double GetValue(Layer layer, int x, int y)

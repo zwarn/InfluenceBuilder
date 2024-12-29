@@ -84,6 +84,11 @@ double do_propagate(const int x, const int y, const int z, const int index, doub
 
 double do_store(const int index, const int layeredTileType, double acc)
 {
+    if (acc < 0)
+    {
+        return acc;
+    }
+
     const double toStore = min(min(StoreRate[layeredTileType], StoreSize[layeredTileType] - Store[index]), acc);
     Store[index] += toStore;
     return acc - toStore;
@@ -128,7 +133,12 @@ void do_production(const int x, const int y, const int z)
 
 double do_loss(const int layeredTileType, double acc)
 {
-    return acc - Loss[layeredTileType];
+    if (acc >= 0)
+    {
+        return max(acc - Loss[layeredTileType], 0);
+    }
+
+    return min(acc + Loss[layeredTileType], 0);
 }
 
 [numthreads(8, 8, 1)]
@@ -147,5 +157,5 @@ void CSMain(int3 id : SV_DispatchThreadID)
     acc = do_store(index, layeredTileType, acc);
     acc = do_loss(layeredTileType, acc);
 
-    Output[index] = max(acc, 0);
+    Output[index] = acc;
 }

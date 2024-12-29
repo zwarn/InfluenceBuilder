@@ -20,7 +20,7 @@ namespace scriptableObjects.tool
             Lens currentLens = _showStatusController.CurrentLens();
             if (currentLens is LayerLens layerLens)
             {
-                _influenceController.RemoveInfluence(layerLens.GetLayer(), x, y, amount);
+                _influenceController.MinusInfluence(layerLens.GetLayer(), x, y, amount);
                 _gridEvents.GridUpdateEvent();
             }
         }
