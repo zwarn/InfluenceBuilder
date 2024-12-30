@@ -14,7 +14,7 @@ namespace scriptableObjects.map
         public TileBase building;
 
         public bool isBuilding;
-        public readonly Dictionary<Layer, Properties> Properties = new();
+        public TileProperties properties;
         public readonly Dictionary<Layer, Production> Production = new();
         public readonly Dictionary<Layer, Consumption> Consumption = new();
         public readonly Dictionary<Layer, Store> Store = new();

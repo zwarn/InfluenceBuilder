@@ -21,9 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: Properties
+    - Name: Production
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Properties,
+      Data: 0|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Production,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
@@ -40,90 +40,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
       Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: scriptableObjects.map.Properties, Assembly-CSharp
-    - Name: liquidity
-      Entry: 4
-      Data: 0.5
-    - Name: loss
-      Entry: 4
-      Data: 0.0010000000474974513
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: scriptableObjects.map.Properties, Assembly-CSharp
-    - Name: liquidity
-      Entry: 4
-      Data: 0.5
-    - Name: loss
-      Entry: 4
-      Data: 0.0010000000474974513
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Production
-      Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Production,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[influence.Layer,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
     - Name: $v
       Entry: 7
       Data: scriptableObjects.map.Production, Assembly-CSharp
     - Name: minHappinessProduction
       Entry: 4
-      Data: 0
+      Data: -1
     - Name: maxHappinessProduction
       Entry: 4
-      Data: 0
+      Data: -1
     - Name: 
       Entry: 8
       Data: 
@@ -138,35 +70,14 @@ MonoBehaviour:
       Data: 
     - Name: Consumption
       Entry: 7
-      Data: 4|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Consumption,
+      Data: 2|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Consumption,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 3
+      Data: 1
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: scriptableObjects.map.Consumption, Assembly-CSharp
-    - Name: consumption
-      Entry: 4
-      Data: 1
-    - Name: weight
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -175,35 +86,14 @@ MonoBehaviour:
       Data: 
     - Name: Store
       Entry: 7
-      Data: 5|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Store,
+      Data: 3|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Store,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 3
+      Data: 1
     - Name: 
       Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: scriptableObjects.map.Store, Assembly-CSharp
-    - Name: storeSize
-      Entry: 4
-      Data: 50
-    - Name: storeRate
-      Entry: 4
-      Data: 1.5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -212,7 +102,7 @@ MonoBehaviour:
       Data: 
     - Name: Transformations
       Entry: 7
-      Data: 6|System.Collections.Generic.List`1[[scriptableObjects.map.Transformation,
+      Data: 4|System.Collections.Generic.List`1[[scriptableObjects.map.Transformation,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -226,3 +116,4 @@ MonoBehaviour:
   terrain: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
   building: {fileID: 11400000, guid: b543a2e037f24be4ba7f18937e3f5532, type: 2}
   isBuilding: 1
+  properties: {fileID: 11400000, guid: 77f0ed84cdc5c864b8a9e3e5d7a0c2a0, type: 2}

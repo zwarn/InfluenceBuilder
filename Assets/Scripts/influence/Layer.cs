@@ -4,7 +4,7 @@
     {
         Food,
         Work,
-        
+        Faith,
         
     }
 }

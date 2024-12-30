@@ -84,14 +84,33 @@ double do_propagate(const int x, const int y, const int z, const int index, doub
 
 double do_store(const int index, const int layeredTileType, double acc)
 {
-    if (acc < 0)
+    if (StoreSize[layeredTileType] == 0.0)
     {
+        acc += Store[index];
+        Store[index] = 0.0;
         return acc;
     }
 
-    const double toStore = min(min(StoreRate[layeredTileType], StoreSize[layeredTileType] - Store[index]), acc);
-    Store[index] += toStore;
-    return acc - toStore;
+    const double currentStore = Store[index];
+    const double capacity = StoreSize[layeredTileType];
+    const double storeRate = StoreRate[layeredTileType];
+
+    double canStore;
+    if (acc >= 0.0)
+    {
+        const double spaceLeft = capacity - currentStore;
+        canStore = min(storeRate, spaceLeft);
+        canStore = min(canStore, acc);
+    }
+    else
+    {
+        const double spaceLeftNeg = -capacity - currentStore;
+        canStore = max(spaceLeftNeg, -storeRate);
+        canStore = max(canStore, acc);
+    }
+
+    Store[index] += canStore;
+    return acc - canStore;
 }
 
 void do_consumption(const int x, const int y, const int z)
@@ -106,7 +125,7 @@ void do_consumption(const int x, const int y, const int z)
     for (int layer = 0; layer < Depth; layer++)
     {
         double want = Consumption[layered_tile_type_index(x, y, layer)];
-        if (want == 0) continue;
+        if (want <= 0) continue;
         double have = Store[layered_tile_index(x, y, layer)];
         double consumed = min(want, have);
         Store[layered_tile_index(x, y, layer)] -= consumed;

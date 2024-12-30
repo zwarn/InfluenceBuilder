@@ -2992,6 +2992,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: deee6d59084cc024f8ffbfcbd2201e6b, type: 2}
   - {fileID: 11400000, guid: a9ff0a582f981ed458a99953b5910ac9, type: 2}
   - {fileID: 11400000, guid: 72331f2f8312bac4ea2b5b1cf665ecdf, type: 2}
+  - {fileID: 11400000, guid: d1c459bd0c0569f498da37a341b895c3, type: 2}
+  - {fileID: 11400000, guid: 71892e90573a96a41896b940425689a2, type: 2}
+  - {fileID: 11400000, guid: 318abf26e5836eb48a9d4e55ce885eff, type: 2}
 --- !u!1 &1806678453
 GameObject:
   m_ObjectHideFlags: 0
@@ -3715,6 +3718,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 55764eb515fa7b94d95a4d8ac570ca3b, type: 2}
   - {fileID: 11400000, guid: 6fc340631c32fb44a97f0fb8558dc936, type: 2}
   - {fileID: 11400000, guid: 6eff49cd66a0f6443ac4df7034f13a84, type: 2}
+  - {fileID: 11400000, guid: 6b2a53fddc89aa144b196f75a1018ade, type: 2}
   emptyIcon: {fileID: -1125069832884410659, guid: 8da9d8a8406c9c143a2931ee602982e4, type: 3}
 --- !u!1001 &1569501866267344289
 PrefabInstance:

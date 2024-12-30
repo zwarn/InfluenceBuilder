@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747aa0dab1194758b8d2aaef05e82b41, type: 3}
-  m_Name: Gras
+  m_Script: {fileID: 11500000, guid: bec8bd584b9740449215b39570cd3bc5, type: 3}
+  m_Name: RoadProperties
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,9 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: Production
+    - Name: Properties
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Production,
+      Data: 0|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Properties,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
@@ -40,59 +40,73 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 3
     - Name: 
-      Entry: 13
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: scriptableObjects.map.Properties, Assembly-CSharp
+    - Name: liquidity
+      Entry: 4
+      Data: 0.89999997615814209
+    - Name: loss
+      Entry: 4
+      Data: 0.0020000000949949026
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: Consumption
+    - Name: 
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Consumption,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 9
+      Data: 
+    - Name: $k
+      Entry: 3
       Data: 1
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Store
+    - Name: $v
       Entry: 7
-      Data: 3|System.Collections.Generic.Dictionary`2[[influence.Layer, Assembly-CSharp],[scriptableObjects.map.Store,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 1
+      Data: scriptableObjects.map.Properties, Assembly-CSharp
+    - Name: liquidity
+      Entry: 4
+      Data: 0.89999997615814209
+    - Name: loss
+      Entry: 4
+      Data: 0.0020000000949949026
     - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: Transformations
+    - Name: 
       Entry: 7
-      Data: 4|System.Collections.Generic.List`1[[scriptableObjects.map.Transformation,
-        Assembly-CSharp]], mscorlib
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: scriptableObjects.map.Properties, Assembly-CSharp
+    - Name: liquidity
+      Entry: 4
+      Data: 0.89999997615814209
+    - Name: loss
+      Entry: 4
+      Data: 0.0020000000949949026
     - Name: 
-      Entry: 12
-      Data: 0
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  terrain: {fileID: 11400000, guid: 1c9164a57b6a77344ad7db83755be86b, type: 2}
-  building: {fileID: 0}
-  isBuilding: 0
-  properties: {fileID: 11400000, guid: bf5bb36065325704b8b44cc0b38426b9, type: 2}

@@ -162,13 +162,13 @@ namespace map
         public double[] LossByTileType()
         {
             return FromTileType((tileType, layer) =>
-                tileType.Properties.TryGetValue(layer, out var property) ? property.loss : 0);
+                tileType.properties.Properties.TryGetValue(layer, out var property) ? property.loss : 0);
         }
 
         public double[] LiquidityByTileType()
         {
             return FromTileType((tileType, layer) =>
-                tileType.Properties.TryGetValue(layer, out var property) ? property.liquidity : 0);
+                tileType.properties.Properties.TryGetValue(layer, out var property) ? property.liquidity : 0);
         }
 
         public double[] StoreSizeByTileType()
